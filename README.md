@@ -1,6 +1,6 @@
 ## Intégration et théorie de la mesure	
 
-Ce répertoire regroupe les supports de cours, planches d'exercices et annales d'examen du cours d'intégration et théorie de la mesure dispensé aux 1A de l'Institut de Sciences Financières et d'Assurance (Université Claude Bernard Lyon 1) entre 2018 et 2022.
+Ce répertoire regroupe les supports de cours, planches d'exercices et annales d'examen du cours d'intégration et théorie de la mesure dispensé aux L3 Actuariat de l'Institut de Science Financière et d'Assurances (Université Claude Bernard Lyon 1) entre 2018 et 2022.
 
 Ce cours propose une introduction à la théorie de la mesure pour le calcul des probabilités. 
 
