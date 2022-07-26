@@ -1,6 +1,6 @@
 ## Intégration et théorie de la mesure	
 
-Ce répertoire regroupe les supports de cours, planches d'exercices et annales d'examen du cours d'intégration et théorie de la mesure dispensé aux L3 Actuariat à l'Université Claude Bernard Lyon 1.
+Ce répertoire regroupe les supports de cours, planches d'exercices et annales d'examen du cours d'intégration et théorie de la mesure dispensé aux 1A de l'Institut de Sciences Financières et d'Assurance (Université Claude Bernard Lyon 1) entre 2018 et 2022.
 
 Ce cours propose une introduction à la théorie de la mesure pour le calcul des probabilités. 
 
@@ -11,7 +11,7 @@ Chapitre             | Support
 Introduction | [Slides](/Note de cours/Chap0_Intro.pdf)
 Tribus, mesure et applications mesurables | [Slides](/Note de cours/Chap1_tribus_mesures_applications_mesurables.pdf)
 Intégration par rapport à une mesure, théorèmes de convergence et d'inversion | [Slides](/Note de cours/Chap2_integration.pdf)
-Intégration par rapport à une mesure image, théorème de transfert, changemlents de variables intégrale à paramètres, espace Lp | [Slides](/Note de cours/Chap3_complement_integration.pdf)
+Intégration par rapport à une mesure image, théorème de transfert, changement de variables intégrale à paramètres, espace Lp | [Slides](/Note de cours/Chap3_complement_integration.pdf)
 
 
 ### Travaux dirigées
