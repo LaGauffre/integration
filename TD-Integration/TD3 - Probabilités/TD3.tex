@@ -1,0 +1,189 @@
+\documentclass[11pt, answers]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsopn, color}
+\usepackage[margin=1in]{geometry}
+\usepackage{titlesec}
+\usepackage{tipa}
+\usepackage{hyperref}
+
+
+
+% Style
+\setlength\parindent{0pt}
+\shadedsolutions
+
+% Define course info
+\def\semester{2020}
+\def\course{Intégration L3}
+\def\name{Pierre-Olivier Goffard et Colin Jahel}
+%\def\quizdate{10/5, 10/6}
+\def\hwknum{}
+%\def\title{\MakeUppercase{Homework \hwknum -- quiz \quizdate }}
+\def\title{\MakeUppercase{Intégration}}
+
+% Define commands
+\def\Bin{\operatorname{Bin}}
+\def\Geom{\operatorname{Geom}}
+\def\Pois{\operatorname{Pois}}
+\def\Exp{\operatorname{Exp}}
+\newcommand{\E}{\mathbb E}            % blackboard E
+\newcommand{\bP}{\mathbb P}            % blackboard P
+\newcommand{\Var}{\text{Var}}            % blackboard P
+\newcommand{\Om}{\Omega}            % bx=lackboard P
+\newcommand{\om}{\omega}            % blackboard P
+\newcommand{\N}{\mathbb N}            % blackboard P
+\newcommand{\R}{\mathbb R}            % blackboard P
+\newcommand{\A}{\mathcal A}            % blackboard P
+% \newcommand{\limsup}{\overline{\lim}\,}            % blackboard P
+% \newcommand{\liminf}{\underline{\lim}\,}            % blackboard P
+
+\begin{document}
+
+% Heading
+{\center \textsc{\Large\title}\\
+	\vspace*{1em}
+	\course -- \semester\\
+	\name\\
+	\vspace*{2em}
+	\hrule
+\vspace*{2em}}
+\begin{questions}
+\question Calculer les limites suivantes
+\begin{parts}
+\part $\lim_n \int_0^1 \frac{1}{\sqrt{x}}\sin(\frac{1}{nx})\mathrm{d}x$ 
+\part $\lim_n \int_0^1 \left( 1-\frac{x}{n}\right)^n \mathrm{d}x$
+\part $\lim_n \int_{-\infty}^{+\infty} \sin(\frac{x}{n})\frac{n}{(x^2+2)x} \mathrm{d}x$
+\part $\lim_k \sum_{n=0}^\infty \frac{1}{n^2}\frac{1}{1-nk} $
+\part $\lim_k \sum_{n=0}^\infty \frac{1}{4^n}\arctan(\frac{n}{k})$
+\end{parts}
+\emph{Indication} : Utiliser la mesure de comptage.
+\begin{solution}
+Théorème de convergence dominée.
+\begin{parts}
+\part $\frac{1}{\sqrt{x}}\sin(\frac{1}{nx}) \leq \frac{1}{\sqrt{x}}$ qui est intégrable, et $\frac{1}{\sqrt{x}}\sin(\frac{1}{nx})  \to  0$, donc par  $\lim_n \int_0^1 \frac{1}{\sqrt{x}}\sin(\frac{1}{nx})\mathrm{d}x = 0$
+\part $\left( 1-\frac{x}{n}\right)^n \leq 1$ et la fonction constante égale à $1$ est intégrable sur $[0,1]$. De plus $\left( 1-\frac{x}{n}\right)^n \to e^{-x}$.
+\[ \int_0^1 \left( 1-\frac{x}{n}\right)^n \mathrm{d}x \to \int_0^1 e^{-x} = 1-e^{-1}.\]
+\part On utile le fait que $\sin(x)\leq x$, donc on a $ \left| \sin(\frac{x}{n})\frac{n}{(x^2+2)x} \right| \leq \frac{1}{x^2+2}$, or $x\mapsto \frac{1}{x^2+2}$ est intégrale sur $\R$, de plus $\sin(\frac{x}{n})\frac{n}{(x^2+2)x} \to \frac{1}{x^2+2}$ donc $\lim_n \int_{-\infty}^{+\infty} \sin(\frac{x}{n})\frac{n}{(x^2+2)x} \mathrm{d}x=\int_{-\infty}^{+\infty} \frac{1}{x^2+2} = \frac{1}{\sqrt{2}}[\arctan(x)]_{-\infty}^{+\infty}=\frac{\pi}{\sqrt{2}}$.
+
+Pour les deux questions suivantes, on utilise la mesure de comptage sur $(\N,\mathcal{P}(\N))$.
+\part $\left| \frac{1}{n^2}\frac{1}{1-nk} \right| \leq \frac{1}{n^2}$ qui est sommable. De plus, $\frac{1}{n^2}\frac{1}{1-nk} \to_k 0$, donc $\lim_k \sum_{n=0}^\infty \frac{1}{n^2}\frac{1}{1-nk} =0$.
+
+\part $\left|\frac{1}{4^n}\arctan(\frac{n}{k}) \right| \leq \frac{1}{4^n} \frac{\pi}{2}$ qui est sommable. De plus, $\frac{1}{4^n}\arctan(\frac{n}{k}) \to_k 0$, donc $$\lim_k \sum_{n=0}^\infty \frac{1}{4^n}\arctan(\frac{n}{k})=0.$$
+\end{parts}
+\end{solution}
+
+\question A l'aide du théorème de Beppo Levi, calculer 
+$\lim \int_0^n \left(1-\frac{x}{n}\right)^ne^{\alpha x} \mathrm{d}x$.
+
+\emph{Indication} : \'Etudier $g_n\colon x \mapsto (n+1)\mathrm {ln}\left(1-\frac{x}{n+1}\right) - n\mathrm {ln}\left(1-\frac{x}{n} \right)$.
+\begin{solution}
+On remarque que pour tout $x\in [0,n]$, $\frac{f_{n+1}}{f_n}(x)=\exp(g_n(x))$. On étudie donc $g_n$.
+\begin{align*}
+g_n'(x) &= -\frac{1}{1-\frac{x}{n+1}} + \frac{1}{1-\frac{x}{n}} \\
+&= \frac{n(n+1 -x) -(n+1)(n-x)}{(n-x)(n+1-x)} \\
+&=\frac{x}{(n-x)(n+1-x)} \geq 0.
+\end{align*} 
+Donc $g_n$ est croissante et $g_n\geq 0$ et la suite $(f_n)_{n\in \N}$ est croissante.
+
+De plus, on sait que $f_n(x) \to \exp (-x)\exp(\alpha x)$, donc 
+$$\int_0^\infty f_n(x) \mathrm{d}x \to \int_0^\infty e^{(1-\alpha)x} \mathrm{d}x =\frac{1}{1-\alpha}.$$
+\end{solution}
+
+\question
+\begin{parts}
+\part La somme de fonctions intégrables est elle intégrable ?
+\part Une fonction de carré intégrable est elle intégrable ? Le carré d'une fonction intégrable est il intégrable ?
+\part Soit $(f_n)$ une suite de fonctions positives qui converge vers $f$ telles qu'il existe $K>0$ verifiant $\int f_n \mathrm{d}\mu <K$, montrer que $\int f \mathrm{d}\mu \leq K$.
+\end{parts}
+
+\begin{solution}
+
+\begin{parts}
+\part Oui, soit $f$ et $g$ deux fonctions intégrables. $f+g$ est mesurable et comme $|f+g|\leq |f| +|g|$, on a
+\[\int |f+g| \leq \int |f| + \int |g| <\infty. \]
+\part Non, par exemple $x \mapsto \frac{1}{x}$ est de carré intégrable sur $[1,+\infty[$ mais pas intégrable. De même, $x\mapsto \frac{1}{\sqrt{x}}$ est mesurable sur $]0, 1]$ mais pas de carré intégrable.
+\part La convergence implique en particulier $f=\liminf f_n$, donc d'après le lemme de Fatou, on a
+\[\int f \mathrm{d}\mu \leq \liminf \inf f_n < K. \]
+\end{parts}
+\end{solution}
+
+\question Soit $g \colon x \mapsto 1_{[0,1]}(x)$, on définit la suite $(f_n)_{n\in \N}$ comme $f_n(x) = g(x)$ si $n$ est pair, $f_n(x)=g(-x)$ sinon. Montrer que
+$$ \int_\mathbb{R} \liminf f_n (x) \mathrm{d}x < \liminf \int_\mathbb{R} f_n(x) \mathrm{d}x.  $$
+
+\begin{solution}
+$\liminf f_n (x) =0$ pour tout $x$ et $int_\mathbb{R} f_n(x) \mathrm{d}x =1$ donc $\liminf \int_\mathbb{R} f_n(x) \mathrm{d}x =1$, d'où le résultat.
+\end{solution}
+
+\question Montrer que pour toute mesure de probabilité $\mu$ sur un espace $X$, et pour tout $f \colon X \to \R$ mesurable positive, on a ;
+\[ \int_X f \mathrm{d}\mu = \int_{\mathbb{R}^+} \mu(\{f>t\}) \mathrm{d}t \]
+
+
+\begin{solution}Deux solutions
+Première solution, théorème de Fubini. On remarque que $f(x)=\int_0^\infty 1_{f(x)>t} \mathrm{d} t$. On a donc 
+\[\int_X f \mathrm{d}\mu = \int_X \int_0^\infty 1_{f(x)>t} \mathrm{d} t \mathrm{d}\mu. \]
+On applique le théorème de Fubini-Toninelli et on obtient :
+\begin{align*}
+\int_X f \mathrm{d}\mu &= \int_0^\infty \int_X 1_{f(x)>t} \mathrm{d}\mu \mathrm{d} t \\
+&=\int_{\mathbb{R}^+} \mu(\{f>t\}) \mathrm{d}t.
+\end{align*}
+
+Deuxième solution, en passant par les fonctions simples. On commence par traiter le cas où $f$ est simple. On prend $(A_i)_{i\in \{1,\ldots,n\}}$ une partition de $X$ telle que
+\[f = \sum_{i=1}^n t_i 1_{A_i}
+\]
+avec $t_1<\ldots <t_n$.
+On a donc
+\begin{align*}
+\int_X f \mathrm{d}\mu &= \int_X \sum_{i=1}^n t_i 1_{A_i}  \mathrm{d}\mu \\
+&= \sum_{i=1}^n\int_X t_i 1_{A_i}  \mathrm{d}\mu \\
+&=\sum_{i=1}^n t_i \mu(A_i).
+\end{align*}
+
+Par ailleurs, on a 
+
+\[ \mu(\{f>t\})=
+\left \{
+  \begin{array}{l}
+  \mu(X) \text{ si } t< t_1  \\
+  \sum_{i=k+1}^n \mu(A_i) \text{ si } t_k\leq t < t_{k+1} \\
+  0 \text{ si } t_n \leq t 
+  \end{array}
+\right.
+\]
+
+Donc
+
+\begin{align*}
+\int_{\R^+} \mu(\{f>t\}) \mathrm{d}t &= t_1 \mu(X) + \sum_{k=1}^{n-1} \left(\sum_{i=k+1}^n\mu(A_i) \right) (t_{k+1}-t_k) \\
+&= t_1 \mu(X)+ \sum_{i=2}^n \sum_{k=1}^{i-1}\mu(A_i) (t_{k+1}-t_k) \\
+&= t_1 \mu(X) + \sum_{i=2}^n \mu(A_i)(t_i)-t_1) \\
+&= \sum_{i=1}^n \mu(A_i)t_i \\
+&= \int_X f\mathrm{d}\mu.
+\end{align*}
+
+Pour généraliser au cas où $f$ n'est pas simple, il existe une suite croissante de fonctions simple $(f_n)$ qui converge vers $f$. En particulier, on a
+
+\[ \int_X f_n \mathrm{d}\mu = \int_{\mathbb{R}^+} \mu(\{f_n>t\}) \mathrm{d}t. \]
+
+Le terme de gauche tend vers $\int f \mathrm{d}\mu$ d'après le théorème de Beppo-Lévi. De plus $\mu(\{f_n>t\}) \to \mu(\{f>t\})$, donc par le théorème de Beppo Lévi, $\int_{\mathbb{R}^+} \mu(\{f_n>t\}) \mathrm{d}t \to \int_{\mathbb{R}^+} \mu(\{f>t\}) \mathrm{d}t$.
+
+
+\end{solution}
+
+\question Soit $(E,\mathcal{E})$ un espace mesurable, $(f_n)_{n\in \N}$ une famille de fonctions mesurables dans $(F,\mathcal{F})$ et $(A_n)_{n\in \N}$ une partition mesurable de $E$.
+\begin{parts}
+\part Montrer que $f$ définie par $f(x)=f_n(x)$ si $x\in A_n$ est mesurable.
+\part Soit $N$ mesurable de $(E,\mathcal{E})$ dans $(\N,\mathcal{P}(\N))$, montrer que $g$ définie par $g(x)=f_{N(x)}(x)$ est mesurable.
+\end{parts}
+
+\begin{solution}\begin{parts}
+\part Soit $A\in \mathcal{F}$, on a 
+\[f^{-1}(A)=\cup_{n\in \N} A_n\cap f_n^{-1}(A) \in \mathbb{E} \] donc $f$ est bien mesurable.
+
+\part On pose $A_n=\{x\in E \ \colon \ N(x)=n \}$ et la question devient un cas particulier de la question précédente.
+\end{parts}
+\end{solution}
+\end{questions}
+\bibliographystyle{plain}
+%\bibliography{Integration_notes}
+\end{document}

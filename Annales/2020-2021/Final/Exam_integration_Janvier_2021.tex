@@ -1,0 +1,312 @@
+\documentclass[11pt, addpoints, answers]{exam}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin  = 1in]{geometry}
+\usepackage{amsmath, amscd, amssymb, amsthm, verbatim}
+\usepackage{mathabx}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+\shadedsolutions
+\definecolor{SolutionColor}{RGB}{214,240,234}
+
+\newcommand{\bbC}{{\mathbb C}}
+\newcommand{\R}{\mathbb{R}}            % real numbers
+\newcommand{\bbR}{{\mathbb R}}
+\newcommand{\Z}{\mathbb{Z}}            % integers
+\newcommand{\bbZ}{{\mathbb Z}}
+\newcommand{\bx}{\mathbf x}            % boldface x
+\newcommand{\by}{\mathbf y}            % boldface y
+\newcommand{\bz}{\mathbf z}            % boldface z
+\newcommand{\bn}{\mathbf n}            % boldface n
+\newcommand{\br}{\mathbf r}            % boldface r
+\newcommand{\bc}{\mathbf c}            % boldface c
+\newcommand{\be}{\mathbf e}            % boldface e
+\newcommand{\bE}{\mathbb E}            % blackboard E
+\newcommand{\bP}{\mathbb P}            % blackboard P
+
+\newcommand{\ve}{\varepsilon}          % varepsilon
+\newcommand{\avg}[1]{\left< #1 \right>} % for average
+%\renewcommand{\vec}[1]{\mathbf{#1}} % bold vectors
+\newcommand{\grad}{\nabla }
+\newcommand{\lb}{\langle }
+\newcommand{\rb}{\rangle }
+
+\def\Bin{\operatorname{Bin}}
+\def\Var{\operatorname{Var}}
+\def\Geom{\operatorname{Geom}}
+\def\Pois{\operatorname{Pois}}
+\def\Exp{\operatorname{Exp}}
+\newcommand{\Ber}{\operatorname{Ber}}
+\def\Unif{\operatorname{Unif}}
+\def\No{\operatorname{N}}
+\newcommand{\E}{\mathbb E}            % blackboard E
+\def\th{\theta }            % theta shortcut
+\def\V{\operatorname{Var}}
+\def\Var{\operatorname{Var}}
+\def\Cov{\operatorname{Cov}}
+\def\Corr{\operatorname{Corr}}
+\newcommand{\epsi}{\varepsilon}            % epsilon shortcut
+
+\providecommand{\norm}[1]{\left\lVert#1\right\rVert} %norm
+\providecommand{\abs}[1]{\left \lvert#1\right \rvert} %absolute value
+
+\DeclareMathOperator{\lcm}{lcm}
+\newcommand{\ds}{\displaystyle}	% displaystyle shortcut
+
+\def\semester{2020-2021 }
+\def\course{Théorie de la mesure et intégration}
+\def\title{\MakeUppercase{Examen Final}}
+\def\name{Pierre-O. Goffard}
+%\def\name{Professor Wildman}
+
+\setlength\parindent{0pt}
+
+\cellwidth{.35in} %sets the minimum width of the blank cells to length
+\gradetablestretch{2.5}
+
+%\bracketedpoints
+%\pointsinmargin
+%\pointsinrightmargin
+
+\begin{document}
+
+
+\runningheader{\course  \vspace*{.25in}}{}{\title \vspace*{.25in}}
+%\runningheadrule
+\runningfooter{}{Page \thepage\ of \numpages}{}
+
+% \firstpageheader{Name:\enspace\hbox to 2.5in{\hrulefill}\\  \vspace*{2em} Section: (circle one) TR: 3-3:50 \textbar\, TR: 5-5:50 \textbar\,  TR: 6-6:50(Xu) \textbar\,  TR: 6-6:50 }{}{Perm \#: \enspace\hbox to 1.5in{\hrulefill}\\ \vspace*{2em} Score:\enspace\hbox to .6in{\hrulefill} $/$\numpoints}
+\extraheadheight{.25in}
+
+\hrulefill
+
+\vspace*{1em}
+
+% Heading
+{\center \textsc{\Large\title}\\
+	\vspace*{1em}
+	\course -- \semester\\
+	Pierre-O Goffard\\
+}
+\vspace*{1em}
+
+\hrulefill
+
+\vspace*{2em}
+
+\noindent {\bf\em Instructions:} On éteint et on range son téléphone.
+\begin{itemize}
+	\item La calculatrice et les appareils éléctroniques ne sont pas autorisés.
+	\item Vous devez justifier vos réponses de manière claire et concise.
+	\item Vous devez écrire de la manière la plus lisible possible. Souligner ou encadrer votre réponse finale.
+\end{itemize}
+
+\begin{center}
+	\gradetable[h]
+\end{center}
+
+\smallskip
+
+\begin{questions}
+\question Soit $(\Omega, \mathcal{A},\mu)$ un espace mesurable.
+\begin{parts}
+\part[1] Soit $(A_n)_{n\geq1}$ une suite croissante d'évènements de $\mathcal{A}$. Montrer que $(\mu(A_n))_{n\geq1}$ définit une suite croissante qui converge vers $\mu(A)$, où $A = \bigcup_{n\geq1}A_n$.
+\begin{solution}
+Voir le cours
+\end{solution}
+\part[2] Soit $(B_n)_{n\geq1}$ une suite décroissante d'évènements de $\mathcal{A}$ telle que $\mu(B_1)<\infty$. Montrer que $(\mu(B_n))_{n\geq1}$ définit une suite décroissante qui converge vers $\mu(B)$, où $B = \bigcap_{n\geq1}B_n$. 
+\begin{solution}
+Comme la suite $(B_n)_{n\geq1}$ est décroissante alors $B_{n+1}\subset B_n$, ce qui implique $\mu(B_n)\geq\mu(B_{n+1})$. La suite $E_n = B_1/ B_n, n \geq 1$ est une suite croissante d'évènements qui converge vers $B_1/B$. D'après la question précédente, nous avons $\lim \mu(E_n) = \mu(B_1)-\mu(B)$
+On note que 
+$$
+\mu(E_n) = \mu(B_1)-\mu(B_n),\text{ pour tout }n\geq1.
+$$
+on obtient $\lim \mu(B_n) =  \mu(B)$ en passant à la limite l'équation précédente. 
+\end{solution}
+\part[1] Soit $(F_n)_{n\geq 1}$ une suite d'évènements de $\mathcal{A}$ tels que $\mu\left(\bigcup_{n\geq1}F_n\right)<\infty$, montrer que 
+$$
+\mu\left(\bigcap_{n\geq1}\bigcup_{k\geq n} F_k\right) = \underset{n\rightarrow \infty}{\lim}\mu\left(\bigcup_{k\geq n} F_k\right).
+$$
+\underline{Indication:} Utiliser le résultat des questions précédentes.
+\begin{solution}
+La suite d'évènements $\left(\bigcup_{k\geq n} F_k\right)_{n\geq1}$ est décroissante, il ne reste qu'à appliquer le résultat précédent.
+\end{solution}
+\part[1] Montrer que 
+$$
+\sum_{n\geq1}\mu(F_n) < \infty \Rightarrow  \mu\left(\bigcap_{n\geq1}\bigcup_{k\geq n} F_k\right) = 0.
+$$
+\underline{Indication:} Utiliser le résultat des questions précédentes.
+\begin{solution}
+Il s'agit du lemme de Borel Cantelli partie I
+\end{solution}
+\end{parts}
+\question[3] Soit $f$ une application mesurable de $(\Omega, \mathcal{A},\mu)$ à valeurs dans $\mathbb{R}_+$ telle que 
+$$
+\int_\Omega f\text{d}\mu<\infty.
+$$
+Montrer que 
+$$
+\mu(\{\omega\in\Omega\text{ ; }f(\omega) = \infty\})=0.
+$$ 
+\underline{Indication:} On pourra introduire par exemple la suite de fonction définie par $f_n = n\mathbb{I}_{f>n},\text{ }n\geq1$.
+\begin{solution}
+Les évènements 
+$$
+A_n = \{f>n\},\text{ }n\geq1
+$$
+forme une suite décroissante d'évènement de limite $\{f = \infty\}$, on en déduit que $\mu(A_n)  \rightarrow \mu(\{f=\infty\})$. Comme $f_n<f$ pour tout $n\geq1$ alors 
+$$
+\mu(A_n) = \frac{1}{n}\int f_n\text{d}\mu <\frac{1}{n}\int f\text{d}\mu.
+$$
+Par passage à la limite, il vient $\mu(\{f=\infty\}) = 0$.
+\end{solution}
+\question Calculer, en justifiant, les limites ($n\rightarrow+\infty$) des suites 
+\begin{parts}
+\part[2] 
+$$
+u_n = \int_{0}^{1}\frac{n}{1+x^2}\sin\left(\frac{x}{n}\right)\text{d}\lambda(x).
+$$ 
+\begin{solution}
+On définit la suite de fonctions $f_n(x) = \frac{n}{1+x^2}\sin\left(\frac{x}{n}\right), n\geq0$ continue sur $[0,1]$ et donc intégrable. On note que 
+$$
+f_n(x)\rightarrow \frac{x}{1+x^2},\forall x\in [0, 1].
+$$
+Comme 
+$$
+|f_n(x)|<\frac{x}{1+x^2},\forall n\geq 1,
+$$
+alors d'après le théorème de convergence dominée
+$$
+u_n\rightarrow \frac{\ln(2)}{2}.
+$$
+\end{solution}
+\part[2] $$
+u_n = \int_0^n \left(1-\frac{x}{n}\right)^n x^m\text{d}\lambda(x)\text{, pour }m\in\mathbb{N}.$$
+
+\begin{solution}
+On définit la suite de fonctions $f_n(x) = \left(1-\frac{x}{n}\right)^n x^m\mathbb{I}_{x\in[0,n]}(x), n\geq0$ continue sur $[0,n]$ et donc intégrable. On note que 
+$$
+f_n(x)\rightarrow e^{-x}x^m\mathbb{I}_{x\in[0,\infty[}(x),\forall x\in [0, +\infty[.
+$$
+Comme 
+$$
+|f_n(x)|<e^{-x}x^m,\forall n\geq 1,
+$$
+alors d'après le théorème de convergence dominée
+$$
+u_n\rightarrow m!\text{ (IPP répétée)}
+$$
+
+\end{solution}
+\end{parts}
+\question Le but de l'exercice est de montrer que 
+$$
+\sum_{n\geq1}\frac{1}{n^2} = \frac{\pi^2}{6}
+$$
+\begin{parts}
+\part[2] Montrer que (on énoncera clairement le(s) théorème(s) utilisés)
+$$
+\int_{[0,1]^2}\frac{1}{1-xy}\text{d}\lambda(x,y) = \sum_{n\geq1}\frac{1}{n^2}.
+$$
+\underline{Indication:} On pourra considérer le développement en série entière de $s\mapsto\frac{1}{1-s}$.
+\begin{solution}
+Le développement en série entière donne 
+\begin{eqnarray}
+\int_{[0,1]^2}\sum_{n = 0}^\infty x^ny^n\text{d}\lambda(x,y)&\overset{\text{Beppo-Levi}}{=}&\sum_{n = 0}^\infty\int_{[0,1]^2}\frac{1}{1-xy}\text{d}\lambda(x,y)\\
+&\overset{\text{Fubini-Tonelli}}{=}&\sum_{n\geq0}\frac{1}{n^2}.
+\end{eqnarray}
+\end{solution}
+\part[2] On note $I = \int_{[0,1]^2}\frac{1}{1-xy}\text{d}\lambda(x,y)$, montrer que 
+$$
+I = 4\left(\int_{0}^{1/\sqrt{2}}\int_{0}^{u}\frac{\text{d}v}{2-u^2+v^2}\text{d}u+\int_{1/\sqrt{2}}^{\sqrt{2}}\int_{0}^{\sqrt{2} - u}\frac{\text{d}v}{2-u^2+v^2}\text{d}u\right)
+$$
+\underline{Indication:} On pourra considérer le changement de variable $(x,y) = \phi(u,v) = \left(\frac{u-v}{\sqrt{2}},\frac{u+v}{\sqrt{2}}\right)$, il est aussi vivement conseillé de faire un dessin pour représenter le nouveau domaine d'intégration $\phi^{-1}([0,1]^2)$ dans le repère $(u,v)$.
+\begin{solution}
+La fonction réciproque de $\phi$ est donnée par
+$$(u,v) = \phi^{-1}(x,y) = \left(\frac{\sqrt{2}}{2}(x+y), \frac{\sqrt{2}}{2}(y-x)\right)$$
+Le Jacobien (en valeur absolue) est donnée par $|\text{Jac}_{\phi^{-1}}| = 1$. Le changement de variable consiste à effectuer une rotation des axes d'angle $\pi/4$ dans le sens horaire, le domaine d'intégration demeure un carré sauf que ces sommets se situent aux points $(0,0)$, $(1/\sqrt{2},1/\sqrt{2})$, $(1/\sqrt{2},-1/\sqrt{2})$ et $(0,\sqrt{2})$. Par symétrie du domaine d'intégration par rapport à l'axe $u$ et parité de la fonction par rapport à sa deuxième variable on obtient
+$$
+I = 4\left(\int_{0}^{1/\sqrt{2}}\int_{0}^{u}\frac{\text{d}v}{2-u^2+v^2}\text{d}u+\int_{1/\sqrt{2}}^{\sqrt{2}}\int_{0}^{\sqrt{2} - u}\frac{\text{d}v}{2-u^2+v^2}\text{d}u\right)
+$$
+\end{solution}
+\part[2] Evaluer $$I_1 = \int_{0}^{1/\sqrt{2}}\int_{0}^{u}\frac{\text{d}v}{2-u^2+v^2}\text{d}u.$$ 
+\underline{Indication:} On rappelle que 
+$$
+\int_{0}^x \frac{\text{d}t}{a^2+t^2} = \frac{1}{a}\arctan\left(\frac{x}{a}\right). 
+$$
+On pourra considérer le changement de variable $u = \sqrt{2}\sin\theta$.
+\begin{solution}
+$$
+I_1 = \frac{\pi^2}{72}
+$$
+\end{solution}
+\part[2] Evaluer 
+$$
+I_2 = \int_{1/\sqrt{2}}^{\sqrt{2}}\int_{0}^{\sqrt{2} - u}\frac{\text{d}v}{2-u^2+v^2}\text{d}u.
+$$
+et conclure.\\
+\underline{Indication:} On pourra considérer le changement de variable $u = \sqrt{2}\cos(2\theta)$
+\begin{solution}
+$$
+I_2 = \frac{\pi^2}{36}
+$$
+\end{solution}
+
+\end{parts}
+\end{questions}
+
+\newpage
+%-------------------------------TABLE-------------------------------
+\hrule
+\vspace*{.15in}
+\begin{center}
+	\large\MakeUppercase{Fonctions Trigonométriques}
+\end{center}
+\vspace*{.15in}
+\hrule
+\vspace*{.25in}
+
+
+\renewcommand\arraystretch{3.5}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Fonction & Ensemble de définition& Dérivée \\
+\hline\hline
+$\sin x$ &$\mathbb{R}$& $\cos x$ \\
+\hline
+$\cos x$ &$\mathbb{R}$& $-\sin x$ \\
+\hline
+$\tan x$ &$\bigcup_{n\in\mathbb{Z}}\left]n\pi-\pi/2, n\pi+\pi/2\right[$ & $1+\tan^2 x$ \\
+\hline
+$\arccos x$ &$[-1,1]$& $-\frac{1}{\sqrt{1-x^2}}$ \\
+\hline
+$\arcsin x$ &$[-1,1]$& $\frac{1}{\sqrt{1-x^2}}$\\
+\hline
+$\arctan x$ &$\mathbb{R}$& $\frac{1}{1+x^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}%
+\underline{Quelques identités}: Pour $a,b\in\mathbb{R}$,\\
+$$
+\cos(a+b) = \cos(a)\cos(b)-\sin(a)\sin(b)
+$$
+$$
+\sin(a+b) = \sin(a)\cos(b)+\cos(a)\sin(b)
+$$
+$$
+\cos^2(a)+\sin^2(a) = 1
+$$
+
+
+\end{document}
+

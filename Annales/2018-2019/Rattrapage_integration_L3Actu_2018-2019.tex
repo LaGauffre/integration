@@ -1,0 +1,328 @@
+\documentclass[11pt, addpoints,answers]{exam}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin  = 1in]{geometry}
+\usepackage{amsmath, amscd, amssymb, amsthm, verbatim}
+%\usepackage{mathabx}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+\shadedsolutions
+\definecolor{SolutionColor}{RGB}{214,240,234}
+
+\newcommand{\bbC}{{\mathbb C}}
+\newcommand{\R}{\mathbb{R}}            % real numbers
+\newcommand{\bbR}{{\mathbb R}}
+\newcommand{\Z}{\mathbb{Z}}            % integers
+\newcommand{\bbZ}{{\mathbb Z}}
+\newcommand{\bx}{\mathbf x}            % boldface x
+\newcommand{\by}{\mathbf y}            % boldface y
+\newcommand{\bz}{\mathbf z}            % boldface z
+\newcommand{\bn}{\mathbf n}            % boldface n
+\newcommand{\br}{\mathbf r}            % boldface r
+\newcommand{\bc}{\mathbf c}            % boldface c
+\newcommand{\be}{\mathbf e}            % boldface e
+\newcommand{\bE}{\mathbb E}            % blackboard E
+\newcommand{\bP}{\mathbb P}            % blackboard P
+
+\newcommand{\ve}{\varepsilon}          % varepsilon
+\newcommand{\avg}[1]{\left< #1 \right>} % for average
+%\renewcommand{\vec}[1]{\mathbf{#1}} % bold vectors
+\newcommand{\grad}{\nabla }
+\newcommand{\lb}{\langle }
+\newcommand{\rb}{\rangle }
+
+\def\Bin{\operatorname{Bin}}
+\def\Var{\operatorname{Var}}
+\def\Geom{\operatorname{Geom}}
+\def\Pois{\operatorname{Pois}}
+\def\Exp{\operatorname{Exp}}
+\newcommand{\Ber}{\operatorname{Ber}}
+\def\Unif{\operatorname{Unif}}
+\def\No{\operatorname{N}}
+\newcommand{\E}{\mathbb E}            % blackboard E
+\def\th{\theta }            % theta shortcut
+\def\V{\operatorname{Var}}
+\def\Var{\operatorname{Var}}
+\def\Cov{\operatorname{Cov}}
+\def\Corr{\operatorname{Corr}}
+\newcommand{\epsi}{\varepsilon}            % epsilon shortcut
+
+\providecommand{\norm}[1]{\left\lVert#1\right\rVert} %norm
+\providecommand{\abs}[1]{\left \lvert#1\right \rvert} %absolute value
+
+\DeclareMathOperator{\lcm}{lcm}
+\newcommand{\ds}{\displaystyle}	% displaystyle shortcut
+
+\def\semester{2018-2019 }
+\def\course{Théorie de la mesure }
+\def\title{\MakeUppercase{Deuxième session}}
+\def\name{Pierre-O Goffard}
+%\def\name{Professor Wildman}
+
+\setlength\parindent{0pt}
+
+\cellwidth{.35in} %sets the minimum width of the blank cells to length
+\gradetablestretch{2.5}
+
+%\bracketedpoints
+%\pointsinmargin
+%\pointsinrightmargin
+
+\begin{document}
+
+
+\runningheader{\course  \vspace*{.25in}}{}{\title \vspace*{.25in}}
+%\runningheadrule
+\runningfooter{}{Page \thepage\ of \numpages}{}
+
+% \firstpageheader{Name:\enspace\hbox to 2.5in{\hrulefill}\\  \vspace*{2em} Section: (circle one) TR: 3-3:50 \textbar\, TR: 5-5:50 \textbar\,  TR: 6-6:50(Xu) \textbar\,  TR: 6-6:50 }{}{Perm \#: \enspace\hbox to 1.5in{\hrulefill}\\ \vspace*{2em} Score:\enspace\hbox to .6in{\hrulefill} $/$\numpoints}
+\extraheadheight{.25in}
+
+\hrulefill
+
+\vspace*{1em}
+
+% Heading
+{\center \textsc{\Large\title}\\
+	\vspace*{1em}
+	\course -- \semester\\
+	Pierre-O Goffard\\
+}
+\vspace*{1em}
+
+\hrulefill
+
+\vspace*{2em}
+
+\noindent {\bf\em Instructions:} On éteint et on range son téléphone.
+\begin{itemize}
+	\item La calculatrice et les appareils éléctroniques ne sont pas autorisés.
+	\item Vous devez justifier vos réponses de manière claire et concise.
+	\item Vous devez écrire de la manière la plus lisible possible. Souligner ou encadrer votre réponse finale.
+
+\end{itemize}
+
+\begin{center}
+	\gradetable[h]
+\end{center}
+
+\smallskip
+
+\begin{questions}
+\question[2]
+
+		% \part[3] Soit $E$ un ensemble infini. Soit l'application $\mu: \mathcal{P}(E)\mapsto \overline{\mathbb{R}}_+$ tel que pour $A\in\mathcal{P}(E)$, on a 
+		% $$
+		% \mu(A) = 
+		% 	\begin{cases}
+		% 		0,&\text{ si $A$ est fini,}\\
+		% 		+\infty, &\text{ si $A$ est infini.}
+		% 	\end{cases}
+		% $$
+		% L'application $\mu$ est elle une mesure?
+		% \begin{solution}
+		% \begin{enumerate}
+		% 	\item Comme $\emptyset$ est fini alors $\mu(\emptyset) = 0$
+		% 	\item Soit $(A_n)_{n\in\mathbb{N}}$ une suite de parties, deux à deux disjointes, de $E$ alors 
+		% 	\begin{itemize}
+		% 		\item Si $(A_n)_{n\in\mathbb{N}}$ contient au moins une partie infinie $A_j$, $j\in\mathbb{N}$ alors $\bigcup_n A_n$ est infinie et $\mu(\bigcup_n A_n)=\infty$. Comme $A_j$ est infinie alors $A_j^{c}$ est fini. De plus, comme les parties $(A_n)_{n\in\mathbb{N}}$ sont mutuellement disjointes alors $\bigcup_{k\neq j}A_k\subset A_j^{c}$ est une partie finie. On a donc 
+		% 		$$\sum_n\mu(A_n) = \mu(A_j) + \sum_{k\neq j}\mu(A_k) = \infty + 0 = +\infty.$$
+
+		% 		\item Si $(A_n)_{n\in\mathbb{N}}$ est une suite de partie finies de $E$ alors $\mu(A_n) = 0$ pour tout $n\in\mathbb{N}$ et $\sum_n\mu(A_n) = 0$ d'une part et
+		% 		$\bigcup_n A_n$ est infinie puis $\mu(\bigcup_n A_n) =\infty$. On en déduit que $\mu(\bigcup_n A_n)\neq \sum_n\mu(A_n) $ puis que $\mu$ n'est pas une mesure.   
+		% 	\end{itemize}
+		% \end{enumerate}
+			
+		% \end{solution}
+Soit $(\Omega, \mathcal{A},\mu)$ un espace mesuré avec $\mu$ une mesure finie. Soit $(A_n)_{n\in\mathbb{N}}$ une suite d'éléments de $\mathcal{A}$ tels que $\mu(A_n) = \mu(\Omega),$ pour tout $n\in\mathbb{N}$.\\
+
+		Montrer que 
+		$$
+		\mu\left(\bigcap_{n\in\mathbb{N}}A_n\right) = \mu(\Omega)
+		$$
+
+		\begin{solution}
+		On considère $A_1$ et $A_2$ les deux premiers éléments de $(A_n)_n\in\mathbb{N}$. On a $A_1\cup A_2\in \Omega$ donc $\mu(A_1\cup A_2)\leq \mu(\Omega)$, on a aussi $\mu(A_1\cup A_2)\geq \mu(A_1) = \mu(\Omega)$ donc $\mu(A_1\cup A_2)= \mu(\Omega)$. On déduit de 
+		$$
+		\mu(A_1\cup A_2) = \mu(A_1) + \mu(A_2) - \mu(A_1\cap A_2)
+		$$
+		que $\mu(A_1\cap A_2) = \mu(\Omega)$. On montre par récurrence que $\mu\left(\bigcap_{k = 1}^{n} A_k\right) = \mu(\Omega)$, la suite définie par $\left(\bigcap_{k = 1}^{n} A_k\right)_{n\in\mathbb{N}}$ est une suite décroissante d'éléments de $\mathcal{A}$. On a donc 
+		$$
+		\mu\left(\bigcap_{k = 1}^{n} A_k\right) = \underset{n\rightarrow \infty}{\lim}\mu(A_n) = \mu(\Omega).
+		$$
+		\end{solution}
+
+\question Soit $(f_n)_{n\in\mathbb{N}}$ une suite de fonction $f_n:\mathbb{R}\mapsto\mathbb{R}$ définies par 
+$$
+f_n(x) = \left(1-\frac{x}{n}\right)^{n}\cos(x)\mathbb{I}_{[0,n]}(x).
+$$
+\begin{parts}
+	\part[1] Montrer que $(f_n)_{n\in\mathbb{N}}$ est une suite de fonction mesurable.
+	\begin{solution}
+	$(f_n)_{n\in\mathbb{N}}$ est une suite de fonctions réelles et continues, donc mesurables 
+	\end{solution}
+	\part[1] Montrer que $(f_n)_{n\in\mathbb{N}}$ converge simplement vers une fonction $f$ que l'on explicitera.
+	\begin{solution}
+	Pour tout $x\in \mathbb{R}$, on a l'équivalence 
+	$$
+	\left(1-\frac{x}{n}\right)^{n}\sim e^{-x} \text{, pour }n\rightarrow+\infty 
+	$$
+	On en déduit que 
+	$$f_n(x)\underset{n\rightarrow +\infty}{\longrightarrow} f(x)= e^{-x}\cos(x)\mathbb{I}_{\left[0,+\infty\right[}$$
+	\end{solution}
+	\part[4] Pour tout $n\geq1$, on pose 
+	$$
+	I_n = \int_{[0,n]}\left(1-\frac{x}{n}\right)^{n}\cos(x)\text{d}\lambda(x) 
+	$$
+	Montrer que $(I_n)_{n\in\mathbb{N}}$ est une suite convergente et donner sa limite.\\
+
+	\noindent \underline{Indications:} On pourra utiliser l'inégalité $\ln(1-t)\leq -t$ pour $t\in\left[0,1\right[$.
+	\begin{solution}
+	On a 
+	$$
+	I_n = \int_{\mathbb{R}}f_n(x)\lambda(x), 
+	$$
+	où $(f_n)_n\in\mathbb{N}$ est une suite de fonctions mesurables convergeant vers $f(x) = e^{-x}\cos(x)\mathbb{I}_{\left[0,\infty\right[}$, de plus on a pour tout $x\in\mathbb{R}$,
+	$$
+	|f_n(x)|\leq\left|\exp\left[n\ln\left(1-\frac{x}{n}\right)\right]\right|\mathbb{I}_{[0,n]}(x)\leq e^{-x} = g(x)
+	$$
+	Par application du théorème de convergence dominée, la suite $(I_n)$ converge et il vient 
+	\begin{eqnarray*}
+	\underset{n\rightarrow\infty}{\lim} I_n& = &\int f(x)\text{d}\lambda(x)\\
+	&=& \int_0^{\infty} e^{-x}\cos(x)\text{d}x\\
+	&=& \Re\left\{\int_0^{\infty} e^{-x}e^{-ix}\text{d}x\right\}\\
+	&=& \Re\left\{\frac{1}{1+i}\right\} =1/2\\
+	\end{eqnarray*}
+	\end{solution}
+\end{parts}
+\question Soit l'intégrale
+$$I =\int_{0}^{+\infty}\frac{\ln(x)}{x^2-1}\text{d}x.$$
+\begin{parts}
+\part[2] Montrer que l'intégrale $I$ est bien définie.
+\begin{solution}
+La fonction $f(x)  = \ln(x)/(x^2-1)$ est continue sur $(0,1)\times (1,+\infty)$ donc localement intégrable. Nous devons étudier la situation en $x = 0,1,+\infty$.
+\begin{itemize}
+	\item Au voisinage de $0$, $\sqrt{x}f(x)\rightarrow 0$ donc $f(x) = o(x^{-1/2})$ et $f$ est intégrable en $0$.
+	\item Au voisinage de $1$, on a $f(x)\rightarrow 1/2$ donc prolongeable par continuité et partant intégrable. 
+	\item Au voisinage de $\infty$, on a $x^{3/2}f(x)\rightarrow 0$ donc $f(x) = o(x^{-3/2})$ et $f$ est intégrable.
+\end{itemize}
+\end{solution}
+\part[2] Montrer que 
+$$
+\int_{\left[0,\infty\right[^2}\frac{1}{(1+y)(1+x^2y)}\text{d}\lambda_2(x,y) = \frac{\pi^2}{2},
+$$ 
+où $\lambda_2$ est la mesure de Lebesgue sur $\mathbb{R}^2$.\\
+
+\underline{Indication:} Intégrer d'abord par rapport à $x$.
+\begin{solution}
+\begin{eqnarray*}
+\int_{\left[0,\infty\right[^2}\frac{1}{(1+y)(1+x^2y)}\text{d}\lambda_2(x,y)&=&\int_{0}^{+\infty}\int_{0}^{+\infty}\frac{1}{(1+y)(1+x^2y)}\text{d}x\text{d}y\\
+&=&\frac{\pi}{2}\int_{0}^{+\infty}\frac{1}{(1+y)\sqrt{y}}\text{d}y\\
+&=&\int_{0}^{+\infty}\frac{1}{(1+y)\sqrt{y}}\text{d}y\\
+&=&\frac{\pi^2}{2}
+\end{eqnarray*}
+\end{solution}
+\part[2] Montrer que pour tout $x>0$, $x\neq1$ 
+$$
+\int_{0}^{\infty}\frac{1}{(1+y)(1+x^2y)}\text{d}y = \frac{2\ln(x)}{x^2 - 1}.
+$$
+\underline{Indication:} On effectuera une décomposition en éléments simples.
+\begin{solution}
+\begin{eqnarray*}
+\int_{0}^{\infty}\frac{1}{(1+y)(1+x^2y)}\text{d}y&=&\int_{0}^{\infty}\frac{-1}{(x^2-1)(1+y)}+\frac{x^2}{(x^2-1)(1+x^2y)}\text{d}y\\
+&=&\frac{1}{x^2-1}\left[\ln\left(\frac{1+x^2y}{1+y}\right)\right]_0^{+\infty}\\
+&=&\frac{2\ln(x)}{x^2-1}
+\end{eqnarray*}
+\end{solution}
+
+\part[1] En déduire que $I =\frac{\pi^2}{4}$.
+\begin{solution}
+Conséquence de (b) et (c)
+\end{solution}
+\part[1] Montrer que 
+$$
+I = 2\int_0^{1}\frac{\ln(x)}{x^2-1}\text{d}x.
+$$
+\underline{Indication:} Relation de Chasles à partir de $I =\int_{0}^{+\infty}\frac{\ln(x)}{x^2-1}$.
+\begin{solution}
+$$
+I = \int_0^{1}\frac{\ln(x)}{x^2-1}\text{d}x+ \int_1^{+\infty}\frac{\ln(x)}{x^2-1}\text{d}x
+$$
+puis changement de variable $u = 1/x$ dans la deuxième intégrale
+$$
+I = 2\int_0^{1}\frac{\ln(x)}{x^2-1}\text{d}x
+$$
+\end{solution}
+\part[1] Déduire de la question précédente que  
+$$
+\sum_{k = 0}^{+\infty}\frac{1}{(2n+1)^2} = \frac{\pi^2}{8}.
+$$
+\underline{Indication:} Effectuer un développement en série entière de $x\mapsto\frac{1}{1-x^{2}}$ valable pour $x\in\left[0,1\right[$.
+\begin{solution}
+\begin{eqnarray*}
+I &=& -2\sum_{k=0}^{\infty}\int_0^{1}x^{2k}\ln(x)\text{d}x\\
+&=&2\sum_{k=0}^{\infty}\frac{1}{(2k+1)^2}.
+\end{eqnarray*}
+puis $\sum_{k=0}^{\infty}\frac{1}{(2k+1)^2}=\pi^2/8$
+
+\end{solution}
+\end{parts}
+\end{questions}
+
+\newpage
+%-------------------------------TABLE-------------------------------
+\hrule
+\vspace*{.15in}
+\begin{center}
+	\large\MakeUppercase{Fonctions Trigonométriques}
+\end{center}
+\vspace*{.15in}
+\hrule
+\vspace*{.25in}
+
+
+\renewcommand\arraystretch{3.5}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Fonction & Ensemble de définition& Dérivée \\
+\hline\hline
+$\sin x$ &$\mathbb{R}$& $\cos x$ \\
+\hline
+$\cos x$ &$\mathbb{R}$& $-\sin x$ \\
+\hline
+$\tan x$ &$\bigcup_{n\in\mathbb{Z}}\left]n\pi-\pi/2, n\pi+\pi/2\right[$ & $1+\tan^2 x$ \\
+\hline
+$\arccos x$ &$[-1,1]$& $-\frac{1}{\sqrt{1-x^2}}$ \\
+\hline
+$\arcsin x$ &$[-1,1]$& $\frac{1}{\sqrt{1-x^2}}$\\
+\hline
+$\arctan x$ &$\mathbb{R}$& $\frac{1}{1+x^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}%
+
+
+
+\end{document}
+
+%%%% Extra problems %%%%--------------------------------------
+
+%\question A coin having probability $0.8$ of landing on heads is flipped.  $A$ observes the result -- either heads or tails -- and rushes off to tell $B$. However, with probability $0.4$, $A$ will have forgotten the result by the time he reaches $B$.  If $A$ has forgotten, then, rather than admitting this to $B$, he is equally likely to tell $B$ that the coin landed on heads or that it landed tails. (If he does remember, then he tells $B$ the correct result).
+%\begin{parts}
+%	\part What is the probability that $B$ is told that the coin landed on heads?
+%	\part What is the probability that $B$ is told the correct result?
+%	\part Given that $B$ is told that the coin landed on heads, what is the probability that it did in fact land on heads?
+%\end{parts}
+
+%\question % Variance, expected value
+%Suppose that $\bP(X=0)=1-\bP(X=1)$.  If $\E[X]=3\Var(X)$, find $\bP(X=0)$.

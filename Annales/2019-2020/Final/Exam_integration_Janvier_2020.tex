@@ -1,0 +1,389 @@
+\documentclass[11pt, addpoints, answers]{exam}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin  = 1in]{geometry}
+\usepackage{amsmath, amscd, amssymb, amsthm, verbatim}
+\usepackage{mathabx}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+\shadedsolutions
+\definecolor{SolutionColor}{RGB}{214,240,234}
+
+\newcommand{\bbC}{{\mathbb C}}
+\newcommand{\R}{\mathbb{R}}            % real numbers
+\newcommand{\bbR}{{\mathbb R}}
+\newcommand{\Z}{\mathbb{Z}}            % integers
+\newcommand{\bbZ}{{\mathbb Z}}
+\newcommand{\bx}{\mathbf x}            % boldface x
+\newcommand{\by}{\mathbf y}            % boldface y
+\newcommand{\bz}{\mathbf z}            % boldface z
+\newcommand{\bn}{\mathbf n}            % boldface n
+\newcommand{\br}{\mathbf r}            % boldface r
+\newcommand{\bc}{\mathbf c}            % boldface c
+\newcommand{\be}{\mathbf e}            % boldface e
+\newcommand{\bE}{\mathbb E}            % blackboard E
+\newcommand{\bP}{\mathbb P}            % blackboard P
+
+\newcommand{\ve}{\varepsilon}          % varepsilon
+\newcommand{\avg}[1]{\left< #1 \right>} % for average
+%\renewcommand{\vec}[1]{\mathbf{#1}} % bold vectors
+\newcommand{\grad}{\nabla }
+\newcommand{\lb}{\langle }
+\newcommand{\rb}{\rangle }
+
+\def\Bin{\operatorname{Bin}}
+\def\Var{\operatorname{Var}}
+\def\Geom{\operatorname{Geom}}
+\def\Pois{\operatorname{Pois}}
+\def\Exp{\operatorname{Exp}}
+\newcommand{\Ber}{\operatorname{Ber}}
+\def\Unif{\operatorname{Unif}}
+\def\No{\operatorname{N}}
+\newcommand{\E}{\mathbb E}            % blackboard E
+\def\th{\theta }            % theta shortcut
+\def\V{\operatorname{Var}}
+\def\Var{\operatorname{Var}}
+\def\Cov{\operatorname{Cov}}
+\def\Corr{\operatorname{Corr}}
+\newcommand{\epsi}{\varepsilon}            % epsilon shortcut
+
+\providecommand{\norm}[1]{\left\lVert#1\right\rVert} %norm
+\providecommand{\abs}[1]{\left \lvert#1\right \rvert} %absolute value
+
+\DeclareMathOperator{\lcm}{lcm}
+\newcommand{\ds}{\displaystyle}	% displaystyle shortcut
+
+\def\semester{2019-2020 }
+\def\course{Théorie de la mesure et intégration}
+\def\title{\MakeUppercase{Examen Final}}
+\def\name{Pierre-O. Goffard}
+%\def\name{Professor Wildman}
+
+\setlength\parindent{0pt}
+
+\cellwidth{.35in} %sets the minimum width of the blank cells to length
+\gradetablestretch{2.5}
+
+%\bracketedpoints
+%\pointsinmargin
+%\pointsinrightmargin
+
+\begin{document}
+
+
+\runningheader{\course  \vspace*{.25in}}{}{\title \vspace*{.25in}}
+%\runningheadrule
+\runningfooter{}{Page \thepage\ of \numpages}{}
+
+% \firstpageheader{Name:\enspace\hbox to 2.5in{\hrulefill}\\  \vspace*{2em} Section: (circle one) TR: 3-3:50 \textbar\, TR: 5-5:50 \textbar\,  TR: 6-6:50(Xu) \textbar\,  TR: 6-6:50 }{}{Perm \#: \enspace\hbox to 1.5in{\hrulefill}\\ \vspace*{2em} Score:\enspace\hbox to .6in{\hrulefill} $/$\numpoints}
+\extraheadheight{.25in}
+
+\hrulefill
+
+\vspace*{1em}
+
+% Heading
+{\center \textsc{\Large\title}\\
+	\vspace*{1em}
+	\course -- \semester\\
+	Pierre-O Goffard\\
+}
+\vspace*{1em}
+
+\hrulefill
+
+\vspace*{2em}
+
+\noindent {\bf\em Instructions:} On éteint et on range son téléphone.
+\begin{itemize}
+	\item La calculatrice et les appareils éléctroniques ne sont pas autorisés.
+	\item Vous devez justifier vos réponses de manière claire et concise.
+	\item Vous devez écrire de la manière la plus lisible possible. Souligner ou encadrer votre réponse finale.
+\end{itemize}
+
+\begin{center}
+	\gradetable[h]
+\end{center}
+
+\smallskip
+
+\begin{questions}
+\question Question de cours. Soit $\Omega$ un ensemble.
+\begin{parts}
+\part[1] Montrer que l'intersection de deux tribus $\mathcal{A}$ et $\mathcal{B}$ est une tribu.
+\part[1] Soit $\mu:\mathcal{A}\mapsto \overline{\mathbb{R}}_+$, une mesure positive définie sur l'espace mesurable $(\Omega,\mathcal{A})$. Montrer que 
+$$
+\mu(A_1\cup A_2)\geq \max(\mu(A_1),\mu(A_2)), \text{pour tout }A_1, A_2\in \mathcal{A}.
+$$
+\begin{solution}
+Comme $A_1,A_2\subset A_1\cup A_2$ alors $\mu(A_1)\leq \mu(A_1\cup A_2)$ et $\mu(A_2)\leq \mu(A_1\cup A_2)$ ce qui implique que
+$$
+\mu(A_1\cup A_2)\geq \max(\mu(A_1),\mu(A_2)).
+$$
+\end{solution}
+\part[2] Soit $(f_n)_{n\in \mathbb{N}^\ast}$ une suite de fonction mesurables, positive de $(\Omega,\mathcal{A},\mu)$ vers $(\mathbb{R}_+,\mathcal{B}_{\mathbb{R}_+})$. Montrer la validité de l'égalité suivante 
+$$
+\int\sum_{n\in\mathbb{N}^{\ast}}f_n\text{d}\mu =\sum_{n\in\mathbb{N}^{\ast}}\int f_n\text{d}\mu. 
+$$
+\begin{solution}
+La suite $\left(\sum_{k=1}^n f_k\right)_{n\in\mathbb{N}^\ast}$ est une suite de fonctions positives et croissante dont la limite est une fonction positive $\sum_{n\in\mathbb{N}^{\ast}}f_n$. Nous avons donc par Beppo-Lévi
+$$
+\sum_{n\in\mathbb{N}^+}\int f_n\text{d}\mu=\underset{n\rightarrow\infty}{\lim}\sum_{k=1}^n \int f_k\text{d}\mu=\underset{n\rightarrow\infty}{\lim}\int \sum_{k=1}^n f_k\text{d}\mu\overset{BL}{=}\int \sum_{n\in\mathbb{N}^{\ast}} f_n\text{d}\mu
+$$
+\end{solution}
+\end{parts}
+\question Soit $\Omega$ un ensemble fini de cardinal $n\geq1$, muni de la tribu formée de ses parties $\mathcal{P}(\Omega)$. On définit la mesure de probabilité $\mu$ par
+$$
+\mu(\{x\}) = \frac{1}{n},\text{ }x\in \Omega.
+$$ 
+Soit $P$ une partition (ensemble de parties, disjointes, non vide, de réunion $\Omega$) de $\Omega$, l'entropie de la partition $P$ est donnée par 
+$$
+\mathcal{H}(P) = -\sum_{A\in P}\mu(A)\ln[\mu(A)].
+$$
+\begin{parts}
+\part[1] Existe-t-il une partition d'entropie nulle? Est-elle unique?
+\begin{solution}
+L'entropie est une somme de quantité positive $\mu(A)\times (-\ln(\mu(A)))$, sa nullité entraine la nullité de chacun de ses termes soit 
+$$
+\mu(A)\times (- \ln(\mu(A))) = 0,\text{ pour tout }A\in P.
+$$ 
+Comme $A$ est non vide alors $\mu(A)>0$ puis $\ln(\mu(A))=0$ et enfin $\mu(A)=1$. Cela implique que la seule partition d'entropie nulle est $P = \{\Omega\}$.
+\end{solution}
+\part[1] Soit $A\in \mathcal{P}(\Omega)$ de cardinal $k$ tel que $0<k<n$. Donner l'entropie de la partition $P=\{A,A^c\}$ en fonction de $k$ et $n$. 
+\begin{solution}
+On a 
+$$
+\mathcal{H}(P) = -\mu(A)\ln\mu(A) - -\mu(A^c)\ln\mu(A^c) = -\frac{k}{n}\ln\left(\frac{k}{n}\right) - \frac{n-k}{n}\ln\left(\frac{n-k}{n}\right). 
+$$
+\end{solution}
+\part[2] Quelle est la partition d'entropie maximale? Justifier votre réponse et donner la valeur de l'entropie maximale. On notera $\mathcal{H}_{\max}$ l'entropie maximale dans la suite.
+\begin{solution}
+La partition d'entropie maximale est la partition composée de singletons. En effet, l'entropie d'une partie contenant deux éléments est inférieur a la somme des entropies des deux singletons. Pour $A = \{x,y\}$, on a 
+$$
+-\mu(A)\ln(A) - (-\mu(\{x\})\ln(\{x\}) - \mu(\{y\})\ln(\{y\}))=-\frac{2}{n}\left(\ln\left(\frac{2}{n}\right)- \ln\left(\frac{1}{n}\right)\right) <0.
+$$
+L'entropie maximum est donnée par 
+$$
+\mathcal{H}_{\max} = \ln(n)
+$$
+\end{solution}
+\part[1] Soit $X:\Omega\mapsto \{1,\ldots, n\}$, une application bijective. Justifier la mesurabilité de $X$ comme application de $(\Omega,\mathcal{P}(\Omega))$ vers $(\{1,\ldots, n\},\mathcal{P}(\{1,\ldots, n\})$.
+\begin{solution}
+Pour tout $k\in\{1,\ldots,n\}$ il existe un unique $x\in\Omega$  tel que 
+$$
+X^{-1}(\{k\}) = \{x\}\in \mathcal{P}(\Omega)
+$$
+comme la tribu des parties de $\{1,\ldots,n\}$ est engendrée par les singletons alors $X$ est mesurable.
+\end{solution}
+\part[1] $X$ est une variable aléatoire au départ de l'espace probabilisé $(\Omega, \mathcal{P}(\Omega), \mu)$, donner sa loi de probabilité. Cette loi de probabilité peut-elle s'écrire comme une mesure à densité, si oui par rapport à quelle mesure?
+\begin{solution}
+La loi de probabilité de $X$ est définie comme la mesure image de $\mu$ par $X$, on note
+$$
+\mathbb{P}_X(k) = \mu(X^{-1}(\{k\}))=\frac{1}{n}.
+$$
+La loi de probabilité de $X$ est absolument continue par rapport à la mesure de comptage sur $\{1,\ldots,n\}$ définie par 
+$$
+\nu(A) = \sum_{k = 1}^n\delta_k(A), \text{ pour tout }A\in\mathcal{P}(\{1,\ldots,n\}),
+$$
+sa densité est donnée par 
+$$
+p_X(k)=\frac{\text{d}\mathbb{P}_X}{\text{d}\nu}(k) = \frac{1}{n}\text{ pour tout }k=1,\ldots, n.
+$$
+\end{solution}
+\part[1] Ecrire l'entropie maximale $\mathcal{H}_{\max}$ comme l'espérance d'une fonction de $X$.
+\begin{solution}
+L'entropie maximale coincide avec $\mathbb{E}(-\ln(p_X(X)))$
+\end{solution}
+\end{parts}
+\question[3] A l'aide du théorème de Beppo Levi, calculer 
+$\lim \int_0^n \left(1-\frac{x}{n}\right)^ne^{\alpha x} \mathrm{d}x$, pour $\alpha <1$.
+
+\emph{Indication} : \'Etudier $g_n\colon x \mapsto (n+1)\mathrm {ln}\left(1-\frac{x}{n+1}\right) - n\mathrm {ln}\left(1-\frac{x}{n} \right)$.
+\begin{solution}
+On remarque que pour tout $x\in [0,n]$, $\frac{f_{n+1}}{f_n}(x)=\exp(g_n(x))$. On étudie donc $g_n$.
+\begin{align*}
+g_n'(x) &= -\frac{1}{1-\frac{x}{n+1}} + \frac{1}{1-\frac{x}{n}} \\
+&= \frac{n(n+1 -x) -(n+1)(n-x)}{(n-x)(n+1-x)} \\
+&=\frac{x}{(n-x)(n+1-x)} \geq 0.
+\end{align*} 
+Donc $g_n$ est croissante et $g_n\geq 0$ et la suite $(f_n)_{n\in \mathbb{N}}$ est croissante.
+
+De plus, on sait que $f_n(x) \to \exp (-x)\exp(\alpha x)$, donc 
+$$\int_0^\infty f_n(x) \mathrm{d}x \to \int_0^\infty e^{(1-\alpha)x} \mathrm{d}x =\frac{1}{1-\alpha}.$$
+\end{solution}
+
+\question  Evaluation de l'intégrale de Gauss et de la fonction gamma par les intégrales de Wallis. 
+	\begin{parts}
+		\part[1] L'intégrale de Wallis est définie par 
+    $$
+    W_n=\int_{0}^{\pi/2}\cos^{n}(\theta)\text{d}\theta,\text{ }n\geq0    
+    $$
+    Montrer que $W_n=\frac{n-1}{n}W_{n-2},\text{ pour }n\geq2$. En déduire que la suite $(nW_nW_{n-1})_{n\geq1}$ est constante, on explicitera cette constante. 
+	\begin{solution} 
+      \begin{eqnarray*}
+      W_n&=&\int_{0}^{\pi/2}\cos(\theta)\cos^{n-1}(\theta)\text{d}\theta\\
+      &\overset{\text IPP}{=}&(n-1)\int_{0}^{\pi/2}\sin^{2}(\theta)\cos^{n-2}(\theta)\text{d}\theta\\
+      &=&(n-1)[W_{n-2}-W_n],
+			\end{eqnarray*}	   
+      puis $W_n=\frac{n-1}{n}W_{n-2}$ après ré-arrangement. On note ensuite que $nW_nW_{n-1}=(n-1)W_{n-1}W_{n-2}$. la suite $(nW_nW_{n-1})$ égale a $W_1W_0=\pi/2$.
+			\end{solution}
+	\part[1] Montrer que 
+    $$
+    W_nW_{n+1}\leq W_{n}^{2}\leq W_nW_{n-1}.
+    $$
+    En déduire l'équivalent en l'infini $W_{n}\sim \sqrt{\frac{\pi}{2n}}$.
+		\begin{solution}
+			On a, pour $\theta\in [0,\pi/2]$, 
+      \begin{eqnarray*}
+      \cos^{n+1}(\theta)\leq& \cos^{n}(\theta)&\leq \cos^{n-1}(\theta)\\
+      W_{n+1}\leq& W_{n}&\leq W_{n-1}\\
+      W_{n+1}W_{n}\leq& W_{n}^{2}&\leq W_{n}W_{n-1}
+      \end{eqnarray*}
+      On écrit ensuite 
+      $$
+      \frac{n}{n+1}(n+1)W_{n+1}W_{n}\leq nW_{n}^{2}\leq nW_{n}W_{n-1}.
+      $$
+      Ce qui implique que   $W_{n}\sim \sqrt{\frac{\pi}{2n}}$. 
+			\end{solution}
+		\part[1] On pose 
+    $$
+    J_n=\int_0^{\sqrt{n}}\left(1-\frac{t^{2}}{n}\right)^{n}\text{d}t
+    $$
+    Montrer que 
+    $$
+    \underset{n\rightarrow +\infty}{\lim} J_n=\int_0^{+\infty}e^{-t^2}\text{d}t. 
+    $$
+			\begin{solution}
+		  Soit $f_n(t)=\left(1-\frac{t^{2}}{n}\right)^{n}\mathbb{I}_{[0,\sqrt{n}]}$ qui converge $t\mapsto e^{-t^{2}}$. De plus $|f_n(t)|<e^{-t^{2}}$, on applique le théorème de convergence dominé pour obtenir 
+      $$
+      \underset{n\rightarrow +\infty}{\lim} J_n=\int_0^{+\infty}e^{-t^2}\text{d}t. 
+      $$
+			\end{solution}
+		\part[1] Exprimer $J_n$ en fonction d'une intégrale de Wallis. En déduire la valeur de l'intégrale de Gauss,
+    $$
+    \int_{0}^{+\infty}e^{-t^2/2}\text{d}t=\frac{1}{2}\sqrt{2\pi}=\sqrt{\pi/2}
+    $$
+			\begin{solution}
+			On note d'abord que $\int_0^{+\infty}e^{-t^{2}/2}\text{d}t=\sqrt{2}\int_0^{+\infty}e^{-t^{2}}\text{d}t$, puis
+      \begin{eqnarray*}
+      J_n&=&\int_0^{\sqrt{n}}\left(1-\frac{t^{2}}{n}\right)^{n}\text{d}t \\
+      &=&\sqrt{n}\int_0^{1}\left(1-u^2\right)^{n}\text{d}u\\
+      &=&\sqrt{n}\int_0^{\pi/2}\cos^{2n+1}(\theta)\text{d}\theta\\
+      &\rightarrow&\sqrt{\pi}/2
+      \end{eqnarray*}
+      On en déduit que 
+      $$
+      \int_{0}^{+\infty}e^{-t^2/2}\text{d}t=\sqrt{\pi/2}.
+      $$
+			\end{solution}
+		\part[1] Connaissant la valeur de l'intégrale de Gauss, montrer que 
+    $$
+    \Gamma(1/2)=\sqrt{\pi},
+    $$
+    où la fonction gamma est définie par 
+    $$
+    \Gamma(z) = \int_{0}^{+\infty}e^{-x}x^{z-1}\text{d}x.
+    $$
+			\begin{solution}
+				\begin{eqnarray*}
+        \Gamma(1/2)&=&\int_{0}^{+\infty}\frac{e^{-t}}{\sqrt{t}}\text{d}t\\
+        &=&2\int_{0}^{+\infty}e^{-u^2}\text{d}u\\
+        &=&\sqrt{\pi}.
+        \end{eqnarray*}
+		\end{solution}
+	\part[1] Connaissant la valeur de l'intégrale de Gauss, évaluer à l'aide d'un changement de variable l'intégrale
+	$$
+	K=\int_{\mathbb{R}^2}e^{-(x-y)^2}e^{-(x+y)^2}\text{d}\lambda(x,y).
+	$$
+	\begin{solution}
+	On effectue le changement de variable suivant
+	$$
+	\begin{cases}
+	u = x-y&\\
+	v=x+y
+	\end{cases}
+	\Rightarrow
+	\begin{cases}
+	x = (u-v)/2&\\
+	v=(u+v)/2
+	\end{cases}
+	$$
+	On définit le $C^1-$ difféomorphisme de $\R^2$ vers $\R^2$
+	$$
+	\phi:(u,v)\mapsto \left(\frac{u-v}{2},\frac{u+v}{2}\right)
+	$$
+	de Jacobien 
+	$$
+	\det\left(\frac{\text{d}\Phi}{\text{d}(u,v)}\right)=\left\lvert\begin{array}{cc}
+	1/2&-1/2\\
+	1/2&1/2
+	\end{array}
+	\right\rvert=1/2.
+	$$
+	On applique la formule de changement de variable pour obtenir
+	\begin{eqnarray*}
+	K&=&\int_{\R^2}e^{-u^2}e^{-v^2}\frac{1}{2}\text{d}\lambda(u,v)\\
+	&=&\int_{\R}e^{-u^2}\text{d}\lambda(u)\int_{\R}e^{-v^2}\text{d}\lambda(v)\\
+	&=&\frac{\pi}{2}
+	\end{eqnarray*}
+	\end{solution}
+	\end{parts}
+\end{questions}
+
+\newpage
+%-------------------------------TABLE-------------------------------
+\hrule
+\vspace*{.15in}
+\begin{center}
+	\large\MakeUppercase{Fonctions Trigonométriques}
+\end{center}
+\vspace*{.15in}
+\hrule
+\vspace*{.25in}
+
+
+\renewcommand\arraystretch{3.5}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Fonction & Ensemble de définition& Dérivée \\
+\hline\hline
+$\sin x$ &$\mathbb{R}$& $\cos x$ \\
+\hline
+$\cos x$ &$\mathbb{R}$& $-\sin x$ \\
+\hline
+$\tan x$ &$\bigcup_{n\in\mathbb{Z}}\left]n\pi-\pi/2, n\pi+\pi/2\right[$ & $1+\tan^2 x$ \\
+\hline
+$\arccos x$ &$[-1,1]$& $-\frac{1}{\sqrt{1-x^2}}$ \\
+\hline
+$\arcsin x$ &$[-1,1]$& $\frac{1}{\sqrt{1-x^2}}$\\
+\hline
+$\arctan x$ &$\mathbb{R}$& $\frac{1}{1+x^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}%
+
+
+
+\end{document}
+
+%%%% Extra problems %%%%--------------------------------------
+
+%\question A coin having probability $0.8$ of landing on heads is flipped.  $A$ observes the result -- either heads or tails -- and rushes off to tell $B$. However, with probability $0.4$, $A$ will have forgotten the result by the time he reaches $B$.  If $A$ has forgotten, then, rather than admitting this to $B$, he is equally likely to tell $B$ that the coin landed on heads or that it landed tails. (If he does remember, then he tells $B$ the correct result).
+%\begin{parts}
+%	\part What is the probability that $B$ is told that the coin landed on heads?
+%	\part What is the probability that $B$ is told the correct result?
+%	\part Given that $B$ is told that the coin landed on heads, what is the probability that it did in fact land on heads?
+%\end{parts}
+
+%\question % Variance, expected value
+%Suppose that $\bP(X=0)=1-\bP(X=1)$.  If $\E[X]=3\Var(X)$, find $\bP(X=0)$.

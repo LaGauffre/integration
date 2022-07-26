@@ -1,0 +1,10 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: TD1.aux
+The style file: plain.bst
+I couldn't open database file Integration_notes.bib
+---line 22 of file TD1.aux
+ : \bibdata{Integration_notes
+ :                           }
+I'm skipping whatever remains of this command
+I found no \citation commands---while reading file TD1.aux
+I found no database files---while reading file TD1.aux
+(There were 3 error messages)

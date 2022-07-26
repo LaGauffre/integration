@@ -1,0 +1,384 @@
+\documentclass[11pt, addpoints, answers]{exam}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin  = 1in]{geometry}
+\usepackage{amsmath, amscd, amssymb, amsthm, verbatim}
+\usepackage{mathabx}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+\shadedsolutions
+\definecolor{SolutionColor}{RGB}{214,240,234}
+
+\newcommand{\bbC}{{\mathbb C}}
+\newcommand{\R}{\mathbb{R}}            % real numbers
+\newcommand{\bbR}{{\mathbb R}}
+\newcommand{\Z}{\mathbb{Z}}            % integers
+\newcommand{\No}{\mathbb{N}}            % integers
+\newcommand{\bbZ}{{\mathbb Z}}
+\newcommand{\bx}{\mathbf x}            % boldface x
+\newcommand{\by}{\mathbf y}            % boldface y
+\newcommand{\bz}{\mathbf z}            % boldface z
+\newcommand{\bn}{\mathbf n}            % boldface n
+\newcommand{\br}{\mathbf r}            % boldface r
+\newcommand{\bc}{\mathbf c}            % boldface c
+\newcommand{\be}{\mathbf e}            % boldface e
+\newcommand{\bE}{\mathbb E}            % blackboard E
+\newcommand{\bP}{\mathbb P}            % blackboard P
+
+\newcommand{\ve}{\varepsilon}          % varepsilon
+\newcommand{\avg}[1]{\left< #1 \right>} % for average
+%\renewcommand{\vec}[1]{\mathbf{#1}} % bold vectors
+\newcommand{\grad}{\nabla }
+\newcommand{\lb}{\langle }
+\newcommand{\rb}{\rangle }
+
+\def\Bin{\operatorname{Bin}}
+\def\Var{\operatorname{Var}}
+\def\Geom{\operatorname{Geom}}
+\def\Pois{\operatorname{Pois}}
+\def\Exp{\operatorname{Exp}}
+\newcommand{\Ber}{\operatorname{Ber}}
+\def\Unif{\operatorname{Unif}}
+\def\No{\operatorname{N}}
+\newcommand{\E}{\mathbb E}            % blackboard E
+\def\th{\theta }            % theta shortcut
+\def\V{\operatorname{Var}}
+\def\Var{\operatorname{Var}}
+\def\Cov{\operatorname{Cov}}
+\def\Corr{\operatorname{Corr}}
+\newcommand{\epsi}{\varepsilon}            % epsilon shortcut
+
+\providecommand{\norm}[1]{\left\lVert#1\right\rVert} %norm
+\providecommand{\abs}[1]{\left \lvert#1\right \rvert} %absolute value
+
+\DeclareMathOperator{\lcm}{lcm}
+\newcommand{\ds}{\displaystyle}	% displaystyle shortcut
+
+\def\semester{2019-2020 }
+\def\course{Théorie de la mesure et intégration}
+\def\title{\MakeUppercase{Examen deuxième session}}
+\def\name{Pierre-O. Goffard}
+%\def\name{Professor Wildman}
+
+\setlength\parindent{0pt}
+
+\cellwidth{.35in} %sets the minimum width of the blank cells to length
+\gradetablestretch{2.5}
+
+%\bracketedpoints
+%\pointsinmargin
+%\pointsinrightmargin
+
+\begin{document}
+
+
+\runningheader{\course  \vspace*{.25in}}{}{\title \vspace*{.25in}}
+%\runningheadrule
+\runningfooter{}{Page \thepage\ of \numpages}{}
+
+% \firstpageheader{Name:\enspace\hbox to 2.5in{\hrulefill}\\  \vspace*{2em} Section: (circle one) TR: 3-3:50 \textbar\, TR: 5-5:50 \textbar\,  TR: 6-6:50(Xu) \textbar\,  TR: 6-6:50 }{}{Perm \#: \enspace\hbox to 1.5in{\hrulefill}\\ \vspace*{2em} Score:\enspace\hbox to .6in{\hrulefill} $/$\numpoints}
+\extraheadheight{.25in}
+
+\hrulefill
+
+\vspace*{1em}
+
+% Heading
+{\center \textsc{\Large\title}\\
+	\vspace*{1em}
+	\course -- \semester\\
+	Pierre-O Goffard\\
+}
+\vspace*{1em}
+
+\hrulefill
+
+\vspace*{2em}
+
+\noindent {\bf\em Instructions:} On éteint et on range son téléphone.
+\begin{itemize}
+	\item La calculatrice et les appareils éléctroniques ne sont pas autorisés.
+	\item Vous devez justifier vos réponses de manière claire et concise.
+	\item Vous devez écrire de la manière la plus lisible possible. Souligner ou encadrer votre réponse finale.
+\end{itemize}
+
+\begin{center}
+	\gradetable[h]
+\end{center}
+
+\smallskip
+
+\begin{questions}
+\question 
+\begin{parts}
+\part[1] Soient $A_1,\ldots, A_n\subset\Omega$, montrer que 
+$$
+\bigcup_{n\geq1}A_n^c  =\left(\bigcap_{n\geq1}A_n\right)^c 
+$$ 
+\begin{solution}
+On procède par double inclusion, 
+\begin{itemize}
+\item Supposons que $x\in \bigcup_{n\geq1}A_n^c $, alors $\exists n\geq1$ tel que $x\in A_n^c$ puis $x\notin A_n$ et donc $x\notin \bigcap_{n\geq1}A_n$, puis finalement $x\in\left(\bigcap_{n\geq1}A_n\right)^c$ 
+\item Supposons que $x\in\left(\bigcap_{n\geq1}A_n\right)^c $ alors $x\notin \bigcap_{n\geq1}A_n$ alors $\exists n\geq1$ tel que $x\notin A_n$, donc $x\in A_n^c$ et finalement $x\in\bigcup_{n\geq1}A_n^c$.
+\end{itemize}
+\end{solution}
+\part[1] Soit $\mu$ une mesure sur l'espace mesurable $(\R,\mathcal{B}_\R)$ de densité 
+$$
+	f_{\mu}(x) = xe^{-x^2/2}\mathbb{I}_{x>0}
+$$ 
+par rapport à la mesure de Lebesgue. Calculer $\mu([0,1])$.
+\begin{solution}
+$1-e^{-1/2}$
+\end{solution}
+\part[1] Montrer que 
+$$
+	0\leq \int_{0}^{2}\frac{e^{-x^2/2}}{\sqrt{2\pi}}\text{d}{x}\leq \frac{2}{\sqrt{2\pi}} 
+$$
+\begin{solution}
+On note que $e^{-x^2/2}<1$ pour $x\in[0,2]$
+\end{solution}
+\end{parts}
+\question 
+	\begin{parts}
+	\part Soit $(\Omega,\mathcal{A}$ une espace mesurable et $x\Omega$. Montrer que l'application 
+	$$
+	\delta_x:\mathcal{A}\mapsto [0,+\infty),
+	$$ 
+	tel que 
+	$$
+		\delta_x(B)=
+		\begin{cases} 
+			1,&\text{ si }x\in B,\\
+			0,&\text{ sinon.}
+		\end{cases} 
+	$$
+	avec $B\in\mathcal{A}$, est une mesure.
+	\begin{solution}
+		\begin{itemize}
+			\item[(i)] $x\notin \emptyset$ donc $\delta_x(\emptyset) = 0$
+			\item[(ii)] Soient $(A_n)_{n\in\No^\ast}\in\mathcal{A}$ une suite d'évènements disjoints. Si $x\in\bigcup_{n\in\No^\ast} A_n$ alors $\exists n\in\No^\ast$ tel que $x\in A_n$ et $x\notin A_m$ pour $m\neq n$ (les $A_n$ sont disjoints). On en déduit que 
+			$$
+				\delta_x\left(\bigcup_{n\in\No^\ast} A_n\right) =1 = \sum_{n\in\No^\ast}\delta_x(A_n).
+			$$
+			De la même façon si $x\notin\bigcup_{n\in\No^\ast} A_n$ alors
+			$$
+				\delta_x\left(\bigcup_{n\in\No^\ast} A_n\right) =0 = \sum_{n\in\No^\ast}\delta_x(A_n).
+			$$
+		\end{itemize}
+	\end{solution}
+	\part[1] Soit $\mu$ une mesure sur l'espace mesurable $(\R,\mathcal{B}_\R)$ de densité 
+	$$
+		f_{\mu}(x) = xe^{-x}\mathbb{I}_{x>0}
+	$$ 
+	par rapport à la mesure de Lebesgue. Calculer $\mu([0,1])$.
+	\begin{solution}
+		$1-2e^{-1}$
+	\end{solution}
+	\part Montrer que 
+	$$
+		0\leq \int_{\pi/4}^{\pi/2}\sin(\ln(1+u))\text{d}u\leq \frac{\sqrt{2}}{2}. 
+	$$
+	\begin{solution}
+		Comme $0\leq \ln(1+u)\leq u$ pour $u\geq0$ et que $u\mapsto \sin(u)$ est croissante pour $u\in(0,\pi/2)$ alors 
+		$$
+			\int_{\pi/4}^{\pi/2}\sin(\ln(1+u))\text{d}u\leq  \int_{\pi/4}^{\pi/2}\sin(u)\text{d}u = \frac{\sqrt 2}{2}
+		$$
+	\end{solution}
+\end{parts}
+\question
+	\begin{parts}
+		\part[1] Montrer que l'application  $x\mapsto \frac{1-e^{-x^2y}}{x^2}$ est intégrable sur $[0,+\infty)$
+		\begin{solution}
+		L'application $f:x\mapsto \frac{1-e^{-x^2y}}{x^2}$ est continue sur $(0,+\infty)$. 
+		\begin{itemize}
+			\item Pour $x\rightarrow 0$, on a $f(x)\rightarrow y$. $f$ est prolongeable par continuité et donc intégrable en $0$
+			\item Pour $x\rightarrow +\infty$, $f(x)\sim 1/x^2$ donc intégrable. 
+		\end{itemize}
+		\end{solution}
+		\part[2] On définit $F(y) =\int_0^{+\infty} f(x,y)\text{d}\lambda(x)$. Montrer que F est dérivable et calculer sa dérivée.
+		\begin{solution}
+		Pour tout $y>0$, l'application est $f:(x,y)\mapsto \frac{1-e^{-x^2y}}{x^2}$  dérivable avec 
+		$$
+			\frac{\partial f}{\partial y}(x,y) = e^{-x^2y}
+		$$
+		et 
+		$$
+			\left|\frac{\partial f}{\partial y}(x,y)\right|<e^{-x^2y_0}	
+		$$
+		où $0<y_0<y$. Comme $x\mapsto e^{-x^2y_0}$ est intégrable alors en appliquant le théorème de dérivation sous l'intégrale, on obtient
+		$$
+			F'(y) = \frac{\sqrt{\pi}}{2\sqrt{y}}.
+		$$
+		\end{solution}
+	\end{parts}
+
+	\question  
+	\begin{parts}
+		\part[1] Calculer la limite
+		$$
+			\underset{n\rightarrow+\infty}{\lim}\int_{0}^1\frac{1}{\sqrt{x}}\sin\left(\frac{1}{nx}\right) \text{d}x.
+		$$
+    
+		\begin{solution} 
+     		Soit la suite de fonction définie par 
+     		$$
+     			f_n(x)=\frac{1}{\sqrt{x}}\sin\left(\frac{1}{nx}\right),\text{ }n\geq0.
+     		$$
+     		Il s'agit d'une fonction intégrable sur $[0,1]$ qui vérifie $|f_n(x)|<x^{-1/2}$. Comme $x\mapsto x^{-1/2}$ est une fonction intégrable sur $[0,1]$ et que $\underset{n\rightarrow\infty}{\lim}f_n(x) = 0$ alors il vient par copnvergence dominée
+     		$$
+     			\underset{n\rightarrow+\infty}{\lim}\int_{0}^1\frac{1}{\sqrt{x}}\sin\left(\frac{1}{nx}\right) \text{d}x = 0.
+     		$$
+		\end{solution}
+	\part[2] Soit $(\Omega, \mathcal{A}, \mu)$ un espace mesuré et $f:(\Omega,\mathcal{A})\mapsto (\R,\mathcal{B}_{\R})$. Montrer que l'application définie par 
+	$$
+		f_{a}(\omega) = 
+		\begin{cases}
+			-a & \text{ si }f(\omega)< -a\\
+			f(\omega)&\text{ si }f(\omega)\in[-a,a]\\
+			a&\text{ si }f(\omega)>a
+		\end{cases} 
+	$$
+	est mesurable. 
+		\begin{solution}
+			$f$ est mesurable car elle peut s'écrire comme combinaison linéaire de fonctions mesurables.  		
+		\end{solution}
+		
+	\end{parts}
+	\question
+	\begin{parts}
+		\part[2] Soit $(\Omega, \mathcal{A}, \mu)$ un espace mesuré et $f:\Omega\mapsto \R_+$ une application mesurable positive. Montrer que l'application définie par 
+		$$
+			\lambda(A) = \int_{A}f\text{d}\mu,\text{ }A\in\mathcal{A}
+		$$
+		est une mesure sur $(\Omega,\mathcal{A})$.
+		\begin{solution}
+		\begin{itemize}
+			\item[(i)] $\lambda(\emptyset) = \int_{\emptyset}f\text{d}\mu = 0$ car $\mu(\emptyset)=0$
+			\item[(ii)] Soit $(A_n)_{n\in\No^{\ast}}$ une suites d'évènements disjoints. On a d'une part 
+			$$
+				\lambda\left(\bigcup_{n\in\No^{\ast}} A_n\right) = \int_{\bigcup_{n\No^{\ast}} A_n} f\text{d}\mu = \int_{\Omega} \sum_{n\in\No^{\ast}}\mathbb{I}_{A_n}f\text{d}\mu
+			$$
+			La suite $f_n = \sum_{k=1}^n\mathbb{I}_{A_k}f$ est une suite croissante de fonctions positives donc par croissance monotone
+			$$
+				\int_{\Omega} \sum_{n\in\No^{\ast}}\mathbb{I}_{A_n}f\text{d}\mu= \int_{\Omega} \lim \sum_{k=1}^n\mathbb{I}_{A_k}f\text{d}\mu=\lim\int_{\Omega}  \sum_{k=1}^n\mathbb{I}_{A_k}f\text{d}\mu=\lim \sum_{k=1}^n\int_{\Omega} \mathbb{I}_{A_k}f\text{d}\mu =\sum_{n\in\No^{\ast}}\lambda(A_n)
+			$$
+		\end{itemize}
+		\end{solution}
+		\part[1] Calculer la limite 
+		$$
+			\underset{n\rightarrow +\infty}{\lim}\int_{(-\infty,+\infty)}e^{1+\cos^{2n}(x)}e^{-|x|}\text{d}\lambda(x). 
+		$$
+		\begin{solution}
+			La suite de fonction $f_n(x) = e^{1+\cos^{2n}(x)}e^{-|x|},\,n\geq0 $ vérifie $|f_n(x)|<e^{1-|x|}$, où $x\mapsto e^{2-|x|}$ est intégrable. Comme $f_n(x)\rightarrow e^{1-|x|}$ lorsque $n\rightarrow+\infty$ alors par convergence dominée
+			$$
+				\underset{n\rightarrow +\infty}{\lim}\int_{(-\infty,+\infty)}e^{1+\cos^{2n}(x)}e^{-|x|}\text{d}\lambda(x)= 2e^1
+			$$
+		\end{solution}
+	\end{parts}
+	\question
+	\begin{parts}
+		\part Soit $(\Omega, \mathcal{A}, \mu)$ un espace mesuré et $(g_n)_{n\geq1}$ une suite de fonctions mesurables à valeur dans $\mathbb{R}_+$. Montrer que 
+		$$
+			\int_{\Omega}\sum_{n=1}^{+\infty}g_n\text{d}\mu = \sum_{n=1}^{+\infty}\int_{\Omega}g_n\text{d}\mu 
+		$$
+		\begin{solution}
+			Voir les notes de cours.
+		\end{solution}
+		\part Monter que 
+		$$
+			\int_{0}^{+\infty}\frac{x^{s-1}}{e^{x}-1}\text{d}x = \Gamma(s)\zeta(s), 
+		$$
+		où $\Gamma(s) = \int_{0}^{+\infty}e^{-x}x^{s-1}\text{d}x$ et $\zeta(s) = \sum_{n=1}^{+\infty}n^{-s}$. 
+		\begin{solution}
+		On a 
+		\begin{eqnarray*}
+			\Gamma(s)\zeta(s) &=& \int_{0}^{+\infty}\sum_{n=1}^{\infty}e^{-x}\left(\frac xn\right)^{s-1}\frac 1n \text{d}x \\
+			&=&\int_{0}^{+\infty}\sum_{n=1}^{\infty}e^{-ny} y^{s-1}\text{d}y\\
+			&=&\int_{0}^{+\infty}\frac{y^{s-1}}{e^x-1}\text{d}y
+		\end{eqnarray*}		
+		\end{solution}
+	\end{parts}
+	\question
+	\begin{parts}
+		\part Calculer l'intégrale
+		$$
+			\int_{(0,+\infty)^2}\frac{1}{(1+x^2y)(1+y)}\text{d}\lambda_{2}(x,y)
+		$$  
+		en intégrant d'abord par rapport à $x$.
+		\begin{solution}
+			$$
+				\int_{0}^{+\infty}\int_{0}^{+\infty}\frac{1}{(1+x^2y)(1+y)}\text{d}x\text{d}y = \frac{\pi^{2}}{4}
+			$$
+		\end{solution}
+		\part En déduire la valeur de l'intégrale 
+		$$
+			\int_{0}^{+\infty}\frac{\ln(x)}{x^2-1}\text{d}x 
+		$$
+		en intégrant par rapport $y$.
+		\begin{solution}
+		\begin{eqnarray*}
+				\int_{0}^{+\infty}\int_{0}^{+\infty}\frac{1}{(1+x^2y)(1+y)}\text{d}y\text{d}x &=&\int_{0}^{+\infty}\int_{0}^{+\infty}\frac{x^2}{(x^2-1)(1+x^2y)}+\frac{1}{(1-x^2)(1+y)}\text{d}y\text{d}x \\
+				&=& \int_{0}^{+\infty}\frac{1}{x^2-1}\left[\ln\left(\frac{1}{1+y}+x^2\frac{y}{1+y}\right)\right]_{0}^{\infty}\text{d}x = 2\int_{0}^{+\infty}\frac{\ln(x)}{x^2-1}\text{d}x
+		\end{eqnarray*}
+		puis $\int_{0}^{+\infty}\frac{\ln(x)}{x^2-1}\text{d}x = \frac{\pi^2}{8}$
+		\end{solution}
+	\end{parts}
+\end{questions}
+
+\newpage
+%-------------------------------TABLE-------------------------------
+\hrule
+\vspace*{.15in}
+\begin{center}
+	\large\MakeUppercase{Fonctions Trigonométriques}
+\end{center}
+\vspace*{.15in}
+\hrule
+\vspace*{.25in}
+
+
+\renewcommand\arraystretch{3.5}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Fonction & Ensemble de définition& Dérivée \\
+\hline\hline
+$\sin x$ &$\mathbb{R}$& $\cos x$ \\
+\hline
+$\cos x$ &$\mathbb{R}$& $-\sin x$ \\
+\hline
+$\tan x$ &$\bigcup_{n\in\mathbb{Z}}\left]n\pi-\pi/2, n\pi+\pi/2\right[$ & $1+\tan^2 x$ \\
+\hline
+$\arccos x$ &$[-1,1]$& $-\frac{1}{\sqrt{1-x^2}}$ \\
+\hline
+$\arcsin x$ &$[-1,1]$& $\frac{1}{\sqrt{1-x^2}}$\\
+\hline
+$\arctan x$ &$\mathbb{R}$& $\frac{1}{1+x^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}%
+
+
+
+\end{document}
+
+%%%% Extra problems %%%%--------------------------------------
+
+%\question A coin having probability $0.8$ of landing on heads is flipped.  $A$ observes the result -- either heads or tails -- and rushes off to tell $B$. However, with probability $0.4$, $A$ will have forgotten the result by the time he reaches $B$.  If $A$ has forgotten, then, rather than admitting this to $B$, he is equally likely to tell $B$ that the coin landed on heads or that it landed tails. (If he does remember, then he tells $B$ the correct result).
+%\begin{parts}
+%	\part What is the probability that $B$ is told that the coin landed on heads?
+%	\part What is the probability that $B$ is told the correct result?
+%	\part Given that $B$ is told that the coin landed on heads, what is the probability that it did in fact land on heads?
+%\end{parts}
+
+%\question % Variance, expected value
+%Suppose that $\bP(X=0)=1-\bP(X=1)$.  If $\E[X]=3\Var(X)$, find $\bP(X=0)$.

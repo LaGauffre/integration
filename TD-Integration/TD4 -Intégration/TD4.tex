@@ -1,0 +1,182 @@
+\documentclass[11pt, answers]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsopn, color}
+\usepackage[margin=1in]{geometry}
+\usepackage{titlesec}
+\usepackage{tipa}
+\usepackage{hyperref}
+
+
+
+% Style
+\setlength\parindent{0pt}
+\shadedsolutions
+
+% Define course info
+\def\semester{2020}
+\def\course{Intégration L3}
+\def\name{Pierre-Olivier Goffard et Colin Jahel}
+%\def\quizdate{10/5, 10/6}
+\def\hwknum{}
+%\def\title{\MakeUppercase{Homework \hwknum -- quiz \quizdate }}
+\def\title{\MakeUppercase{Théorèmes d'intégration}}
+
+% Define commands
+\def\Bin{\operatorname{Bin}}
+\def\Geom{\operatorname{Geom}}
+\def\Pois{\operatorname{Pois}}
+\def\Exp{\operatorname{Exp}}
+\newcommand{\E}{\mathbb E}            % blackboard E
+\newcommand{\bP}{\mathbb P}            % blackboard P
+\newcommand{\Var}{\text{Var}}            % blackboard P
+\newcommand{\Om}{\Omega}            % blackboard P
+\newcommand{\om}{\omega}            % blackboard P
+\newcommand{\N}{\mathbb N}            % blackboard P
+\newcommand{\R}{\mathbb R}            % blackboard P
+\newcommand{\A}{\mathcal A}            % blackboard P
+% \newcommand{\limsup}{\overline{\lim}\,}            % blackboard P
+% \newcommand{\liminf}{\underline{\lim}\,}            % blackboard P
+
+\begin{document}
+
+% Heading
+{\center \textsc{\Large\title}\\
+	\vspace*{1em}
+	\course -- \semester\\
+	\name\\
+	\vspace*{2em}
+	\hrule
+\vspace*{2em}}
+%Fonction intégrable, calcul intégrale, interversions limite intégrale, convergence dominée, lemme Fatou
+\begin{questions}
+
+\question On définit
+\[ \Gamma (x) = \int_0^\infty e^{-t}t^{x-1} \mathrm{d}t, \ x\in ]0,\infty|\]
+et 
+\[ B(a,b)= \int_0^1 x^{a-1}(1-x)^{b-1}\mathrm{d}x,
+\]
+
+où $a$ et $b$ sont strictement positifs.
+\begin{parts}
+\part Montrer que $\Gamma$ est bien définie.
+\part Montrer que $\Gamma$ est dérivable et que
+\[\Gamma ' (x) =\int_0^\infty e^{-t} t^{x-1} \log(t) \mathrm{d}t. \]
+Nous n'utiliserons pas cette question dans la suite, mais elle sert à résoudre l'exercice à la fin des notes de cours.
+
+\part Montrer que $B(a,b)=B(b,a)$ et que
+\[B(a,b)=2\int_0^{\frac{\pi}{2}} \sin^{2a-1} \theta \cos^{2b-1} \theta \mathrm{d}\theta \]
+\part Calculer $B(1/2,1/2)$ et $B(a,1)$.
+\part Montrer que $$B(a,b)=\frac{\Gamma(a) \Gamma(b)}{\Gamma(a+b)}.$$
+
+Indication : Regarder $\Gamma(a) \Gamma(b)$ comme une intégrable double et appliquer le changement de variable $(x,y)\mapsto (x,x+y)$.
+\part En déduire que $\Gamma(a+1)=a\Gamma(a)$, puis calculer $\Gamma(n)$ pour $n$ un entier strictement positif.
+\part En déduire $\Gamma(1/2)=\sqrt{\pi}$ et $\int_0^\infty e^{-x^2} \mathrm{d}x = \frac{\sqrt{\pi}}{2}$.
+\end{parts}
+
+\begin{solution}
+\begin{parts}
+\part Prenons $x\in ]0,\infty[$, sur $]0,1]$, $0<e^{-t}t^{x-1}\leq t^{x-1}$ qui est integrable car $x-1 > -1$, donc $t \mapsto e^{-t}t^{x-1}$ est intégrable. Sur $[1,+\infty[$, $0<e^{-t}t^{x-1}\leq e^{-t}$ qui est intégrable. Donc $t \mapsto e^{-t}t^{x-1}$ est bien intégrable sur $\R_+$.
+
+\part On note $f(t,x)= e^{-t}t^{x-1}$. On a
+\[\frac{\partial f}{\partial x}(x,t) = e^{-t}t^{x-1} \log(t).
+\]
+On remarque que pour $t\in [0,1]$, $|e^{-t}t^{x-1} \log(t)| \leq t^{x/2 -1}$ car $|\log(t)|\leq t^{-x/2}$. Donc $t\mapsto e^{-t}t^{x-1} log(t)$ est intégrable sur $[0,1]$. De plus, pour $t\in [1,+\infty [$, $e^{-t}t^{x-1} \log(t) \leq e^{-t/2}$ car $\log(t)\leq e^{t/2}$, donc $ \frac{\partial f}{\partial x}(x,t)$ est dominée par une application intégrable sur $\R_+$, on peut donc bien appliquer le théorème de dérivation sous le signe intégale et on a le résultat.
+
+\part $B(a,b)=B(b,a)$ via le changement de variable $t\mapsto 1-t$.
+Pour la deuxième égalité, on applique le changement de variable $t \mapsto \sin^2 (\theta)$, on a $\mathrm{d}t = 2\cos (\theta) \sin (\theta)\mathrm{d}\theta$, en applicant la formule de changement de varible, on a bien le résultat.
+
+\part $B(1/2,1/2)=\pi$.
+
+$B(a,1)=1/a$.
+
+\part On suit l'incation de l'énoncé :
+\begin{align*}
+\Gamma(a) \Gamma(b) &= \int_{\R_+}\int_{\R_+} e^{-(x+y)}x^{a-1}y^{b-1} \mathrm{d}x \mathrm{d}y \\
+&=  \int_{\R_+}\int_x^\infty e^{-u} t^{a-1} (u-t)^{b-1} \mathrm{d}u \mathrm{d}t \\
+&= \int_{\R_+} e^{-u} \left( \int_0^u t^{a1} (u-t)^{b-1} \mathrm{d}t \right)  \mathrm{d}u
+\end{align*}
+On fait le changement de variable $t\mapsto lu$ et on obtient :
+\begin{align*}
+\Gamma(a) \Gamma(b) &=  \int_{\R_+} e^{-u} \left( \int_0^1 l^{a-1}u^{a-1} u^{b-1}(1-l)^{b-1} u \mathrm{d}l \right)\mathrm{d}u \\
+&=  \int_{\R_+} e^{-u} u^{a+b-1} \mathrm{d}u \int_0^1 l^{a-1}(1-l)^{b-1} \mathrm{d}l.
+\end{align*}
+
+\part Conséquence de la question (d), on a vu que
+$$B(a,1)=1/a= \frac{\Gamma(a)\Gamma(1)}{\Gamma(a+1)}.$$
+
+Donc $\Gamma(a+1)=\Gamma(1)a\Gamma(a)$, De plus, si on remarque que $\Gamma(1)=1$, on a bien le résultat. Une récurrence simple donne $\Gamma(n)=n!$.
+
+\part Conséquence de la question (d), on a vu que
+$$B(1/2,1/2)=\pi=\frac{(\Gamma(1/2))^2}{\Gamma(1)},$$ donc $\Gamma(1/2)=\sqrt{\pi}$.
+
+De plus $\Gamma(1/2)=\int_0^\infty e^{-t}\frac{1}{\sqrt{t}} \mathrm{d} t$. En posant $u=\sqrt{t}$, on a $\Gamma(1/2)=2 \int_0^\infty e^{-u^2}\mathrm{d}u$, d'où le résultat.
+\end{parts}
+\end{solution}
+
+\question Soit $f \colon \R^d \to \R$ une application mesurable. On note $G=\{(x,f(x)),x\in \R^d\}$ le graphe de $f$.
+\begin{parts}
+\part Montrer que $G\in \mathcal{B}(\R^{d+1})$.
+\part Montrer que $G$ est de mesure nulle pour la mesure de Lebesgue.
+\end{parts} 
+
+\begin{solution}
+\begin{parts}
+\part On considère $g\colon \R^{d+1} \to \R$ telle que $g(x,y)=f(x)-y$ pour tout $x\in \R^d$ et $y\in R$. $g$ est évidemment mesurable, et donc $G=g^{-1}({0})$ est bien mesurable.
+
+\part On calcule $\lambda_{d+1}(G)$ comme une intégrale :
+\begin{align*}
+\lambda_{d+1}(G)&=\int_{R_+} \cdots \int_{R_+} 1_{(x_1,\ldots,x_{d+1})\in G} \mathrm{d}x_1 \ldots \mathrm{d}x_{d+1} \\
+&= \int_{R_+} \cdots \int_{R_+} \left( \int_{R_+} 1_{f(x_1,\ldots,x_d)=x_{d+1}} \mathrm{d}x_{d+1} \right) \mathrm{d}x_1 \ldots \mathrm{d} x_d \\
+&= \int_{R_+} \cdots \int_{R_+} \left( \int_{R_+} \lambda(\{f(x_1,\ldots,x_d)\}) \mathrm{d}x_{d+1} \right) \mathrm{d}x_1 \ldots \mathrm{d} x_d \\
+& = \int_{R_+} \cdots \int_{R_+} \left( \int_{R_+} 0) \mathrm{d}x_{d+1} \right) \mathrm{d}x_1 \ldots \mathrm{d} x_d \\
+&=0
+\end{align*}
+\end{parts}
+\end{solution}
+
+
+\question
+\begin{parts}
+\part Montrer que pour tout $z \geq 0$, $0 \leq 1-e^{-z}\leq z$.
+\part En déduire que pour tout $y>0$, $x\mapsto \frac{1-e^{-x^2 y}}{x^2}$ est intégrable sur $[0,+\infty]$.
+\part On note, pour tout $y>0$,
+\[F(y)=\int_0^\infty \frac{1-e^{-x^2 y}}{x^2}.\]
+
+Montrer que $F$ est dérivable sur $]0,\infty[$ et calculer $F'(y)$.
+
+\part En déduire $F$ à une constante près.
+\part En considérant $(F(1/n))_{n\in \N}$, calculer la constante.
+\end{parts}
+
+
+\begin{solution}
+\begin{parts}
+\part L'inégalité de droite est évidente. On peut déduire l'inégalité de gauche en dérivant $z\mapsto 1-e^{-z}-z$ et en l'évaluant en 0.
+
+\part Lorsque $x\in ]0,1]$, on a $\frac{1-e^{-x^2 y}}{x^2} \leq y$, or $x\mapsto y$ est intégrable sur $[0,1]$. Lorsque $x\in ]1,\infty [$, $\frac{1-e^{-x^2 y}}{x^2} \leq \frac{1}{x^2}$, qui est intégrable.
+
+\part On note $f(x,y)= \frac{1-e^{-x^2 y}}{x^2}$, et on a
+$$\frac{\partial f}{\partial y}(x,y) = e^{-x^2 y}.  $$
+
+Si on prend $y_0>0$, on a pour tout $y>y_0$, 
+$$\left| \frac{\partial f}{\partial y}(x,y) \right| \leq e^{-x^2 y_0}$$
+qui est intégrable. D'après le théorème de dérivation sous le signe intégral, $F$ est dérivable sur $]y_0,\infty[$, donc elle l'est sur $]0,\infty[$. De plus, on a,
+$$F'(y)=\int_0^\infty e^{-x^2y} dx.$$
+
+\part On fait le changement de variable $u=x\sqrt{y}$ dans l'expression de $F'$. On a donc,
+$$ F'(y)=\int_0^\infty e^{-u^2} \frac{1}{\sqrt{y}}\mathrm{d} u.$$
+
+On rappelle que $\int_0^\infty e^{-u^2} \mathrm{d} u=\frac{\sqrt{\pi}}{2}$. Donc on a 
+
+$$F(y)=\sqrt{\pi y}+ C$$
+
+où $C$ est une constante.
+
+\part On note $F(1/n)= \int_0^\infty f_n(x) \mathrm{d}x$, on a donc  $f_n(x)= \frac{1-e^{-\frac{x^2}{n}}}{x^2}$, on remarque que $f_n(x) \to 0$ lorsque $n\to \infty$. De plus $f_n(x) \leq \inf (1,1/x^2)$ donc par le théorème de convergence dominée, on a $F(1/n)\to 0$, en particulier $C=0$.
+\end{parts}
+\end{solution}
+\end{questions}
+
+
+\end{document}

@@ -1,0 +1,336 @@
+\documentclass[11pt, addpoints, answers]{exam}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin  = 1in]{geometry}
+\usepackage{amsmath, amscd, amssymb, amsthm, verbatim}
+\usepackage{mathabx}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+\shadedsolutions
+\definecolor{SolutionColor}{RGB}{214,240,234}
+
+\newcommand{\bbC}{{\mathbb C}}
+\newcommand{\R}{\mathbb{R}}            % real numbers
+\newcommand{\bbR}{{\mathbb R}}
+\newcommand{\Z}{\mathbb{Z}}            % integers
+\newcommand{\bbZ}{{\mathbb Z}}
+\newcommand{\bx}{\mathbf x}            % boldface x
+\newcommand{\by}{\mathbf y}            % boldface y
+\newcommand{\bz}{\mathbf z}            % boldface z
+\newcommand{\bn}{\mathbf n}            % boldface n
+\newcommand{\br}{\mathbf r}            % boldface r
+\newcommand{\bc}{\mathbf c}            % boldface c
+\newcommand{\be}{\mathbf e}            % boldface e
+\newcommand{\bE}{\mathbb E}            % blackboard E
+\newcommand{\bP}{\mathbb P}            % blackboard P
+
+\newcommand{\ve}{\varepsilon}          % varepsilon
+\newcommand{\avg}[1]{\left< #1 \right>} % for average
+%\renewcommand{\vec}[1]{\mathbf{#1}} % bold vectors
+\newcommand{\grad}{\nabla }
+\newcommand{\lb}{\langle }
+\newcommand{\rb}{\rangle }
+
+\def\Bin{\operatorname{Bin}}
+\def\Var{\operatorname{Var}}
+\def\Geom{\operatorname{Geom}}
+\def\Pois{\operatorname{Pois}}
+\def\Exp{\operatorname{Exp}}
+\newcommand{\Ber}{\operatorname{Ber}}
+\def\Unif{\operatorname{Unif}}
+\def\No{\operatorname{N}}
+\newcommand{\E}{\mathbb E}            % blackboard E
+\def\th{\theta }            % theta shortcut
+\def\V{\operatorname{Var}}
+\def\Var{\operatorname{Var}}
+\def\Cov{\operatorname{Cov}}
+\def\Corr{\operatorname{Corr}}
+\newcommand{\epsi}{\varepsilon}            % epsilon shortcut
+
+\providecommand{\norm}[1]{\left\lVert#1\right\rVert} %norm
+\providecommand{\abs}[1]{\left \lvert#1\right \rvert} %absolute value
+
+\DeclareMathOperator{\lcm}{lcm}
+\newcommand{\ds}{\displaystyle}	% displaystyle shortcut
+
+\def\semester{2021-2022 }
+\def\course{Théorie de la mesure et intégration}
+\def\title{\MakeUppercase{Examen de deuxième session}}
+\def\name{Pierre-O. Goffard}
+%\def\name{Professor Wildman}
+
+\setlength\parindent{0pt}
+
+\cellwidth{.35in} %sets the minimum width of the blank cells to length
+\gradetablestretch{2.5}
+
+%\bracketedpoints
+%\pointsinmargin
+%\pointsinrightmargin
+
+\begin{document}
+
+
+\runningheader{\course  \vspace*{.25in}}{}{\title \vspace*{.25in}}
+%\runningheadrule
+\runningfooter{}{Page \thepage\ of \numpages}{}
+
+% \firstpageheader{Name:\enspace\hbox to 2.5in{\hrulefill}\\  \vspace*{2em} Section: (circle one) TR: 3-3:50 \textbar\, TR: 5-5:50 \textbar\,  TR: 6-6:50(Xu) \textbar\,  TR: 6-6:50 }{}{Perm \#: \enspace\hbox to 1.5in{\hrulefill}\\ \vspace*{2em} Score:\enspace\hbox to .6in{\hrulefill} $/$\numpoints}
+\extraheadheight{.25in}
+
+\hrulefill
+
+\vspace*{1em}
+
+% Heading
+{\center \textsc{\Large\title}\\
+	\vspace*{1em}
+	\course -- \semester\\
+	Pierre-O Goffard\\
+}
+\vspace*{1em}
+
+\hrulefill
+
+\vspace*{2em}
+
+\noindent {\bf\em Instructions:} On éteint et on range son téléphone.
+\begin{itemize}
+	\item La calculatrice et les appareils éléctroniques ne sont pas autorisés.
+	\item Vous devez justifier vos réponses de manière claire et concise.
+	\item Vous devez écrire de la manière la plus lisible possible. Souligner ou encadrer votre réponse finale.
+	\item \underline{Document autorisé:} Une feuille manuscrite recto-verso
+\end{itemize}
+
+\begin{center}
+	\gradetable[h]
+\end{center}
+
+\smallskip
+
+\begin{questions}
+\question Question de cours indépendantes
+\begin{parts}
+\part[2] Soit $f:\Omega\mapsto \overline{\mathbb{R}}$ une application mesurable et intégrable par rapport à une mesure $\mu$. Montrer que l'ensemble $\{f = \infty\}$ est de mesure nulle, autrement dit que $f$ est finie $\mu-pp$. 
+\begin{solution}
+Il s'agit d'un résultat du cours.
+\end{solution}
+\part[2] Soient $\alpha, \beta>0$ et $\Delta = \{(x,y)\in \mathbb{R}^2\text{ ; }0<x<y\}$. Calculer
+\[
+\int_{\mathbb{R}^2}e^{-\alpha x}e^{-\beta x}\mathbb{I}_\Delta(x,y)\text{d}\lambda(x,y).
+\]
+\begin{solution}
+$$
+\frac{1}{\beta(\alpha + \beta)}
+$$
+\end{solution}
+\part[2]Calculer 
+\[
+\underset{n\rightarrow+\infty}{\lim}\int_{0}^{+\infty}\frac{4t^3+12}{12t^6+3nt + 2}\text{d}t.
+\]
+\begin{solution}
+On définit $f_n(t) = \frac{4t^3+12}{12t^6+3nt + 2}$, on a 
+$$
+|f_n(t)|\leq \frac{4t^3+12}{12t^6+ 2}\text{, pour tout }n\geq0
+$$
+Par application du théorème de convergence dominée, il vient 
+\[
+\int f_n(t)\text{d}t\rightarrow 0\text{ pour }n\rightarrow +\infty.
+\]
+\end{solution}
+\end{parts}
+\question Soit $f:\mathbb{R}^d\mapsto \mathbb{R}_+$ une fonction mesurable tel que $0<\int_{\mathbb{R}^d} f\text{d}\lambda<\infty$ où $\lambda$ désigne la mesure de Lebesgue sur $\mathbb{R}^d$. Soit $\alpha>0$ un paramètre, on définit la suite 
+$$
+a_n = \int_{\mathbb{R^d}} n\log\left[1+\left(\frac{f(x)}{n}\right)^\alpha\right]\text{d}\lambda(x),\text{ }n\geq1.
+$$
+\begin{parts}
+\part[1] Montrer que 
+$$
+\lambda\left(\{x\in\mathbb{R}^d\text{ : }f(x)\neq0\}\right)>0.
+$$
+\begin{solution}
+Par le cours nous avons l'équivalence
+$$
+\int f\text{d}\lambda = 0\Leftrightarrow f = 0 \text{ }\lambda-pp
+$$
+Ici comme $\int f\text{d}\lambda >0$ alors par contraposée $f$ n'est pas nulle presque partout. 
+\end{solution}
+\part[1] Montrer que 
+$$
+\underset{n\rightarrow\infty}{\lim}a_n = \infty,
+$$
+pour $\alpha<1$.\\
+\underline{Hint:} Penser au Lemme de Fatou
+\begin{solution}
+La suite de fonction 
+$$
+f_n(x) = n\log\left[1+\left(\frac{f(x)}{n}\right)^\alpha\right]
+$$
+est une suite de fonction mesurable positve. Le lemme de Fatou s'applique, nous avons donc
+$$
+\int \liminf f_n\text{d}\lambda < \liminf \int  f_n\text{d}\lambda
+$$ 
+Or $f_n(x)\sim n^{1-\alpha}f(x)\rightarrow +\infty $ pour $n\rightarrow \infty$ et $x\in\mathbb{R}^d$. On en déduit que 
+$ \liminf \int  f_n\text{d}\lambda = \infty$ et donc $\underset{n\rightarrow\infty}{\lim}a_n = \infty$. 
+\end{solution}
+
+\part[1] Montrer que 
+$$
+\underset{n\rightarrow\infty}{\lim}a_n = \int_{\mathbb{R}^d} f\text{d}\lambda,
+$$
+pour $\alpha=1$.
+\begin{solution}
+Pour $x\geq 0$, nous avons l'inégalité $\log(1+x)\leq x$. Nous en déduisons que 
+$$
+|f_n(x)|\leq f(x).
+$$ 
+De plus comme $f_n(x)\rightarrow f(x)$ alors il vient 
+$$
+\underset{n\rightarrow\infty}{\lim}a_n = \int_{\mathbb{R}^d} f\text{d}\lambda,
+$$
+par convergence dominée.
+
+\end{solution}
+\part[2] Montrer que 
+$$
+\underset{n\rightarrow\infty}{\lim}a_n = 0,
+$$
+pour $\alpha>1$.\\
+
+\underline{Hint:} On peut commencer par démontrer que la fonction $y\mapsto \frac{\log(1+y^\alpha)}{y}$ est bornée sur $\mathbb{R}_+$.
+\end{parts}
+
+\begin{solution}
+Pour $x\in (0,\infty)$ la fonction $y\mapsto \frac{\log(1+y^\alpha)}{y}$ est continue. De plus on a 
+$$
+\frac{\log(1+y^\alpha)}{y}\sim y^{\alpha-1}\rightarrow 0\text{ pour }y\rightarrow 0
+$$
+et
+$$
+\frac{\log(1+y^\alpha)}{y}\rightarrow 0\text{ pour }y\rightarrow \infty
+$$
+On en déduit (en vertu de la continuité de la fonction et le fait que en $0$ et $\infty$ la limite soit $0$) l'existence d'une constante $C_\alpha$ tel que 
+$$
+\frac{\log(1+y^\alpha)}{y} <C_\alpha.
+$$
+En prenant $y = f(x)/n$, on obtient que 
+$$
+|f_n(x)|<f(x)
+$$
+puis 
+$$
+\underset{n\rightarrow\infty}{\lim}a_n = 0
+$$
+par convergence dominée.
+\end{solution}
+\question Soit $f:\mathbb{R}_+\mapsto \overline{\mathbb{R}}$ une fonction mesurable et intégrable par rapport à la mesure de Lebesgue $\lambda$. La transformée de Laplace de la fonction $f$ est définie par 
+$$
+L_f(t) = \int_{\mathbb{R}_+}e^{-tx}f(x)\text{d}\lambda(x),\text{ pour }t\geq0.
+$$
+\begin{parts}
+\part[1] Montrer que $x\mapsto e^{-tx}f(x)$ est mesurable pour tout $t\in\mathbb{R}_+$.
+\begin{solution}
+Il s'agit du produit de deux fonctions mesurables.
+\end{solution}
+\part[1] Montrer que $t\mapsto L_f(t)$ est une fonction continue.
+\begin{solution}
+Soit $g(x,t) = e^{-tx}f(x)$, l'application $t\mapsto e^{-tx}f(x)$ est continue pour tout $x\geq0$, de plus on a 
+$$
+|g(x,t)|\leq|f(x)|.
+$$
+On en déduit la continuité de $L_f(t)$ en vertu du théorème de continuité de l'intégrale dépendant d'un paramètre.
+\end{solution}
+\part[2] Montrer que $\underset{t\rightarrow+\infty}{\lim}L_f(t) = 0$.
+\begin{solution}
+Grâce à la continuité de $t\mapsto L_f(t)$, nous pouvons montrer que $\underset{n\rightarrow\infty}{\lim} L_f(t_n)= 0$ pour une suite $(t_n)_{n\geq 0}$ telle que $t_n\rightarrow\infty$. Considérons une telle suite et définissons la suite de fonctions
+$$
+f_n(x) = e^{-t_n x }f(x)
+$$
+Comme $f(x)$ est fini $\lambda-pp$ (voir a)) alors $f_n(x)\rightarrow 0$ pour $n\rightarrow \infty$ $\lambda-pp$. De plus, on a 
+$$
+|f_n(x)|\leq |f(x)|.
+$$
+Par application du théorème de convergence dominé, il vient 
+$$
+\underset{t\rightarrow+\infty}{\lim}L_f(t) = 0.
+$$
+\end{solution}
+\part[1] Donner l'expression de $L_f(t)$ pour $f(x) = e^{-\theta x}$ avec $\theta >0$.
+\begin{solution}
+$$
+L_f(t) = \frac{1}{t+\theta}.
+$$
+\end{solution}
+\part[1] De même pour $f(x) = \sin(x)\mathbb{I}_{[0, 1]}(x)$.
+\begin{solution}
+$$
+L_f(t)  = \Im\int_0^1 e^{-x(t-i)}\text{d}x  =\frac{1-e^{-t}(\cos1 + t\sin1)}{1+t^2} .
+$$
+\end{solution}
+\end{parts}
+\end{questions}
+
+\newpage
+%-------------------------------TABLE-------------------------------
+\hrule
+\vspace*{.15in}
+\begin{center}
+	\large\MakeUppercase{Fonctions Trigonométriques}
+\end{center}
+\vspace*{.15in}
+\hrule
+\vspace*{.25in}
+
+
+\renewcommand\arraystretch{3.5}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Fonction & Ensemble de définition& Dérivée \\
+\hline\hline
+$\sin x$ &$\mathbb{R}$& $\cos x$ \\
+\hline
+$\cos x$ &$\mathbb{R}$& $-\sin x$ \\
+\hline
+$\tan x$ &$\bigcup_{n\in\mathbb{Z}}\left]n\pi-\pi/2, n\pi+\pi/2\right[$ & $1+\tan^2 x$ \\
+\hline
+$\arccos x$ &$[-1,1]$& $-\frac{1}{\sqrt{1-x^2}}$ \\
+\hline
+$\arcsin x$ &$[-1,1]$& $\frac{1}{\sqrt{1-x^2}}$\\
+\hline
+$\arctan x$ &$\mathbb{R}$& $\frac{1}{1+x^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}%
+\underline{Quelques identités}: Pour $a,b\in\mathbb{R}$,\\
+$$
+\cos(a+b) = \cos(a)\cos(b)-\sin(a)\sin(b)
+$$
+$$
+\sin(a+b) = \sin(a)\cos(b)+\cos(a)\sin(b)
+$$
+$$
+\cos^2(a)+\sin^2(a) = 1
+$$
+\underline{Quelques développement en série entière}: Pour tout $x\in\mathbb{R}$,\\
+$$
+\cos(x) = \sum_{n = 0}^\infty\frac{(-1)^nx^{2n}}{(2n)!},
+$$
+et pour $p\in [0,1)$
+$$
+\frac{1}{1-p}=\sum_{n=0}^\infty p^n
+$$
+
+
+
+\end{document}
+

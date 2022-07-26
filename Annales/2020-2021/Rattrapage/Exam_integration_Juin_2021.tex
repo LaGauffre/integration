@@ -1,0 +1,331 @@
+\documentclass[11pt, addpoints, answers]{exam}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin  = 1in]{geometry}
+\usepackage{amsmath, amscd, amssymb, amsthm, verbatim}
+\usepackage{mathabx}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+\shadedsolutions
+\definecolor{SolutionColor}{RGB}{214,240,234}
+
+\newcommand{\bbC}{{\mathbb C}}
+\newcommand{\R}{\mathbb{R}}            % real numbers
+\newcommand{\bbR}{{\mathbb R}}
+\newcommand{\Z}{\mathbb{Z}}            % integers
+\newcommand{\bbZ}{{\mathbb Z}}
+\newcommand{\bx}{\mathbf x}            % boldface x
+\newcommand{\by}{\mathbf y}            % boldface y
+\newcommand{\bz}{\mathbf z}            % boldface z
+\newcommand{\bn}{\mathbf n}            % boldface n
+\newcommand{\br}{\mathbf r}            % boldface r
+\newcommand{\bc}{\mathbf c}            % boldface c
+\newcommand{\be}{\mathbf e}            % boldface e
+\newcommand{\bE}{\mathbb E}            % blackboard E
+\newcommand{\bP}{\mathbb P}            % blackboard P
+
+\newcommand{\ve}{\varepsilon}          % varepsilon
+\newcommand{\avg}[1]{\left< #1 \right>} % for average
+%\renewcommand{\vec}[1]{\mathbf{#1}} % bold vectors
+\newcommand{\grad}{\nabla }
+\newcommand{\lb}{\langle }
+\newcommand{\rb}{\rangle }
+
+\def\Bin{\operatorname{Bin}}
+\def\Var{\operatorname{Var}}
+\def\Geom{\operatorname{Geom}}
+\def\Pois{\operatorname{Pois}}
+\def\Exp{\operatorname{Exp}}
+\newcommand{\Ber}{\operatorname{Ber}}
+\def\Unif{\operatorname{Unif}}
+\def\No{\operatorname{N}}
+\newcommand{\E}{\mathbb E}            % blackboard E
+\def\th{\theta }            % theta shortcut
+\def\V{\operatorname{Var}}
+\def\Var{\operatorname{Var}}
+\def\Cov{\operatorname{Cov}}
+\def\Corr{\operatorname{Corr}}
+\newcommand{\epsi}{\varepsilon}            % epsilon shortcut
+
+\providecommand{\norm}[1]{\left\lVert#1\right\rVert} %norm
+\providecommand{\abs}[1]{\left \lvert#1\right \rvert} %absolute value
+
+\DeclareMathOperator{\lcm}{lcm}
+\newcommand{\ds}{\displaystyle}	% displaystyle shortcut
+
+\def\semester{2020-2021 }
+\def\course{Théorie de la mesure et intégration}
+\def\title{\MakeUppercase{Examen Deuxième Session }}
+\def\name{Pierre-O. Goffard}
+%\def\name{Professor Wildman}
+
+\setlength\parindent{0pt}
+
+\cellwidth{.35in} %sets the minimum width of the blank cells to length
+\gradetablestretch{2.5}
+
+%\bracketedpoints
+%\pointsinmargin
+%\pointsinrightmargin
+
+\begin{document}
+
+
+\runningheader{\course  \vspace*{.25in}}{}{\title \vspace*{.25in}}
+%\runningheadrule
+\runningfooter{}{Page \thepage\ of \numpages}{}
+
+% \firstpageheader{Name:\enspace\hbox to 2.5in{\hrulefill}\\  \vspace*{2em} Section: (circle one) TR: 3-3:50 \textbar\, TR: 5-5:50 \textbar\,  TR: 6-6:50(Xu) \textbar\,  TR: 6-6:50 }{}{Perm \#: \enspace\hbox to 1.5in{\hrulefill}\\ \vspace*{2em} Score:\enspace\hbox to .6in{\hrulefill} $/$\numpoints}
+\extraheadheight{.25in}
+
+\hrulefill
+
+\vspace*{1em}
+
+% Heading
+{\center \textsc{\Large\title}\\
+	\vspace*{1em}
+	\course -- \semester\\
+	Pierre-O Goffard\\
+}
+\vspace*{1em}
+
+\hrulefill
+
+\vspace*{2em}
+
+\noindent {\bf\em Instructions:} On éteint et on range son téléphone.
+\begin{itemize}
+	\item La calculatrice et les appareils éléctroniques ne sont pas autorisés.
+	\item Vous devez justifier vos réponses de manière claire et concise.
+	\item Vous devez écrire de la manière la plus lisible possible. Souligner ou encadrer votre réponse finale.
+\end{itemize}
+
+\begin{center}
+	\gradetable[h]
+\end{center}
+
+\smallskip
+
+\begin{questions}
+\question[1] Soient $(\Omega_i,\mathcal{A}_i),\text{ }i = 1,2,3, $ trois espaces mesurables. Soient $f:\Omega_1\mapsto\Omega_2$ et $g:\Omega_2\mapsto\Omega_3$ deux applications mesurables. Monter que l'application $g\circ f$ est une application mesurable de $(\Omega_1,\mathcal{A}_1)$ vers $(\Omega_3,\mathcal{A}_3)$
+\begin{solution}
+Voir le cours
+\end{solution}
+\question
+\begin{parts}
+\part[1] Soit $(\Omega,\mathcal{A}, \mu)$ un espace mesurable et $B\in \mathcal{A}$ tel que $0<\mu(B)<\infty$. Montrer que l'application 
+$$
+\mu_B(A) = \frac{\mu(A\cap B)}{\mu(B)},\text{ }A\in \mathcal{A},
+$$ 
+est une mesure de probabilité.
+\begin{solution}
+Voir le cours
+\end{solution}
+\part[2] Supposons que $\Omega = \mathbb{N}$, $\mathcal{A} = \mathcal{P}(\mathbb{N})$ et  
+$$
+\mu = \sum_{k = 1}^\infty\frac{1}{2^k}\delta_k 
+$$
+où $\delta_k$ est la mesure de Dirac en $k\in\mathbb{N}$, définie par
+$$
+\delta_k(A) = \begin{cases}1&\text{ si }k\in A\\
+0&\text{ sinon}
+\end{cases}
+$$
+pour $A\in\mathcal{P}(\mathbb{N})$. Soit $B = 2\mathbb{N}$ (les entiers pairs). Calculer $\mu(B)$ et montrer que 
+$$
+\mu_B = \sum_{k = 1}^\infty\frac{3}{4^k}\delta_{2k}. 
+$$
+\begin{solution}
+On a 
+$$
+\mu(B) =  \mu\left(\bigcup_{n\in\mathbb{N}^\ast}\{2k\}\right) =\sum_{n\in\mathbb{N}^\ast}\frac{1}{4^k} = \frac{1}{4}\frac{1}{1-1/4} = 1/3 
+$$
+Soit $A\in\mathcal{A}$ alors 
+$$
+\mu_B(A) = 3\sum_{n\in\mathbb{N}^\ast}\frac{1}{2^{2k}}\delta_{2k}(A) = \sum_{n\in\mathbb{N}^\ast}\frac{3}{4^{k}}\delta_{2k}(A)
+$$
+\end{solution}
+\end{parts}
+
+\question L'objectif est de montrer que
+$$
+\int_{0}^1\frac{\text{d}x}{x^x} = \sum_{n=1}^\infty\frac{1}{n^n}
+$$ 
+\begin{parts}
+\part[1] Montrer que $x\mapsto 1/x^x\mathbb{I}_{\left]0, 1\right[}$ est intégrable.
+\begin{solution}
+Il s'agit d'une fonction continue sur un intervalle borné.
+\end{solution}
+\part[2] Montrer que (en justifiant les étapes)
+$$
+\int_{0}^1\frac{\text{d}x}{x^x} = \sum_{n=0}^\infty\int_{0}^1\frac{(-x\ln x)^n }{n!}\text{d}x
+$$ 
+\begin{solution}
+On a 
+$$
+\int_{0}^1\frac{\text{d}x}{x^x} = \int_{0}^1\sum_{n=0}^\infty\frac{(-x\ln x)^n }{n!}\text{d}x
+$$
+On inverse ensuite les signes somme et intégrale via le théorème de Beppo-Lévi (convergence monotone)
+\end{solution}
+\part[2] Pour tout $(m,n)\in \mathbb{N}\times \mathbb{N}^\ast$, on pose
+$$
+I_{m,n} = \int_{0}^1 x^n(\ln x)^m\text{d}x
+$$
+Montrer par récurrence sur $m\in\mathbb{N}$ que 
+$$
+I_{m,n} = (-1)^m\frac{m!}{(n+1)^{m+1}}.
+$$ 
+\begin{solution}
+On a 
+$$
+I_{0,n}=\frac{1}{n+1}
+$$
+donc la propriété est vérifiée au rang $0$. Supposons la propriété vérifiée au rang $m$, qu'en est il au rang $n+1$? On a 
+$$
+I_{m+1,n} = \int_{0}^1 x^{n}(\ln x)^{m+1}\text{d}x\overset{IPP}{=}-\frac{m+1}{n+1}\int_{0}^1 x^{n}(\ln x)^{m}\text{d}x=(-1)^{m+1}\frac{(m+1)!}{(n+1)^{m+1}}
+$$
+et la propriété est vérifiée au rang $m+1$.
+
+\end{solution}
+\part[1] Conclure.
+\begin{solution}
+On remarque que 
+$$
+\sum_{n=0}^\infty\int_{0}^1\frac{(-x\ln x)^n }{n!}\text{d}x = \sum_{n=0}^\infty I_{n,n} =  \sum_{n=1}^\infty\frac{1}{n^n}.
+$$ 
+\end{solution}
+\end{parts}
+\question[2] Calculer, en justifiant, 
+$$
+\underset{n\rightarrow\infty}{\lim}\int_{\left[0,\infty\right[}\frac{e^{-n x ^2}}{n}\text{d}\lambda(x).
+$$
+\begin{solution}
+Les fonctions
+$$
+f_n(x) = \frac{e^{-n x ^2}}{n}, \text{ }n\geq0,
+$$
+sont intégrables et converge simplement vers $0$. De plus, on a $|f_n(x)|<e^{-x}$. On en déduit par convergence dominée que 
+$$
+\underset{n\rightarrow\infty}{\lim}\int_{\left[0,\infty\right[}\frac{e^{-n x ^2}}{n}\text{d}\lambda(x)=0.
+$$
+
+\end{solution}
+\question Pour $n\geq1$ et $x>0$, on pose 
+$$
+I_n(x) = \int_{0}^\infty\frac{\text{dt}}{(x^2+t^2)^n}
+$$
+\begin{parts}
+\part[1] Calculer $I_1(x)$
+\begin{solution}
+$$
+I_1(x) = \frac{\pi}{2x}
+$$
+\end{solution}
+\part[1] Montrer que $x\mapsto I_n(x)$ est continue 
+\begin{solution}
+On note $f(t,x) = (x^2+t^2)^{-n}$. La fonction $t\mapsto f(t,x)$ est intégrable sur $(0,+\infty)$. De plus $f(t,x)< t^{-2}$ pour tout $x>0$ donc $I_n(x)$ est continue.
+\end{solution}
+\part[2] Montrer que $x\mapsto I_n(x)$ est dérivable et trouver une relation entre $I_n'(x)$ et $I_{n+1}(x)$.
+\begin{solution}
+La fonction $t\mapsto \frac{\partial}{\partial x}f(t,x) = -2nx^2(t^2+x^2)^{-n-1}$ est intégrable sur $(0,\infty)$ et pour $x\in[a,b]$ avec $0<a<b<\infty$ on a 
+$$
+\left\rvert\frac{\partial}{\partial x}f(t,x)\right\rvert \leq \frac{2bn}{(a^2+t^2)^{n+1}}
+$$
+On peut choisir $a$ et $b$ arbitrairement proche de $0$ et $\infty$ respectivement donc $I_n(x)$ est bien dérivable. On a de plus 
+
+$$
+I_n'(x) = -nx I_n(x)\text{ (IPP)}
+$$
+\end{solution}
+\part[2] Montrer par récurrence l'existence d'une suite $(\lambda_n)_{n\geq1}$ telle que 
+$$
+I_n(x) = \frac{\lambda_n}{x^{2n-1}},
+$$
+Donner la valeur de $\lambda_n$ en fonction de $n$ (avec des factoriels).
+\begin{solution}
+Au rang $1$, la propriété est vérifié avec $\lambda_1 = \pi/2$. Supposons la propriété vérifiée au rang $n$, qu'en est il au rang $n+1$? On a 
+$$
+I_{n+1}(x) = -\frac{I_n'(x)}{nx} = \lambda_n\frac{2n-1}{n}\frac{1}{x^{2n+1}}.
+$$
+La propritété est vérifiée au rang $n+1$. On a 
+$$
+\lambda_n = \frac{2n-3}{n-1}\lambda_{n-1}\lambda_{n-1} = \frac{(2n-2)!}{2^{n-1}(n-1)!}\frac{\pi}{2}
+$$
+\end{solution}
+\end{parts}
+\question[2] Calculer l'intégrale
+$$
+\int\int_{\mathcal{D}}\frac{3y}{\sqrt{1+(x+y)^3}}\text{d}\lambda(x,y),
+$$
+où $\mathcal{D} = \{x,y>0\text{ }x+y < a\}$, avec $a\in\mathbb{R}$. On pourra utiliser le changement de variable
+$(u,v):=(x,y)\mapsto \phi(x,y) = (x+y, x-y)$.
+\begin{solution}
+On applique la formule de changement de variable
+$$
+\int\int_{\mathcal{D}}\frac{3y}{\sqrt{1+(x+y)^3}}\text{d}\lambda(x,y) = \frac{3}{4}\int_{0}^a\int_{0}^u\frac{u-v}{\sqrt{1+u^3}}\text{d}\lambda(u,v) = \frac{\sqrt{1+a^3}-1}{4}
+$$
+\end{solution}
+
+
+
+% \begin{parts}
+% \part df
+% \end{parts}
+\end{questions}
+
+\newpage
+%-------------------------------TABLE-------------------------------
+\hrule
+\vspace*{.15in}
+\begin{center}
+	\large\MakeUppercase{Fonctions Trigonométriques}
+\end{center}
+\vspace*{.15in}
+\hrule
+\vspace*{.25in}
+
+
+\renewcommand\arraystretch{3.5}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Fonction & Ensemble de définition& Dérivée \\
+\hline\hline
+$\sin x$ &$\mathbb{R}$& $\cos x$ \\
+\hline
+$\cos x$ &$\mathbb{R}$& $-\sin x$ \\
+\hline
+$\tan x$ &$\bigcup_{n\in\mathbb{Z}}\left]n\pi-\pi/2, n\pi+\pi/2\right[$ & $1+\tan^2 x$ \\
+\hline
+$\arccos x$ &$[-1,1]$& $-\frac{1}{\sqrt{1-x^2}}$ \\
+\hline
+$\arcsin x$ &$[-1,1]$& $\frac{1}{\sqrt{1-x^2}}$\\
+\hline
+$\arctan x$ &$\mathbb{R}$& $\frac{1}{1+x^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}%
+\underline{Quelques identités}: Pour $a,b\in\mathbb{R}$,\\
+$$
+\cos(a+b) = \cos(a)\cos(b)-\sin(a)\sin(b)
+$$
+$$
+\sin(a+b) = \sin(a)\cos(b)+\cos(a)\sin(b)
+$$
+$$
+\cos^2(a)+\sin^2(a) = 1
+$$
+
+
+\end{document}
+

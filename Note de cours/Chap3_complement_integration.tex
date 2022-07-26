@@ -1,0 +1,1054 @@
+\documentclass[8pt,notheorems]{beamer}
+\usetheme{Copenhagen}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+% \usepackage{tkz-graph}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{relsize}
+\usepackage{amsmath,amsfonts,amsthm,t1enc}
+\usepackage{fourier}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{automata,arrows,positioning,calc}
+\setbeamertemplate{footline}{\hfill \insertframenumber/\inserttotalframenumber}
+% \setbeamertemplate{headline}{}
+\def \si {\sigma}
+\def \la {\lambda}
+\def \al {\alpha}
+% \def\e*{\end{eqnarray*}}
+\def \di{\displaystyle}
+
+\def \E{\mathbb E}
+\def \N{\mathbb N}
+\def \R{\mathbb{R}}
+\def \A{\mathcal{A}}
+\def \Om{\Omega}
+\def \om{\omega}
+\def \Bor{\mathcal{B}(\mathbb{R})}
+\def \limsup{\underset{n\rightarrow+\infty}{\overline{\lim}}}
+\def \liminf{\underset{n\rightarrow+\infty}{\underline{\lim}}}
+
+\def \NZ{\mathbb{N}_0}
+\def \I{\mathbb I}
+\def \w{\widehat}
+\def \P {\mathbb P}
+\def \V{\mathbb V}
+
+
+
+\newcommand{\CL}{\mathbb{C}}
+\newcommand{\RL}{\mathbb{R}}
+\newcommand{\nat}{{\mathbb N}}
+\newcommand{\Laplace}{\mathscr{L}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\ve}{\bm{\mathrm{e}}} % vector e
+
+\renewcommand{\L}{\mathcal{L}} % e.g. L^2 loss.
+
+\newcommand{\ih}{\mathrm{i}}
+\newcommand{\oh}{{\mathrm{o}}}
+\newcommand{\Oh}{{\mathcal{O}}}
+\newcommand{\Exp}{\mathbb{E}}
+
+\newcommand{\Norm}{\mathcal{N}}
+\newcommand{\LN}{\mathcal{LN}}
+\newcommand{\SLN}{\mathcal{SLN}}
+
+\renewcommand{\Pr}{\mathbb{P}}
+\newcommand{\Ind}{\mathbb I}
+\newcommand\bfsigma{\bm{\sigma}}
+\newcommand\bfSigma{\bm{\Sigma}}
+\newcommand\bfLambda{\bm{\Lambda}}
+\newcommand{\stimes}{{\times}}
+
+\setbeamertemplate{theorem}[ams style]
+\setbeamertemplate{theorems}[numbered]
+%\makeatletter
+%\def\th@mystyle{%
+%    \normalfont % body font
+%    \setbeamercolor{block title example}{bg=orange,fg=white}
+%    \setbeamercolor{block body example}{bg=blue!20,fg=black}
+%    \def\inserttheoremblockenv{block}
+%  }
+%\makeatother
+%\theoremstyle{mystyle}
+
+\makeatletter
+    \ifbeamer@countsect
+      \newtheorem{theorem}{\translate{Theorem}}[section]
+    \else
+      \newtheorem{theorem}{\translate{Theoreme}}
+    \fi
+    \newtheorem{corollary}{\translate{Corollaire}}
+    \newtheorem{prop}{\translate{Proposition}}
+    \newtheorem{lemma}{\translate{Lemme}}
+    \newtheorem{problem}{\translate{Probleme}}
+    \newtheorem{solution}{\translate{Solution}}
+
+    \theoremstyle{definition}
+    \newtheorem{definition}{\translate{Definition}}
+    \newtheorem{definitions}{\translate{Definitions}}
+
+    \theoremstyle{example}
+    \newtheorem{example}{\translate{Exemple}}
+    \newtheorem{remark}{\translate{Remarque}}
+    \newtheorem{examples}{\translate{Examples}}
+
+\makeatletter
+\def\th@mystyle{%
+    \normalfont % body font
+    \setbeamercolor{block title example}{bg=orange,fg=white}
+    \setbeamercolor{block body example}{bg=orange!20,fg=black}
+    \def\inserttheoremblockenv{exampleblock}
+  }
+\makeatother
+\theoremstyle{mystyle}
+\newtheorem{fact}{Fact}
+
+
+
+
+
+    % Compatibility
+    \newtheorem{Beispiel}{Beispiel}
+    \newtheorem{Beispiele}{Beispiele}
+    \theoremstyle{plain}
+    \newtheorem{Loesung}{L\"osung}
+    \newtheorem{Satz}{Satz}
+    \newtheorem{Folgerung}{Folgerung}
+    \newtheorem{Fakt}{Fakt}
+    \newenvironment{Beweis}{\begin{proof}[Beweis.]}{\end{proof}}
+    \newenvironment{Lemma}{\begin{lemma}}{\end{lemma}}
+    \newenvironment{Proof}{\begin{proof}}{\end{proof}}
+    \newenvironment{Theorem}{\begin{theorem}}{\end{theorem}}
+    \newenvironment{Problem}{\begin{problem}}{\end{problem}}
+    \newenvironment{Corollary}{\begin{corollary}}{\end{corollary}}
+    \newenvironment{Example}{\begin{example}}{\end{example}}
+    \newenvironment{Examples}{\begin{examples}}{\end{examples}}
+    \newenvironment{Definition}{\begin{definition}}{\end{definition}}
+\makeatother
+
+
+
+
+
+
+
+% ============================================================
+% Title
+% ============================================================
+
+\title[]{Intégration L3 Actuariat}
+\subtitle{Chapitre III: Complément d'Intégration}
+\author{Pierre-Olivier Goffard}
+\institute{
+	   Université de Lyon 1\\
+	ISFA\\
+	   \texttt{pierre-olivier.goffard@univ-lyon1.fr}
+	  }
+\date{
+ISFA\\
+\today}
+\lstset{language=SAS}
+\begin{document}
+
+\frame{\titlepage}
+
+
+% ============================================================
+\section{Mesures définie par des densités}
+\begin{frame}[allowframebreaks]
+Nous allons étudier dans ce chapitre diverses propriétés qui permettent d'effectuer des calculs en théorie de l'intégration. Toutes ces notions admettent des applications en calcul des probabilité. \\
+\underline{I. Mesures définie par des densités}\\
+\begin{prop}[Mesure à densité]
+Soit $(\Om,\mathcal{A},\mu)$ un espace mesuré, et $f:\Om\mapsto\R_{+}$ une application mesurable positive. L'application $\nu:\mathcal{A}\mapsto\overline{\R}_{+}$ définie par
+$$
+\nu(A)=\int_A f\text{d}\mu,\text{ }A\in \mathcal{A},
+$$
+est une mesure sur $(\Omega,\mathcal{A})$ appelé mesure de densité $f$ par rapport à $\mu$
+\end{prop}
+\underline{preuve:}\\
+\begin{enumerate}
+    \item $\nu(\emptyset) = \int_\emptyset f\text{d}\mu$
+    \item Soit $(A_n)_{n\in \N^{\ast}}$, une suite d'éléments disjoints de $\mathcal{A}$. On note que 
+    \begin{eqnarray*}
+    \nu\left(\bigcup_{n\in \N^{\ast}} A_n\right) &=& \int_{\bigcup_{n\in \N^{\ast}} A_n}f\text{d}\mu\\
+    &=&\int\mathbb{I}_{\bigcup_{n\in \N^{\ast}} A_n}f\text{d}\mu\\
+    &=&\int\sum_{n\in \N^{\ast}}\mathbb{I}_{ A_n}f\text{d}\mu\\
+    &=&\int\underset{n\rightarrow\infty}{\lim} \sum_{k=1}^{n}\mathbb{I}_{ A_k}f\text{d}\mu\\
+    &=&\underset{n\rightarrow\infty}{\lim}\int \sum_{k=1}^{n}\mathbb{I}_{ A_k}f\text{d}\mu\\
+    &=&\underset{n\rightarrow\infty}{\lim}\sum_{k=1}^{n}\int \mathbb{I}_{ A_k}f\text{d}\mu\\
+    &=&\sum_{k\in\N^{\ast}}\int \mathbb{I}_{ A_k}f\text{d}\mu\\
+    &=&\sum_{k\in\N^{\ast}}\nu(A_k).\\
+    \end{eqnarray*}
+\end{enumerate}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{remark}
+\begin{itemize}
+    \item Si $f$ est intégrable alors $\nu$ est finie, en effet:
+    $$
+    \nu(\Omega) = \int_\Omega f\text{d}\nu \leq \int_\Omega |f|\text{d}\nu <\infty
+    $$
+    \item Si $f$ est telle que $\int_\Omega f\text{d}\nu = 1$ alors $\nu$ est une mesure de probabilité de densité $f$.  
+\end{itemize}
+\end{remark}
+De nombreuses mesure de probabilité $(\R,\mathcal{B}_\R)$ sont à densité par rapport à la mesure de Lebesgue et sont associées à la loi d'une variable aléatoire $X$ avec 
+$$
+\mathbb{P}_X(A) =\mathbb{P}(X\in A)= \int_{A} f_{X}(x)\text{d}\lambda(x)
+$$
+Une densité de probabilité $f_X:\R\mapsto \R^+$ est essentiellement une fonction positive, continue par morceaux d'intégrale 1!
+\begin{remark}
+Une variable aléatoire $X$ dont la loi de probabilité $\P_X$ est à densité par rapport à la mesure de Lebesgue est dite continue. On remarque que 
+$$
+\P_X(\{x\}) =\P(X = x)=\int_{\{x\}}f_X(x)\text{d}\lambda(x) = 0 
+$$
+Cependant
+
+$$
+\P_X([x, x+\text{d}x]) =\P(X \in [x, x+\text{d}x])=\int_{[x, x+\text{d}x]}f_X(x)\text{d}\lambda(x) \approx f(x)\text{d}x 
+$$
+
+\end{remark}
+\begin{example}[Lois de probabilités classiques]
+\begin{enumerate}
+    \item $X\sim\text{unif}([a,b])$
+    $$
+    f(x) = \frac{1}{b-a}\mathbb{I}_{[a,b]}(x),\text{ }a<b.
+    $$
+    \item $X\sim\mathcal{N}(\mu, \sigma^2)$
+    $$
+    f(x) = \frac{1}{\sigma\sqrt{2\pi}}\exp\left[-\frac{1}{2\sigma^2}(x-\mu)\right],\text{ }
+    $$
+    \item $X\sim \text{gamma}(\alpha, \beta)$
+    $$
+    f(x) = \frac{e^{-x/\beta}x^{\alpha -1}}{\beta^{\alpha}\Gamma(\alpha)}\mathbb{I}_{\R_{+}^\ast}(x),\text{ }\alpha,\beta >0,
+    $$ 
+    où $\Gamma(\alpha) = \int_0^{+\infty}e^{-x}x^{\alpha-1}\text{d}x$ désigne la fonction gamma.
+\end{enumerate}
+\end{example}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{theorem}
+Soit $(\Omega,\mathcal{A},\mu)$ un espace mesuré, $\nu$ une mesure de densité $f$ par rapport à $\mu$, et $g$ une application mesurable définie sur $(\Omega,\mathcal{A})$. Alors $g$ est $\nu$ intégrable si et seulement si $f.g$ est $\mu$-intégrable, et 
+$$
+\int g\text{d}\nu = \int g.f\text{d}\mu.
+$$
+\end{theorem}
+\underline{preuve:}\\
+Supposons que $g$ soit étagée positive avec 
+$$
+g = \sum_{i =1}^k\alpha_i\mathbb{I}_{A_i}.
+$$
+On a 
+$$
+\int g\text{d}\nu =\sum_{i = 1}^{k}\alpha_i\nu(A_i)=\sum_{i = 1}^{k}\alpha_i\int_{A_i}f\text{d}\mu =  \sum_{i = 1}^{k}\alpha_i \int\mathbb{I}_{A_i}.f\text{d}\mu = \int \sum_{i = 1}^{k}\mathbb{I}_{A_i}.f\text{d}\mu = \int g.f\text{d}\mu.
+$$
+On passe ensuite aux fonction mesurable positive via Beppo-Lévi puis aux fonctions mesurables. 
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{definition}[Mesure absolument continue/étrangère]
+Soit $\mu,\nu$ deux mesures sur $(\Om,\mathcal{A})$.
+\begin{enumerate}
+\item $\nu$ est absolument continue par rapport à $\mu$, $\nu<<\mu$, si et seulement si
+$$
+\forall A\in\mathcal{A},\text{ }\mu(A)=0\text{ }\Rightarrow\text{ }\nu(A)=0
+$$
+\item $\nu$ et $\mu$ ont étrangères, $\nu\bot\mu$,
+$$
+\exists A\in \mathcal{A}\text{ tel que }\mu(A)=0\text{ et }\nu(A^{c})=0.
+$$
+\end{enumerate}
+\end{definition}
+\begin{example}
+Si $\nu$ est à densité $f$ par rapport à $\mu$, alors 
+$$
+\mu(A) = 0\Rightarrow \nu(A) = \int_A f\text{d}\nu =0, 
+$$ 
+donc $\nu <<\mu$.
+\end{example}
+\begin{theorem}[Radon-Nikodym]
+Soient $\mu$ une mesure $\sigma$-finie sur un espace mesurable $(\Omega,\mathcal{A})$ et $\nu$ une mesure $\sigma$-finie, absolument continue par rapport à $\mu$ alors il existe une fonction, mesurable, positive, $f$ telle que
+$$
+\nu(A)=\int_A f\text{d}\mu,\text{ }A\in \mathcal{A}. 
+$$
+De plus, $f$ est unique à une $\mu$-équivalence près, c'est à dire que si $f$ et $g$ sont toutes deux densités de $\nu$ par rapport à $\mu$ alors 
+$$
+f=g\text{ }\mu\text{-pp}.
+$$
+On dira que $f$ est la dérivée de Radon Nikodym de $\nu$ par rapport à $\mu$ et on note 
+$$
+f = \frac{\text{d}\nu}{\text{d}\mu},\text{ ou }\text{d}\nu =f\text{d}\mu   
+$$
+de sorte que 
+$$
+\nu(A) = \int_{A}\frac{\text{d}\nu}{\text{d}\mu}\text{d}\mu\text{ }A\in \mathcal{A}.
+$$
+\end{theorem}
+\underline{preuve:}\\
+On va se contenter de montrer l'unicité, qui se limite à montrer que si $f$ et $g$ sont toutes deux des densités de $\nu$ par rapport à $\mu$ alors $f=g$ $\mu$-presque partout.\\
+Posons $A=\{\om\in\Om\text{ ; }f(\om)\geq g(\om)\}$, on a
+\begin{eqnarray*}
+\int |f-g|\text{d}\mu&=&\int_A |f-g|\text{d}\mu+\int_{A^{c}} |f-g|\text{d}\mu=\int_A (f-g)\text{d}\mu-\int_{A^{c}} f-g\text{d}\mu\\
+&=&\nu(A)-\nu(A)-\nu(A^{c})+\nu(A^{c})=0.
+\end{eqnarray*}
+On en déduit que $|f-g|=0$ $\mu$-p.p. puis $f=g$.\\
+$\square$\\
+
+\begin{example}
+Une variable aléatoire de comptage $N$ est une variable aléatoire réelle qui ne prends que des valeurs entières. Sa loi de probabilité est donnée par 
+$$
+\P_N(A) = \P(N\in A) = \sum_{n\in \N}\P(N=n)\delta_n(A), \text{ }A\in \mathcal{B}_{\R},
+$$
+absolument continue par rapport à la mesure de comptage, définie par 
+$$
+\nu(A) = \sum_{n\in \N}\delta_n(A),\text{ }A\in \mathcal{B}_{\R},
+$$
+qui compte le nombre d'entier dans $A$. En effet, on observe que pour $A\in \mathcal{B}_{\R}$,
+$$
+\nu(A) = 0\Rightarrow \P_N(A) = 0.
+$$
+Donc $\P_X<<\nu$ donc par application du théorème de R-N, il existe une application $p_N$ telle que 
+$$
+\P_N(A) = \int_{A} p_N(x)\text{d}\nu(x) = \sum_{n\in \N}p_N(n)\delta_n(A),\text{ }A\in \mathcal{B}_{\R}.
+$$
+On identifie alors la loi de probabilité de $N$ avec la dérivée de R-N de $\P_N$ par rapport à $\nu$. Cela donne 
+$$
+p_N(n) = \P(N=n) = \P_N(n),\text{ }n\in \N.
+$$ 
+\end{example}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{prop}[Décomposition de Lebesgue]
+Soient $\mu$ et $\nu$ deux mesures $\sigma$-finies sur $(\Omega, \mathcal{A})$. Il existe alors une application mesurable positive $f$, unique à une $\mu$ équivalence près, et une mesure $\gamma$ sur $(\Omega, \mathcal{A})$, unique, étrangère à $\mu$ telles que 
+$$
+\nu = f.\mu + \gamma,
+$$
+c'est à dire 
+$$
+\nu(A) = \int_A f\text{d}\mu + \gamma(A), \text{ }A\in \mathcal{A}.
+$$
+\end{prop}
+\begin{example}
+Soit une variable aléatoire défini par 
+$$
+X = \mathbb{I}_A\times U
+$$
+où
+\begin{itemize}
+    \item $A$ désigne l'évènement l'assuré reporte au moins un sinistre dans l'année
+    \item $X$ est une variable aléatoire réelle positive égale au montant des indemnisations versées à l'assuré. La loi de cette variable aléatoire est à densité $f_U$ par rapport à la mesure de Lebesgue. 
+\end{itemize}
+On suppose de plus que les variables aléatoire $\mathbb{I}_A$ et $U$ sont indépendantes. La loi de $X$ est une loi de probabilité mixte au sens ou 
+$$
+\P_X(B) = (1-\mathbb{P}(A))\delta_0(B) + \mathbb{P}(A)\int_B f_U(u)\text{d}\lambda(u),\text{ }B\in\mathcal{B}_\R.
+$$
+On remarque que $\delta_0$ et $\lambda$ sont étrangères avec 
+$$
+\lambda(\{0\}) = 0\text{ et }\delta_0\left[\{0\}^c\right]=0.
+$$
+\end{example}
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+\section{Intégration par rapport à une mesure image}
+\underline{II. Intégration par rapport à une mesure image}\\
+On rappelle que si $f$ est une application mesurable de $(\Om,\mathcal{A},\mu)$ dans $(E,\mathcal{B})$, on note $\mu^{f}$ la mesure sur $\mathcal{B}$ définie par $\mu^{f}(B)=\mu[f^{-1}(B)]$. Le théorème suivant permet l'intégration par rapport à une mesure image.
+\begin{theorem}[Théorème de transfert]
+Soit $h:E\mapsto\R $ une application mesurable réelle, $h$ est $\mu^f$-intégrable si et seulement si $h\circ f$ est $\mu$-intégrable et 
+$$
+\int_E h\text{d}\mu^{f}=\int_\Om h\circ f\text{d}\mu.
+$$
+\end{theorem}
+\underline{preuve:}\\
+
+\begin{tikzpicture}[->, -stealth', auto, semithick, node distance=3cm]
+\tikzstyle{every state}=[text=black,scale=0.8]
+\node[]    (1)               {$(\Omega,\mathcal{A},\mu)$};
+\node[]    (2)[right of=1]   {$(E,\mathcal{B},\mu^f)$};
+\node[]    (3)[below of=2]   {$(\R,\mathcal{B}_\R)$};
+
+\path
+(1) edge[above]     node{$f$}         (2)
+(2) edge[right]     node{$h$}           (3)
+(1) edge[below left]     node{$h\circ f$}       (3);
+
+\end{tikzpicture}
+
+Si $h = \sum_{i=1}^{k}\alpha_i\mathbb{I}_{A_i}$ est une application mesurable positive, alors $h\circ f = \sum_{i=1}^{k}\alpha_i\mathbb{I}_{A_i}\circ f$. Remarquons que 
+$$
+(\mathbb{I}_{A_i}\circ f)(\omega) =\mathbb{I}_{A_i}\left[f(\omega)\right] = \begin{cases}
+1&\text{ si }f(\omega)\in A_i \Leftrightarrow \omega\in f^{-1}(A_i)\\
+0&   \text{ si }f(\omega)\notin A_i \Leftrightarrow \omega\notin f^{-1}(A_i)
+\end{cases} 
+$$
+et donc $\mathbb{I}_{A_i}\circ f = \mathbb{I}_{f^{-1}(A_i)}$. On en déduit que 
+$$
+\int_{\Omega}h\circ f\text{d}\mu = \sum_{i = 1}^k\alpha_i\int \mathbb{I}_{A_i} \circ f\text{d}\mu = \sum_{i = 1}^k\alpha_i\int \mathbb{I}_{f^{-1}(A_i)} \text{d}\mu = \sum_{i = 1}^k\alpha_i\mu\left[f^{-1}(A_i)\right] = \sum_{i = 1}^k\alpha_i\mu^f(A_i)=\int h\text{d}\mu^f . 
+$$
+
+ Pour $h$ mesurable positive, on définit une suite croissante de fonctions $(h_n)_{n\in\N}$ étagées positives convergeant vers $h$. La suite $(h_n\circ f)_{n\in\N}$ une suite croissante, de fonction étagées positives qui convergent vers $h\circ f$. Par application du théorème de Beppo Lévy, il vient
+$$
+\int h\text{d}\mu^{f}=\underset{n\rightarrow +\infty}{\lim}\int h_{n}\text{d}\mu^{f}=\underset{n\rightarrow +\infty}{\lim}\int h_{n}\circ f\text{d}\mu=\int h\circ f\text{d}\mu.
+$$
+Pour le cas $h$ mesurable, on observe que
+$$
+\int |h|\text{d}\mu^{f}=\int |h|\circ f\text{d}\mu=\int |h\circ f|\text{d}\mu,
+$$
+donc $h$ est $\mu^{f}$-intégrable si et seulement si $h\circ f$ est $\mu$-intégrable et dans ce cas
+\begin{eqnarray*}
+\int h\text{d}\mu^{f}&=&\int h^{+}-h^{-}\text{d}\mu^{f}=\int h^{+}\text{d}\mu^{f}-\int h^{-}\text{d}\mu^{f}\\
+&=&\int h^{+}\circ f\text{d}\mu-\int h^{-}\circ f\text{d}\mu=\int h\circ f\text{d}\mu.
+\end{eqnarray*}
+$\square$\\
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{corollary}
+Soit $X$ une variable aléatoire sur un espace probabilisé  $(\Omega,\mathcal{A},\P)$ à valeur dans un espace mesurable $(E, \mathcal{B})$, et de loi $\P_X$. Soit $g$ une application mesurable de $(E,\mathcal{B})$ vers $(\R,\mathcal{B}_\R)$. Alors l'espérance de $g\circ X$ existe si et seulement si $g$ est $\P_X$-intégrable et 
+$$
+\E\left(g\circ X\right) = \E\left[g(X )\right]= \int_\Omega g\circ X\text{d}\,\P = \int_E g\text{d}\,\P_X.
+$$
+\end{corollary}
+\begin{definition}[Espérance mathématique]
+Si $X$ est une variable aléatoire réelle $\P$-intégrable, l'espérance mathématique de $X$ est définie par 
+$$
+\E(X) = \int_{\Omega} X(\omega)\text{d}\,\P(\omega) = \int X\text{d}\,\P.
+$$
+\end{definition}
+\begin{remark}
+L'application du corollaire précédent en prenant $g = \text{Id}$ conduit à écrire 
+$$
+\E(X) = \int_\R x \text{d}\P_X(x)
+$$
+\end{remark}
+\begin{example}
+    \begin{enumerate}
+        \item Si $(E,\mathcal{B}) = (\R,\mathcal{B}_{\R})$ et si $P_X = \sum_{n\in \N} p_n\delta_{x_n} $ (X est une v.a. discrète) alors $\E(g\circ X)$ existe si et seulement si $\sum_{n\in \N}p_n|g(x_n)|<\infty$ et 
+        $$
+        \E[g(X)] = \sum_{n\in \N}p_ng(x_n).
+        $$
+        \item Si $(E,\mathcal{B}) = (\R,\mathcal{B}_{\R})$ et si $P_X$ est a densité par rapport à la mesure de Lebesgue, $\E(g\circ X)$ existe si et seulement si $g.f$ est Lebesgue-intégrable et 
+        $$
+        \E[g(X)] = \int g(x)f_X(x)\text{d}\lambda(x).
+        $$ 
+    \end{enumerate}
+\end{example}
+\end{frame}
+\section{Intégrale par rapport à une mesure produit}
+\subsection{Mesure produit}
+\begin{frame}[allowframebreaks]
+
+\underline{III. Intégrale par rapport à une mesure produit }\\
+\underline{1. Mesure produit}\\
+L'objet de cette partie est de répondre à deux questions
+\begin{itemize}
+    \item Soient $(\Om_1,\mathcal{A}_1, \mu_1)$ et $(\Om_2,\mathcal{A}_2, \mu_2)$ deux espaces mesurés, existe-t-il une mesure $\mu$ sur $(\Omega_1\times \Omega_2,\mathcal{A}_1\otimes \mathcal{A}_2)$ telle que 
+    $$
+    \mu(A_1\times A_2)=\mu_1(A_1)\times \mu_2(A_2)
+    $$
+    \item Si une telle mesure existe, et si $f$ est $\mu$-intégrable, peut-on calculer $\int f\text{d}\mu$ en utilisant des intégration par rapport à $\mu_1$ et à $\mu_2$?
+\end{itemize}
+Soit la tribu produit $\mathcal{A}=\mathcal{A}_1\otimes\mathcal{A}_2$. Pour $A\in\mathcal{A}$, les sections
+$$
+A_{\om_1}=\{\om_2\in\Om_2\text{ ; }(\om_1,\om_2)\in A\}\text{ et }A_{\om_2}=\{\om_1\in\Om_1\text{ ; }(\om_1,\om_2)\in A\}
+$$
+sont mesurables (i.e. $A_{\om_1}\in\mathcal{A}_2$ et $A_{\om_2}\in\mathcal{A}_1$).
+\begin{theorem}[Mesure produit]
+Soient $\mu_1$ et $\mu_2$ deux mesures $\sigma$-finie définies respectivement sur $(\Om_1,\mathcal{A}_1)$ et $(\Om_2,\mathcal{A}_2)$.
+\begin{enumerate}
+    \item Pour tout $A$ de $\mathcal{A}_1\otimes \mathcal{A}_2$, les applications
+    \begin{eqnarray*}
+    (\Omega_2,\mathcal{A}_2)\mapsto \left(\overline{\R}^{+},\mathcal{B}_{\overline{\R}^{+}}\right)&\text{ et }&(\Omega_1,\mathcal{A}_1)\mapsto \left(\overline{\R}^{+},\mathcal{B}_{\overline{\R}^{+}}\right) \\
+    \omega_2\mapsto \mu_{1}(A_{\omega_2}) && \omega_1\mapsto \mu_{2}(A_{\omega_1}).
+    \end{eqnarray*}
+
+ sont mesurables. 
+    \item L'unique mesure $\mu$ sur $(\Om_1\times\Om_2,\mathcal{A}_1\otimes\mathcal{A}_2)$ telle que
+$$
+\mu(A_1\times A_2)=\mu_1(A_1)\mu_2(A_2),\text{ pour tout }A_1\in\mathcal{A}_1\text{ et }A_2\in\mathcal{A}_2,
+$$
+est l'application définie par 
+$$
+\mu(A) = \int_{\Omega_2}\mu_1(A_{\omega_2})\text{d}\mu_2(\omega_2) =\int_{\Omega_1}\mu_2(A_{\omega_1})\text{d}\mu_1(\omega_1) 
+$$
+et notée $\mu = \mu_1\otimes\mu_2$.
+\end{enumerate}
+ 
+\end{theorem}
+\underline{preuve:} Admis\\
+
+Si $A=A_1\times A_2$ alors
+$$
+A_{\om_2}=
+\begin{cases}
+A_1&\text{ si }\om_2\in A_2\\
+\emptyset&\text{ si }\om_2\notin A_2\\
+\end{cases}
+$$
+et par suite
+$$
+\mu_1(A_{\om_2})=\mu_1(A_1)\mathbb{I}_{A_2}(\om_2)=
+\begin{cases}
+\mu(A_1)&\text{ si }\om_2\in A_2,\\
+0&\text{ si }\om_2\notin A_2.\\
+\end{cases}
+$$
+On peut faire les mêmes remarques pour $A_{\om_1}$ et on en déduit que
+\begin{eqnarray*}
+\mu(A)&=&\int_{\Om_2}\mu_1(A_{\om_2})\text{d}\mu_2=\int_{\Om_1}\mu_2(A_{\om_1})\text{d}\mu_1\\
+&=&\int_{\Om_1}\int_{\Om_2}\mathbb{I}_{A}(\om_1,\om_2)\text{d}\mu_2\text{d}\mu_1=\int_{\Om_2}\int_{\Om_1}\mathbb{I}_{A}(\om_1,\om_2)\text{d}\mu_1\text{d}\mu_2
+\end{eqnarray*}
+On peut donc inter-changer l'ordre d'intégration pour les fonctions indicatrices, l'objet des théorèmes suivant est de changer l'ordre d'intégration pour des fonctions mesurables.\\
+\underline{2. Théorème de Fubini et Tonelli}
+\end{frame}
+\subsection{Théorème de Fubini et Tonelli}
+\begin{frame}[allowframebreaks]
+\begin{theorem}[Tonelli]
+Soit $f:\Om_1\times\Om_2\mapsto\overline{\R}^{+}$ mesurable.
+\begin{itemize}
+\item $\om_2\mapsto f(\om_1,\om_2)$ est mesurable pour tout $\om_1\in\Om_1$ et la fonction
+$$
+\om_1\mapsto \int_{\Om_2}f(\om_1,\om_2)\text{d}\mu_2(\om_2)
+$$
+est mesurable et positive.
+\item $\om_1\mapsto f(\om_1,\om_2)$ est mesurable pour tout $\om_2\in\Om_2$ et la fonction
+$$
+\om_2\mapsto \int_{\Om_1}f(\om_1,\om_2)\text{d}\mu_1(\om_1)
+$$
+est mesurable et positive.
+\end{itemize}
+Enfin, on a les égalités
+\begin{eqnarray*}
+\int f\text{d}(\mu_1\otimes\mu_2)&=&\int_{\Om_2}\left(\int_{\Om_1}f(\om_1,\om_2)\text{d}\mu_1(\om_1)\right)\text{d}\mu_2(\om_2)\\
+&=&\int_{\Om_1}\left(\int_{\Om_2}f(\om_1,\om_2)\text{d}\mu_2(\om_2)\right)\text{d}\mu_1(\om_1).
+\end{eqnarray*}
+\end{theorem}
+\begin{theorem}[Fubini]
+Soit $f:\Om_1\times\Om_2\mapsto \R$ mesurable. Si
+$$
+\int |f|\text{d}(\mu_1\otimes\mu_2)<\infty
+,$$
+alors
+\begin{eqnarray*}
+\int f\text{d}(\mu_1\otimes\mu_2)&=&\int_{\Om_2}\left(\int_{\Om_1}f(\om_1,\om_2)\text{d}\mu_1(\om_1)\right)\text{d}\mu_2(\om_2)\\
+&=&\int_{\Om_1}\left(\int_{\Om_2}f(\om_1,\om_2)\text{d}\mu_2(\om_2)\right)\text{d}\mu_1(\om_1).
+\end{eqnarray*}
+\end{theorem}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{example}
+Nous cherchons à évaluer l'intégrale 
+$$
+\int_{0}^{+\infty}\frac{e^{-y}\sin^2(y)}{y}\text{d}y
+$$
+\end{example}
+Notons que $g:y\mapsto \frac{e^{-y}\sin^2(y)}{y}$ est continue sur $]0,\infty[$ et donc localement intégrable. 
+\begin{itemize}
+    \item Lorsque $y\rightarrow 0$ alors
+    $$
+    \frac{e^{-y}\sin^2(y)}{y}=e^{-y}y\frac{\sin^2(y)}{y^2}\rightarrow 0
+    $$
+    et donc $g$ est prolongeable par continuité en $0$.
+    \item Lorsque $y\rightarrow\infty$, on a 
+    $$
+    g(y) = o(e^{-y})
+    $$
+    donc $g$ est intégrable au voisinage de $\infty$.
+\end{itemize}
+La fonction $g$ est Riemann intégrable sur $]0,\infty[$, elle donc
+Lebesgue intégrable et les deux intégrables coincident. 
+On définit $f:(x,y)\mapsto e^{-y}\sin(2xy)$ et on note que 
+$$
+|f(x,y)|<e^{-y},\text{ pour tout }(x,y)\in [0,1]\times \R^{+}
+$$
+et donc que $f$ est $\lambda_2$ intégrable sur $[0,1]\times \R^{+}$ On remarque que $x\mapsto e^{-y}\sin(2xy)$ est continue sur $[0,1]$ donc Riemann intégrable puis Lebesgue intégrable et 
+$$
+\int_{[0,1]}e^{-y}\sin(2xy)\text{d}\lambda(x) =  e^{-y}\frac{sin^2 y}{y}. 
+$$
+Par Fubini, on a 
+\begin{eqnarray*}
+\int_{[0,1]\times \R^+} f(x,y)\text{d}\lambda_2(x,y) &=&\int_{[0,1]}\int_{\R^+} f(x,y)\text{d}\lambda(y)\text{d}\lambda(x)\\
+&=&\int_{\R^+} \int_{[0,1]}f(x,y)\text{d}\lambda(x) \text{d}\lambda(y) 
+\end{eqnarray*}
+De plus 
+$$
+\int_{\left]0,+\infty\right[}e^{-y}\sin(2xy)\text{d}\lambda(y) = \int_{0}^{+\infty}e^{-y}\sin(2xy)\text{d}\lambda(y) = \frac{2x}{1+4x^2}
+$$
+après deux intégrations par parties. On a également 
+$$
+\int_{[0,1]}\frac{2x}{4x^2+1}\text{d}\lambda(x) =\int_{0}^1\frac{2x}{4x^2+1}\text{d}x = \ln(5)/ 4 
+$$ 
+On en déduit que 
+$$
+\int_{0}^{+\infty}\frac{e^{-y}\sin^2(y)}{y}\text{d}y = \ln(5)/ 4 .
+$$
+\end{frame}
+\section{Changement de variables}
+\subsection{Fonction de répartition}
+\begin{frame}[allowframebreaks]
+\underline{IV. Changement de variables}\\
+\underline{1. Fonction de répartition}\\
+\begin{definition}[Fonction de répartition]
+La fonction de répartition $F$ d'une mesure $\nu$ définie sur $(\R,\mathcal{B}_\R)$ est définie par 
+$$
+F(x) = \nu(\left]-\infty,x\right]),\text{ }x\in \R. 
+$$ 
+\end{definition}
+Le résultat suivant établit un lien entre l'absolue continuité d'une mesure $\nu$ sur $(\R,\mathcal{B}_\R)$ par rapport à la mesure de Lebesgue et l'absolue continuité de la fonction de répartition $F$ sur $\left]a,b\right[$ définie par 
+$$
+\forall \epsilon>0,\text{ }\exists \eta >0\text{ tel que }\sum_{n\in\N^\ast }(b_n-a_n)<\eta\Rightarrow \sum_{n\in\N^\ast }[F(b_n)-F(a_n)]<\epsilon,
+$$
+avec $a\leq a_n<b_n\leq b,\text{ }\forall n\in\N^\ast$.
+\begin{theorem}
+Si $\nu$ est une mesure finie $(\R,\mathcal{B}_\R)$, alors sa fonction de répartition $F$ est absolument continue si et seulement si $\nu$ est absolument continue par rapport à la mesure de Lebesgue sur $R$. 
+\end{theorem}
+\begin{theorem}
+Soit $F$ une application absolument continue. Sa dérivé $F'$ est $\lambda$-presque partout définie et intégrable avec
+$$
+F(x) = \int_{\left]-\infty,x\right]}F'(t)\text{d}\lambda(t).
+$$
+\end{theorem}
+$F$ est donc la fonction de répartition d'une mesure $\nu$ absolument continue par rapport à $\lambda$ dont la densité de Radon-Nykodim est $F'$.
+\end{frame}
+\subsection{Théorème de changement de variables}
+\begin{frame}[allowframebreaks]
+\underline{2. Théorème de changement de variables}\\
+Soit $\Phi:\left]a,b\right[\mapsto\left]\phi(a),\phi(b)\right[$ strictement croissante et de dérivée $\Phi'$ continue. Soit $\mu$ la mesure sur $(\left]a,b\right[,\mathcal{B}_{\left]a,b\right[})$, définie comme la mesure image de la mesure de Lebesgue sur $(\left]\phi(a),\phi(b)\right[,\mathcal{B}_{\left]\phi(a),\phi(b)\right[})$ par la fonction $\phi^{-1}$. Soit $f:\R\mapsto\R$ mesurable et Lebesgue intégrable sur $\left]\phi(a),\phi(b)\right[$. En résumé, 
+
+
+\begin{tikzpicture}[->, -stealth', auto, semithick, node distance=3cm]
+\tikzstyle{every state}=[text=black,scale=0.8]
+\node[]    (1)               {$(\left]a,b\right[,\mathcal{B}_{\left]a,b\right[},\mu)$};
+\node[]    (2)[right of=1]   {$(\left]\phi(a),\phi(b)\right[,\mathcal{B}_{\left]\phi(a),\phi(b)\right[},\lambda)$};
+\node[]    (3)[below of=2]   {$(\R,\mathcal{B}_\R)$};
+
+\path
+(1) edge[above]     node{$\phi$}         (2)
+(2) edge[right]     node{$f$}           (3)
+(1) edge[below left]     node{$f\circ \phi$}       (3);
+
+\end{tikzpicture}
+
+On note que $\mu(\left]a,x\right[) = \lambda(\left]\Phi(a),\Phi(x)\right[) = \Phi(x)-\Phi(a)$. Cela implique que la fonction de répartition de $\mu$ est absolument continue et donc que $\mu$ est absolument continue par rapport à Lebesgue, sa densité est la dérivée de $\Phi(x)-\Phi(a)$ soit $\Phi'(x)$. On en déduit par le théorème de transfert que 
+$$
+\int_{\left]\phi(a),\Phi(b)\right[}f\text{d}\lambda=\int_{\left]a,b\right[}f\circ\Phi\,\text{d}\mu =\int_{\left]a,b\right[}f(\Phi(x))\Phi'(x)\text{d}\lambda(x).
+$$
+
+Soient $U$ et $V$ deux ouverts de $\R^{n}$ et $\phi:U\mapsto V$ une bijection, dont les dérivées partielle sont continues. On note
+$$
+\phi(x)=(\phi_1(x),\ldots, \phi_n(x)) := (y_1,\ldots, y_n) =y , \text{ pour }x=(x_1,\ldots, x_n).
+$$
+La matrice jacobienne de $\phi$ est définie par
+$$
+\frac{D\phi}{Dx}(x)=\left(
+\begin{array}{ccc}
+\frac{\partial \phi_1}{\partial x_1}(x)&\ldots&\frac{\partial \phi_1}{\partial x_d}(x)\\
+\vdots&\ddots&\vdots\\
+\frac{\partial \phi_d}{\partial x_1}(x)&\ldots&\frac{\partial \phi_d}{\partial x_d}(x)
+\end{array}
+\right),\text{ pour }x\in U,
+$$
+son déterminant $\text{det}\,\left(\frac{D\phi}{Dx}(x)\right)$ est appelé jacobien.
+\begin{theorem}[Formule de changement de variable]
+Soit $f:\R^n\mapsto\R^n$ une application Lebesgue intégrable sur $V$, alors 
+$$
+\int_{V}f(y)\text{d}\lambda_n(y)=\int_{U}f[\Phi(x)]\left|\text{det}\,\left(\frac{D\phi}{Dx}(x)\right)\right|\,\text{d}\lambda_n(x).
+$$
+A noter que la formule fait intervenir la valeur absolue du Jacobien. 
+\end{theorem}
+
+\begin{example}[Intégrale de Gauss]
+On souhaite calculer 
+$$
+I = \int_{0}^{+\infty}e^{-ax^2}\text{d}x.
+$$
+
+\end{example}
+Comme $f:(x,y)\mapsto \exp\left(-a(x^{2}+y^{2})\right)$ est Riemann intégrable sur $\R_+^2$ alors elle est Lebesgue intégrable, par Fubini on peut écrire 
+$$
+I^2 = \int_{\R_+}\int_{\R_+} \exp\left(-a(x^{2}+y^{2})\right)\text{d}x\text{d}y =\int_{\R_+^2} \exp\left(-a(x^{2}+y^{2})\right)\text{d}\lambda^2(x,y).
+$$
+L'application 
+$$
+\phi:(r,\theta)\mapsto( r\cos\theta,r\sin\theta) = (x,y).
+$$
+est une bijection de $\R_+\times \left]0,\pi/2\right[$ dans $\R_+\times \R_+$  qui possède des dérivée partielle. Le Jacobien de $\Phi$ est donné par 
+$$
+\left|\frac{D\phi}{D(r,\theta)}\right|=\left|\begin{array}{cc}
+\cos \theta & -r\sin\theta\\
+\sin\theta &r\cos\theta\
+\end{array}\right|=r.
+$$
+Par application de la formule de changement de variable, il vient
+$$
+I^2 = \int_{\R_+^2} \exp\left(-a(x^{2}+y^{2})\right)\text{d}\lambda^2(x,y) =\int_{\R_+\times \left]0,\pi/2\right[} \exp\left(-a r^2\right)r\text{d}\lambda^2(r,\theta)\Leftrightarrow I =\frac{\sqrt{\pi}}{2\sqrt{a}}.
+$$
+
+\end{frame}
+\section{Intégrale dépendant d'un paramètre}
+\begin{frame}[allowframebreaks]
+\underline{V. Intégrale dépendant d'un paramètre}\\
+
+Soit $(\Om,\mathcal{A},\mu)$ un espace mesuré et $f:\Om\times T\mapsto \mathbb{R}$ une fonction de deux variables, où $T$ est un intervalle de $\R$. On suppose que, $\forall t\in T$ $\om\mapsto f(\om,t)$ est mesurable par rapport à $\mathcal{A}$ et intégrable par rapport à $\mu$.
+\begin{prop}[Continuité de l'intégrale]
+Si $t\mapsto f(\om,t)$ est continue $\mu$-presque partout et qu'il existe une fonction $g$ intégrable par rapport à $\mu$ telle que
+$$
+|f(\om,t)|\leq g(\om),\text{ }\forall t\in T.
+$$
+Alors
+$$
+F(t)=\int_{\Om} f(\om,t)\text{d}\mu(\om)
+$$
+est continue sur $T$.
+\end{prop}
+\underline{preuve:} Comme $T$ est un espace métrique, la continuité est caractérisée par le comportement des suites. $F(t)$ est continue si pour toute suite $(t_n)_{n\in\N}$ convergeant vers $t$, $F(t_n)$ converge vers $F(t)$. La suite de fonction $(f(\om,t_n))_{n\in\N}$ converge vers $f(\om, t)$ par continuité de $t\mapsto f(\om,t)$ puis comme $|f(\om,t_n)|\leq g(\om)$ alors $(F(t_n))_{n\in\N}$ converge vers $F(t)$ en vertu du théorème de convergence dominée.
+\begin{prop}[Dérivabilité de l'intégrale]
+Si $t\mapsto f(\om,t)$ est dérivable par rapport à $t$ $\mu$-presque partout et qu'il existe une fonction $g$ intégrable par rapport à $\mu$ telle que
+$$
+\left|\frac{\partial f}{\partial t}(\om,t)\right|\leq g(\om),\text{ }\forall t\in T.
+$$
+Alors
+$$
+F(t)=\int_{\Om} f(\om,t)\text{d}\mu(\om)
+$$
+définit une fonction dérivable sur $T$, avec
+$$
+F'(t)=\int_{\Om} \frac{\partial f}{\partial t}(\om,t)\text{d}\mu(\om).
+$$
+\end{prop}
+\underline{preuve:}\\
+Il s'agit de montrer que pour toute suite $(t_n)_{n\in\N}$ convergeant vers $t$, on a
+$$
+\underset{n\rightarrow+\infty}{\lim}\frac{F(t_n)-F(t)}{t_n-t}=\int_\Om \frac{\partial f}{\partial t}(\om,t)\text{d}\mu(\om).
+$$
+On pose $f_n(\om)=\frac{f(\om,t_n)-f(\om,t)}{t_n-t}$, qui est une suite de fonctions mesurables convergeant vers $\frac{\partial f}{\partial t}(\om,t)$ qui est donc mesurable. De plus, le théorème des accroissements finis entraine l'inégalité
+$$
+|f_n(\om)|\leq g(\om).
+$$
+L'application du théorème de convergence dominée sur la suite $(f_n)_{n\in\N}$ donne
+$$
+\underset{n\rightarrow+\infty}{\lim}\frac{F(t_n)-F(t)}{t_n-t}=\int_{\Om} f_n(\om)\text{d}\mu
+(\om)\rightarrow \int_{\Om} \frac{\partial f}{\partial t}(\om,t)\text{d}\mu(\om)
+$$
+\begin{example}[La fonction Gamma]
+On note $\Gamma$ la fonction définie par
+$$
+\Gamma(x)=\int_{0}^{+\infty}e^{-t}t^{x-1}\text{d}t,\text{ }x\in\left]0,+\infty\right[
+$$
+On pose
+$$
+H_n=\sum_{k=1}^{n}\frac{1}{k},\text{ }n\geq1.
+$$
+\end{example}
+\begin{enumerate}
+\item Vérifier que $\Gamma$ est bien définie.
+\item Démontrer que la fonction $\Gamma$ est dérivable sur $\left]0,+\infty\right[$, avec
+$$
+\Gamma'(x)=\int_{0}^{+\infty}e^{-t}t^{x-1}\log(t)\text{d}t.
+$$
+\item Montrer que la suite
+$$
+u_n=H_n-\log(n),\text{ }n\geq 1
+$$
+admet une limite lorsque $n$ tend vers l'infini. On notera $\gamma$ cette limite, auusi appelé constante d'Euler.
+\item montrer que
+$$
+H_n=\int_{0}^{1}\frac{1-(1-v)^{n}}{v}\text{d}v,\text{ }n\geq1.
+$$
+\item En déduire que, pour tout $n\geq 1$,
+$$
+\frac{H_{n+1}}{n+1}=-\int_{0}^{1}(1-v)^{n}\log(v)\text{d}v.
+$$
+\item Etablir que pour tout $t\geq 0$, $1-t\leq e^{-t}$.
+\item On pose $I_n=\int_{0}^{n}\left(1-\frac{t}{n}\right)^{n}\log(t)\text{d}t$. Montrer que
+$$
+\lim I_n =\int_{0}^{+\infty}e^{-t}\log(t)\text{d}t.
+$$
+\item Montrer que $\gamma=-\Gamma'(1)$.\\
+\underline{Hint:} On pourra montrer que $I_n=\frac{n}{n+1}(\log(n)-H_{n+1})$.
+\end{enumerate}
+\end{frame}
+\section{Les espaces Lp}
+\begin{frame}[allowframebreaks]
+\underline{VI. Espaces $\mathcal{L}^p$}\\
+Soit $(\Omega,\mathcal{A},\mu)$ un espace mesuré. On considère des applications mesurables  
+\begin{itemize}
+\item $f:\Omega\mapsto \mathbb{R}$, auquel cas $|f|=f^+ + f^-$
+\item $f:\Omega\mapsto \mathbb{C}$, auquel cas $|f| = \left[\Re(f)^2+\Im(f)^2\right]^{1/2}$
+\end{itemize}
+Pour tout réel $p\in[1,+\infty[$, on définit
+$$
+||f||_p = \left[\int|f|^p\text{d}\mu\right]^{1/p}.
+$$
+\begin{definition}[Espace "L-p"]
+$$
+\mathcal{L}^p:=\mathcal{L}^p(\Omega,\mathcal{A},\mu) = \left\{f \in\mathcal{M}\text{ ; }||f||_p<\infty\right\}
+$$
+\end{definition}
+La relation d'égalité $\mu$ presque partout définit une relation d'équivalence dans l'espace vectoriel des applications mesurables, avec 
+$$
+f\sim g\Leftrightarrow f=g\text{ }\mu-pp.
+$$
+On désigne par $L^p(\Omega,\mathcal{A},\mu) = \mathcal{L}^p(\Omega,\mathcal{A},\mu)/ \sim$ l'ensemble quotient associé. Un élément de $L^p$ est une classe de fonction egales $\mu-$pp qu'on assimilera à un de ses représentants. 
+\begin{theorem}
+Pour $1\leq p<\infty$, $L^p$ est un espace vectoriel normé par $||.||_p$.
+\end{theorem} 
+\underline{preuve:}
+
+Montrons que $L^p$ est un espace vectoriel
+    \begin{itemize}
+        \item[(i)] Soient $f\in L^p$ et $a$ un scalaire, on a 
+        $$
+        ||a\cdot f||_p\leq |a|\cdot ||f||_p<\infty
+        $$
+        et donc $a\cdot f\in L^p$
+        \item[(ii)] La fonction $x\mapsto |x|^p$ est convexe $\forall x \in\R$ alors 
+        $$
+        \Big\lvert\frac{x+y}{2}\Big\rvert^p\leq\frac{|x|^p+|y|^p}{2}\Leftrightarrow |x+y|^p\leq 2^{p-1}|x|^p+2^{p-1}|y|^p
+        $$
+        avec $x,y\in \R$. Pour $x,y\in \mathbb{C}$, on a
+        $$
+        |x+y|^p\leq (|x|+|y|)^p\leq 2^{p-1}|x|^p+2^{p-1}|y|^p
+        $$
+        On en déduit que pour $f,g\in L^p$,
+        $$
+        \int|f+g|^p\text{d}\mu\leq 2^{p-1}\int|f|^p\text{d}\mu^p+2^{p-1}\int|g|^p\text{d}\mu
+        $$
+        et donc que $f+g\in L^p$. 
+    \end{itemize} 
+Montrons que $||\cdot||_p$ est une norme, notons que 
+$$||f||_p = 0 \Rightarrow f = 0 \text{ }\mu-pp$$
+et 
+$$
+||a\cdot f||_p = |a|\cdot||f||_p,
+$$
+pour tout scalaire $a$. L'inégalité triangulaire nécessite deux lemmes importants.
+\begin{lemma}[Inégalité de Hölder]
+Soient $p,q>1$ deux nombres conjugués au sens où $1/p+1/q=1$. Si $f\in L^p$ et $g\in L^q$, alors $f\cdot g \in L^1,$ et 
+$$
+\int |f\cdot g|\text{d}\mu\leq ||f||_p\cdot ||g||_q.
+$$
+\end{lemma}
+Si $||f||_p = 0$ ou $||f||_q = 0$ alors $f\cdot g = 0$ $\mu$-pp et on a bien 
+$$
+\int |f\cdot g|\text{d}\mu\leq ||f||_p\cdot ||g||_q.
+$$
+Sinon, on pose 
+$$
+a = \frac{|f|}{||f||_p}\text{, et }b = \frac{|g|}{||g||_q}.
+$$
+La fonction $x\mapsto \log x$ est concave, on a 
+$$
+\log\left(\frac{|a|^p}{p}+\frac{|b|^q}{q}\right)\geq \frac{\log(|a|)^p}{p}+\frac{\log(|b|)^q}{q} = log(|ab|)
+$$
+puis finalement $|ab|\leq \frac{|a|^p}{p}+\frac{|b|^q}{q}$ ce qui est équivalent à  
+$$
+\frac{|f\cdot g|}{||f||_p\cdot ||g||_q}\leq \frac{|f|^p}{p||f||_p^p}+\frac{|g|^q}{q||g||_q^q}.
+$$
+En intégrant, il vient 
+$$
+\int |f\cdot g|\text{d}\mu\leq ||f||_p\cdot ||g||_q<\infty.
+$$
+$\square$
+\begin{remark}
+Pour $X,Y$ deux variables aléatoires réelles, le cas $p = q=2$ correspond à l'inégalité de Cauchy-Schwarz
+$$
+\E(|X\cdot Y|)\leq \sqrt{\E(X^2)\cdot\E(Y^2)}.
+$$
+\end{remark}
+\begin{lemma}[Inégalité de Minkowski]
+Soient $p\in [1,\infty[$ et $f,g\in L^p$ alors 
+$$
+||f+g||_p\leq ||f||_p + ||g||_p
+$$
+\end{lemma}
+\underline{preuve:}
+Si $p = 1$ alors l'inégalité résulte de $|f+g|\leq |f|+|g|$. Sinon, on pose $q = \frac{p}{p-1}$ de sorte que $1/p+1/q = 1$. Comme $f+g\in L^p$ alors $|f+g|^{p-1}\in L^q$. On utilise l'inégalité de Hölder, 
+\begin{eqnarray*}
+\int|f+g|^p\text{d}\mu &=& \int|f+g|\cdot |f+g|^{p-1}\text{d}\mu\\  
+&\leq&\int(|f|+|g|)\cdot |f+g|^{p-1}\text{d}\mu\\
+&\leq&\left(\int|f|^p\text{d}\mu\right)^{1/p} \cdot \left(\int|f+g|^{q(p-1)}\text{d}\mu\right)^{1/q}\\
+&+&\left(\int |g|^p\text{d}\mu\right)^{1/p}\cdot\left( \int |f+g|^{q(p-1)}\text{d}\mu\right)^{1/q}.
+\end{eqnarray*}
+Il vient finalement 
+$$
+||f+g||_p\leq ||f||_p+||g||_p
+$$
+$\square$
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{definition}
+Pour tout fonction $f\in\mathcal{M}$ sur $(\Omega,\mathcal{A}, \mu)$, on définit
+$$
+||f||_\infty = \inf\{M \in \overline{\R}_+\text{ ; }|f|\leq M\}.
+$$ 
+L'ensemble $\mathcal{L}^\infty = \{f\in\mathcal{M}\text{ ; }||f||_\infty<\infty\}$ correspond à l'ensemble des fonctions mesurables et bornées $\mu$-pp. 
+\end{definition}
+\begin{remark}
+\begin{enumerate}
+    \item On sous-entend que $L^\infty$ est l'espace quotient de $\mathcal{L}^\infty$ pour la relation d'égalité $\mu$-pp.
+    \item $p=1$ et $q = \infty$ sont conjugués, l'inégalité de Hölder est valide car si $f\in L^1$et  $g\in L^\infty$ alors 
+    $$
+    |f\cdot g|\leq |f|\cdot|g||_\infty.
+    $$
+    \item On $L^r\subset L^p$ avec $p\leq r$ si $\mu$ est fini. (on remarque que $|f|^p\leq |f|r + 1$)  
+\end{enumerate}
+\end{remark}
+\begin{theorem}
+$L^\infty$ est un espace vectoriel normé pour la norme $||\cdot||_\infty$
+\end{theorem}
+\underline{preuve:}\\
+$L^\infty$ est un espace vectoriel car 
+\begin{enumerate}
+    \item[(i)] Pour $a$ un scalaire et $f\in L^\infty$, on a 
+    $$
+    ||a\cdot f||_\infty = |a|\cdot||f||_\infty
+    $$
+    et donc $a\cdot f\in L^\infty$.
+    \item[(ii)] Comme $|f+g|\leq |f|+|g|$ alors on a directement 
+    $||f+g||_\infty\leq ||f||+||g||_\infty$
+\end{enumerate}
+Pour montrer que $||\cdot||_\infty$ est bien une norme, on observe que 
+$$
+||f||_\infty = 0 \Rightarrow f =0\text{ }\mu-pp
+$$
+$\square$
+\begin{theorem}[Théorème de convergence dominée dans $L^p$]
+Soit $(f_n)_{n\geq 0}\in\mathcal{M}$ qui converge simplement vers $f$. Supposons qu'il existe $g\in L^p$ pour $p\in[1,\infty[$ telle que 
+$$
+|f_n|\leq g,\text{ }\mu-pp.
+$$
+alors $f \in L^p$ et $\underset{n\rightarrow\infty}{\lim}||f_n-f||_p  =0$
+\end{theorem}
+\underline{Preuve:}\\
+Comme $|f|\leq g$ alors $f\in L^p$. La suite $(|f_n-f|^p)_{n\geq 0}$ converge vers $0$ et vérifie 
+$$
+|f_n-f|^p\leq 2^{p}g.
+$$
+Par application du théorème de convergence dominée, il vient 
+$$
+\underset{n\rightarrow \infty}{\lim}||f_n - f||_p = 0.
+$$
+\begin{remark}
+\begin{enumerate}
+    \item La convergence $\underset{n\rightarrow \infty}{\lim}||f_n||_p=||f||_p $ est la convergence en moyenne d'ordre $p$.
+    \item L'espace $L^2$ est un espace de Hilbert muni du produit scalaire 
+    $$
+    <f,g> = \int f\cdot g\text{d}\mu,\text{ pour }f,g\in L^2.
+    $$
+    ou
+    $$
+    <f,g> = \int f\cdot \overline{g}\text{d}\mu,
+    $$
+    si $f$ et $g$ sont à valeurs complexe.
+\end{enumerate}
+\end{remark}
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+\begin{theorem}[Inégalité de Jensen]
+Supposons que $\mu$ est une mesure de probabilité et soit $\varphi:\R\mapsto \R_+$ une fonction convexe. Alors pour $f\in\mathcal{L}^1(\Omega,\mathcal{A},\mu)$,
+$$
+\int\varphi\circ f\text{d}\mu \geq \varphi\left(\int f\text{d}\mu\right).
+$$
+\end{theorem}
+\underline{preuve:}\\
+Soit 
+$\mathcal{E}_{\varphi} = \{(a,b)\in\mathbb{R}^2\text{ : }\forall x\in\R,\varphi(x)\geq ax+b\}$. Comme $\varphi$ est convexe alors 
+
+$$
+\varphi(x) = \underset{(a,b)\in \mathcal{E}_{\varphi}}{\sup}(a x+b),\text{ pour }x\in \R.
+$$
+NB:Le sup est pris sur un ensemble de réel $ax+b$ pour $x$ fixé.\\
+En effet, $\varphi$ est au dessus de toutes ces tangentes mais égale en un point à une d'entre elle. On en déduit que 
+\begin{eqnarray*}
+\int\varphi\circ f\text{d}\mu&\geq&\underset{(a,b)\in \mathcal{E}_{\varphi}}{\sup} \int(af+b)\text{d}\mu\\
+&=&\underset{(a,b)\in \mathcal{E}_{\varphi}}{\sup} a\int f\text{d}\mu + b\\
+&=&\varphi\left( \int f\text{d}\mu\right)
+\end{eqnarray*}
+\begin{theorem}
+Pour $1\leq p\leq \infty$, $\mathcal{L}^p(\Omega, \mathcal{A},\mu)$  est espace de Banach (espace vectoriel normé et complet).
+\end{theorem}
+\underline{preuve:}\\
+Il faut montrer que les suites de Cauchy convergent en norme $||.||_p$. Nous avons besoin de deux lemmes 
+\begin{lemma}
+Soit $(f_n)_{n\geq1}\in L^p$ telle que 
+$$
+\sum_{n=1}^\infty ||f_n||_p<\infty,
+$$
+alors la suite $(\sum_{k=1}^n f_n)$ converge en moyenne d'ordre $p$.
+\end{lemma}
+\underline{preuve:}\\
+Supposons que les $f_n$ sont positives, alors la suite $S_n = \sum_{k=1}^n f_k,\text{ } n\geq1$ converge simplement vers une application mesurable $S$. L'inégalité triangulaire implique que 
+$$
+\int S_n^p\text{d}\mu\leq \left(\sum_{k=1}^n ||f_k||_p\right)^p
+$$
+puis en vertu du théorème de convergence monotone, il vient 
+$$
+\int S^p \text{d}\mu\leq \left(\sum_{k=1}^\infty ||f_k||_p\right)^p<\infty
+$$
+et $S\in L^p$. Considérons $n,n'\in\N$ tels que $n'>n$, alors 
+$$
+(S_{n'}-S_n)^p=\left(\sum_{k=n+1}^{n'}f_k\right)^p.
+$$
+On fait tendre $n'$ vers $\infty$, on obtient (par convergence monotone)
+$$
+\int(S-S_n)^p\text{d}\mu=\underset{n'\rightarrow\infty}{\lim}||S_{n'}-S_n||_p
+$$
+L'inégalité triangulaire implique alors
+$$
+\int(S-S_n)^p\text{d}\mu\leq \sum_{k = n+1}^\infty||f_k||_p\rightarrow 0 \text{ (Reste de série convergente).}
+$$
+Finalement $||S-S_n||_p\rightarrow 0$. Pour le cas général des $f_n$ mesurable, on éffectue le même travail pour les suites $f_n^+, f_n^-, S_n^+,$ et $S_n^-$ et l'inégalité triangulaire permet de conclure avec 
+$$
+||S-S_n||_p\leq||S^+-S_n^+||_p +||S^- -S_n^-||_p. 
+$$
+On a montré qu'une série absolument convergente converge dans $L^p$. \\
+$\square$
+\begin{lemma}
+Un espace vectoriel normé où toute série absolument convergente converge est complet. 
+\end{lemma}
+\underline{Preuve:}\\
+Une suite de Cauchy est convergente si elle admet une sous-suite convergente. En effet soit $(u_n)$ une suite de Cauchy telle que $u_{n_k}$ converge vers une limite $l$. Pour tout $\epsilon >0$, il existe $k_0\in\N$ tel que $||u_{n_k} -l||\leq \epsilon / 2$. De plus, il existe $b_0$ tel que si $\min(k,k')> b_0$ alors $||u_k - u_k'||\leq \epsilon/2$. En choisissant $n\geq\max(n_{k_0}, n_{b_0})$, on a $||u_n - l||\leq \epsilon$.\\
+
+Soit $(u_n)$ une suite de Cauchy. On pose $n_0 = 1$, puis 
+$$
+n_k = \inf\{n>n_{k-1}\text{ ; }i,i'\geq n\rightarrow ||u_i - u_{i'}||\leq 2^{-k}\}
+$$
+forme une suite d'indice croissantes. Patr construction, on a 
+$$
+||u_{n_k} - u_{n_{k+1}}||\leq 2^{-k}
+$$
+pour $k\geq 1$. La série de terme générale $(u_{n_k} - u_{n_{k+1}})$ est absolument convergente donc convergente par hypothèse. la suite $(u_{n_k})$ converge, puis $(u_n)$ converge en tant que suite de Cauchy dont une sous-suite converge. 
+$\square$.
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{theorem}
+L'ensemble $\mathcal{E}$ des fonctions étagées $\mu$-intégrable est dense dans $L^p$
+\end{theorem}
+\underline{preuve}:\\
+Soit $f\in L^p$, alors il existe une suite de fonctions étagées $(f_n)_{n\geq1}$ telle que  converge vers $f$. Pour tout $n\geq1$, 
+$$
+g_n(\omega) = \begin{cases}
+0&\text{ si }|f_n(\omega)|>2|f(\omega)|\\
+f_n(\omega)\text{ sinon }.
+\end{cases}
+$$
+La suite $(g_n)_{n\geq1}$ est une suite de fonctions étagées de $L^p$ qui converge vers $f$ et qui vérifie $|g_n|\leq 2\cdot |f|$.  Par convergence dominée, il vient
+$$
+||f-g_n||_p\rightarrow 0.
+$$
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Bibliographie}
+Mes notes se basent sur les ouvrages suivants \cite{BaLe07,Ga97,GaHe13,GaKu11,Ca09,le2006integration}
+\bibliographystyle{plain}
+\bibliography{Integration_notes}
+ \end{frame}
+
+\end{document}

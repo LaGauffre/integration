@@ -1,0 +1,939 @@
+\documentclass[8pt,notheorems]{beamer}
+\usetheme{Copenhagen}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+% \usepackage{tkz-graph}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{relsize}
+\usepackage{amsmath,amsfonts,amsthm,t1enc}
+\usepackage{fourier}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{automata,arrows,positioning,calc}
+\setbeamertemplate{footline}{\hfill \insertframenumber/\inserttotalframenumber}
+% \setbeamertemplate{headline}{}
+\def \si {\sigma}
+\def \la {\lambda}
+\def \al {\alpha}
+% \def\e*{\end{eqnarray*}}
+\def \di{\displaystyle}
+
+\def \E{\mathbb E}
+\def \N{\mathbb N}
+\def \R{\mathbb{R}}
+\def \A{\mathcal{A}}
+\def \Om{\Omega}
+\def \om{\omega}
+\def \Bor{\mathcal{B}(\mathbb{R})}
+\def \limsup{\underset{n\rightarrow+\infty}{\overline{\lim}}}
+\def \liminf{\underset{n\rightarrow+\infty}{\underline{\lim}}}
+
+\def \NZ{\mathbb{N}_0}
+\def \I{\mathbb I}
+\def \w{\widehat}
+\def \P {\mathbb P}
+\def \V{\mathbb V}
+
+
+
+\newcommand{\CL}{\mathbb{C}}
+\newcommand{\RL}{\mathbb{R}}
+\newcommand{\nat}{{\mathbb N}}
+\newcommand{\Laplace}{\mathscr{L}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\ve}{\bm{\mathrm{e}}} % vector e
+
+\renewcommand{\L}{\mathcal{L}} % e.g. L^2 loss.
+
+\newcommand{\ih}{\mathrm{i}}
+\newcommand{\oh}{{\mathrm{o}}}
+\newcommand{\Oh}{{\mathcal{O}}}
+\newcommand{\Exp}{\mathbb{E}}
+
+\newcommand{\Norm}{\mathcal{N}}
+\newcommand{\LN}{\mathcal{LN}}
+\newcommand{\SLN}{\mathcal{SLN}}
+
+\renewcommand{\Pr}{\mathbb{P}}
+\newcommand{\Ind}{\mathbb I}
+\newcommand\bfsigma{\bm{\sigma}}
+\newcommand\bfSigma{\bm{\Sigma}}
+\newcommand\bfLambda{\bm{\Lambda}}
+\newcommand{\stimes}{{\times}}
+
+\setbeamertemplate{theorem}[ams style]
+\setbeamertemplate{theorems}[numbered]
+%\makeatletter
+%\def\th@mystyle{%
+%    \normalfont % body font
+%    \setbeamercolor{block title example}{bg=orange,fg=white}
+%    \setbeamercolor{block body example}{bg=blue!20,fg=black}
+%    \def\inserttheoremblockenv{block}
+%  }
+%\makeatother
+%\theoremstyle{mystyle}
+
+\makeatletter
+    \ifbeamer@countsect
+      \newtheorem{theorem}{\translate{Theorem}}[section]
+    \else
+      \newtheorem{theorem}{\translate{Theoreme}}
+    \fi
+    \newtheorem{corollary}{\translate{Corollaire}}
+    \newtheorem{prop}{\translate{Proposition}}
+    \newtheorem{lemma}{\translate{Lemme}}
+    \newtheorem{problem}{\translate{Probleme}}
+    \newtheorem{solution}{\translate{Solution}}
+
+    \theoremstyle{definition}
+    \newtheorem{definition}{\translate{Definition}}
+    \newtheorem{definitions}{\translate{Definitions}}
+
+    \theoremstyle{example}
+    \newtheorem{example}{\translate{Exemple}}
+    \newtheorem{remark}{\translate{Remarque}}
+    \newtheorem{examples}{\translate{Examples}}
+
+\makeatletter
+\def\th@mystyle{%
+    \normalfont % body font
+    \setbeamercolor{block title example}{bg=orange,fg=white}
+    \setbeamercolor{block body example}{bg=orange!20,fg=black}
+    \def\inserttheoremblockenv{exampleblock}
+  }
+\makeatother
+\theoremstyle{mystyle}
+\newtheorem{fact}{Fact}
+
+
+
+
+
+    % Compatibility
+    \newtheorem{Beispiel}{Beispiel}
+    \newtheorem{Beispiele}{Beispiele}
+    \theoremstyle{plain}
+    \newtheorem{Loesung}{L\"osung}
+    \newtheorem{Satz}{Satz}
+    \newtheorem{Folgerung}{Folgerung}
+    \newtheorem{Fakt}{Fakt}
+    \newenvironment{Beweis}{\begin{proof}[Beweis.]}{\end{proof}}
+    \newenvironment{Lemma}{\begin{lemma}}{\end{lemma}}
+    \newenvironment{Proof}{\begin{proof}}{\end{proof}}
+    \newenvironment{Theorem}{\begin{theorem}}{\end{theorem}}
+    \newenvironment{Problem}{\begin{problem}}{\end{problem}}
+    \newenvironment{Corollary}{\begin{corollary}}{\end{corollary}}
+    \newenvironment{Example}{\begin{example}}{\end{example}}
+    \newenvironment{Examples}{\begin{examples}}{\end{examples}}
+    \newenvironment{Definition}{\begin{definition}}{\end{definition}}
+\makeatother
+
+
+
+
+
+
+
+% ============================================================
+% Title
+% ============================================================
+
+\title[]{Intégration L3 Actuariat}
+\subtitle{Chapitre II: Intégration}
+\author{Pierre-Olivier Goffard}
+\institute{
+	   Université de Lyon 1\\
+	ISFA\\
+	   \texttt{pierre-olivier.goffard@univ-lyon1.fr}
+	  }
+\date{
+ISFA\\
+\today}
+\lstset{language=SAS}
+\begin{document}
+
+\frame{\titlepage}
+
+
+% ============================================================
+\section{Intégrale par rapport à une mesure}
+\subsection{Intégrale des fonctions étagées positives}
+\begin{frame}[allowframebreaks]
+Soit $(\Om,\mathcal{A}, \mu)$ un espace mesuré. Nous allons définir l'intégrale d'une fonction $f:\Om\mapsto\overline{\mathbb{R}}$ mesurable. On note $\mathcal{M}$ l'ensemble des fonctions mesurables de $(\Om,\mathcal{A})$ dans $(\overline{\mathbb{R}},\mathcal{B}_{\overline{\mathbb{R}}})$.\\
+\underline{I. Intégrale par rapport à une mesure}\\
+% On note $\mathcal{M}^{+}$ l'ensemble des fonctions mesurables positives. Soit $f\in\mathcal{M}^+$. On définit l'intégrale de $f$, notée $\int f\text{d}\mu$ ou $\int f(\omega)\text{d}\mu$ par
+% $$
+% \int f\text{d}\mu =\sup\sum_{i\in I}\inf\{f(\omega)\text{ ; }\omega\in\Omega_i\}\mu(\Omega_i),
+% $$
+% où le supremum est pris sur l'ensemble des partitions $(\Omega_i)_{i\in I}$ de $\Omega$ et $I$ est un ensemble fini d'indice. On note
+% $$
+% I\left((\Om_i)_{i\in I}, f\right)=\sum_{i\in I}\inf\{f(\omega)\text{ ; }\omega\in\Omega_i\}\mu(\Omega_i)
+% $$
+% \begin{remark}
+% Soit $(\Om_i)_{i\in I}$ et $(\Om_j')_{j\in J}$ deux partitions de $\Om$. $(\Om_i\cap\Om_j')_{(i,j)\in I\times J}$ est encore une partition de $\Om$ telle que
+% $I\left((\Om_i\cap\Om_j')_{(i,j)\in I\times J}, f\right)\geq I\left((\Om_i)_{i\in I}, f\right)$
+% \end{remark}
+% \end{frame}
+
+% \begin{frame}[allowframebreaks]
+\underline{1. Intégrale des fonctions étagées positives}\\
+Le passage de la mesure d'un ensemble à la mesure d'une fonction (ou intégrale d'une fonction) procède d'une idée simple. Pour $A\subset\Om$, on attribue la mesure $\mu(A)$ à la fonction indicatrice
+$$
+\mathbb{I}_{A}(\om)=\begin{cases}1,&\text{ si }\om\in A\\
+0,&\text{ sinon}.
+\end{cases}
+$$
+\begin{definition}[Intégrale de la fonction indicatrice]
+L'intégrale de la fonction $\mathbb{I}_{A}$ par rapport à $\mu$ est définie par
+$$
+\int_{\Om} \mathbb{I}_A\text{d}\mu=\int_{\Om} \mathbb{I}_A(\om)\text{d}\mu(\om)=\mu(A)
+$$
+Plus généralement, si $B\in\mathcal{A}$, l'intégrale de $f=\mathbb{I}_A$ sur $B$ par rapport à $\mu$ est définie par
+$$
+\int_{B}\mathbb{I}_A\text{d}\mu=\int_{\Om}\mathbb{I}_B\mathbb{I}_A\text{d}\mu=\int_{\Om}\mathbb{I}_B(\om)\mathbb{I}_A(\om)\text{d}\mu(\om)=\mu(A\cap B).
+$$
+\end{definition}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{definition}[Fonction étagées positives]
+  On appelle fonction étagée positive une fonction $f:\Om\mapsto \overline{\R}$, définie par
+  $$
+    f(\om)=\sum_{i=1}^{n}a_i\mathbb{I}_{A_i}(\om),
+  $$
+  où $A_1,A_2,\ldots,A_n$ est une partition de $\Omega$ de $\mathcal{A}$, et $a_1,\ldots,a_n\geq 0$ des coefficients réels et positifs. On note $\mathcal{E}^+$ l'ensemble des applications étagées positives. 
+\end{definition}
+
+\begin{definition}[Intégrale d'une fonction étagée positive]
+Soit $f\in\mathcal{E}_+$, l'intégrale de $f$ par rapport à $\mu$ est donnée par
+$$
+\int f\text{d}\mu=\sum_{i=1}^{n}a_i\int \mathbb{I}_{A_i}\text{d}\mu=\sum_{i=1}^{n}a_i\mu(A_i),
+$$
+L'intégrale de $f$ sur $B\in\mathcal{A}$ par rapport à $\mu$ est donnée par
+$$
+\int_{B}f\text{d}\mu=\sum_{i=1}^{n}a_i\int_B\mathbb{I}_{A_i}\text{d}\mu=\sum_{i=1}^{n}a_i\mu(A_i\cap B),
+$$
+\end{definition}
+% Supposons l'existence d'une autre écriture de $f$ sous la forme 
+% $$
+% \sum_{j= 1}^m b_j\mathbb{I}_{B_j}, 
+% $$
+% où $B_1,\ldots, B_m$ forme une partition de $\Omega$. Les $b_j$ ne sont pas forcément distincts. En supposant que les $a_i$ sont disjoints alors chaque $A_i$ est la réunion disjointe $\cup_{j\in J}B_j$ telle que $b_j = a_i$ pour $j\in J$. On a alors 
+% $$
+% \int f\text{d}\mu = \sum_{i = 1}^{n}a_i \mu(A_i) =\sum_{i = 1}^{n}a_i \sum_{\{j: b_j = a_i\}}\mu(B_j) = \sum_{j = 1}^{m}b_i \mu(B_j).  
+% $$ 
+% La représentation sous la forme d'une fonction étagée positive n'est pas unique mais chaque représentation mène à la même valeur de l'intégrale. 
+\begin{example}[Variable aléatoire discrète]
+Soit $(\Omega, \mathcal{A}, \mathbb{P})$ un espace probabilisé et $X:(\Omega, \mathcal{A})\mapsto (E, \mathcal{P}(E))$ une variable aléatoire discrète, avec $E = \{x_1,\ldots, x_n\}$. $X$ peut s'écrire 
+$$
+X = \sum_{i = 1}^n x_i\mathbb{I}_{A_i}, \text{ avec }A_i = \{X = x_i\}.
+$$ 
+On a 
+$$
+\int X\text{d}\mathbb{P} = \sum x_i\mathbb{P}(A_i) = \sum x_i\mathbb{P}(X = x_i) = \E(X).
+$$
+\end{example}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{prop}
+Soit $f,g\in \mathcal{E}^+$ et $\alpha>0$. 
+\begin{enumerate}
+    \item $f+g\in \mathcal{E}^+$ et 
+    $$
+    \int(f+g)\text{d}\mu = \int f \text{d}\mu + \int g\text{d}\mu. 
+    $$
+    \item 
+
+    $$
+    \int(\alpha f)\text{d}\mu = \alpha \int f\text{d}\mu.
+    $$ 
+    \item 
+    $$
+    f\leq g \Rightarrow \int f\text{d}\mu\leq \int g\text{d}\mu.  
+    $$
+\end{enumerate}
+\end{prop} 
+\underline{preuve:}\\
+\begin{enumerate}
+    \item Soient 
+    $$
+    f = \sum_{i = 1}^{n}a_i\mathbb{I}_{A_i}\text{ et }g = \sum_{j = 1}^{m}b_j\mathbb{I}_{B_i} 
+    $$
+    L'ensemble $\{A_i\cap B_j\text{ ; }i = 1,\ldots, n, \text{ et }j = 1,\ldots,m \}$ forme une partition. On a donc 
+    $$
+    f + g = \sum_{i = 1}^{n}\sum_{j = 1}^{m}(a_i+b_j)\mathbb{I}_{A_i\cap B_j}.
+    $$
+    puis
+    \begin{eqnarray*}
+    \int f + g \text{d} \mu &=& \sum_{i = 1}^{n}\sum_{j = 1}^{m}(a_i+b_j)\mu(A_i\cap B_j) \\
+    &=& \sum_{i = 1}^{n}\sum_{j = 1}^{m}a_i\mu(A_i\cap B_j) + \sum_{i = 1}^{n}\sum_{j = 1}^{m}b_j\mu(A_i\cap B_j)\\
+    &=& \sum_{i = 1}^{n}a_i\mu(A_i) + \sum_{j = 1}^{m}b_j\mu( B_j)\\
+    &=& \int f\text{d}\mu + \int g\text{d}\mu.
+    \end{eqnarray*} 
+    \item Immédiat
+    \item On note que $g - f \in \mathcal{E}^+$ puis on conclut en intégrant $g = f + (g-f)$.
+\end{enumerate}
+$\square$
+\begin{prop}[Beppo-Lévi $1^{ère}$ partie]\label{prop:BL1}
+Soit $(f_n)_{n\in \N^{\ast}}$ une suite croissante de $\mathcal{E}^+$ qui converge simplement vers $f\in \mathcal{E}^{+}$, alors 
+$$
+\underset{n\rightarrow \infty}{\lim}\int f_n\text{d}\mu =\int f \text{d}\mu.
+$$
+\end{prop}
+\underline{preuve:}\\
+On a 
+$$
+f_n\leq f\Rightarrow \int f_n\text{d}\mu \leq \int f\text{d}\mu,\text{ pour tout }n\in \N^{\ast}. 
+$$
+donc $\lim \int f_n\text{d}\mu \leq \int f\text{d}\mu$. D'autre part, on pose $A_n = \{f_n \geq c\times f\}$, où $c\in \left]0,1\right[$. Comme la suite des $f_n$ est croissante alors la suite des $A_n$ est croissante pour l'inclusion et de réunion $\Omega$. Comme $f\in \mathcal{E}^+$ alors $f = \sum_{i = 1}^{k}\beta_i\mathbb{I}_{B_i}$ et 
+$$
+\mathbb{I}_{A_n}.f = \sum_{i = 1}^{k}b_i\mathbb{I}_{B_i\cap A_n}.
+$$
+On a 
+$$
+\underset{n\rightarrow \infty}{\lim} \int \mathbb{I}_{A_n}.f = \underset{n\rightarrow \infty}{\lim} \sum_{i = 1}^kb_i\mu(A_n\cap B_i) = \sum_{i = 1}^kb_i\mu( B_i) = \int f\text{d}\mu
+$$
+Comme $f_n \geq c.f.\mathbb{I}_{A_n}$ pour tout $n\in \N^{\ast}$, on a 
+$$
+\underset{n\rightarrow \infty}{\lim} \int f_n\text{d}\mu\geq c. \underset{n\rightarrow \infty}{\lim} \int f.\mathbb{I}_{A_n}\text{d}\mu = c. \int f\text{d}\mu.
+$$
+En choisissant $c$ arbitrairement proche de $1$, il vient 
+$$
+\underset{n\rightarrow \infty}{\lim} \int f_n\text{d}\mu\geq \int f\text{d}\mu.
+$$
+$\square$\\
+Le lien entre fonctions mesurables positives et étagées se concrétisent avec les résultat suivants. On note $\mathcal{M}_+$ l'ensemble des fonction mesurables de $\Om$ vers $\overline{\R}_{+}$.
+\begin{theorem}
+Toute fonction $f\in\mathcal{M}_{+}$ est limite simple d'une suite croissante de fonction de $\mathcal{E}_+$.
+\end{theorem}
+\flushleft
+\underline{preuve:}\\
+Posons
+$$
+f_n=n\mathbb{I}_{\{f\geq n\}}+\sum_{k=0}^{n2^{n}-1}\frac{k}{2^{n}}\mathbb{I}_{\left\{\frac{k}{2^{n}}\leq f<\frac{k+1}{2^{n}}\right\}},\text{ }n\geq1.
+$$
+Par exemple,
+$$
+f_1=\mathbb{I}_{\{f\geq 1\}}+\frac{1}{2}\mathbb{I}_{\left\{\frac{1}{2}\leq f<1\right\}},\text{ }n\geq1.
+$$
+et
+$$
+f_2=2\mathbb{I}_{\{f\geq 2\}}+\frac{1}{4}\mathbb{I}_{\left\{\frac{1}{4}\leq f<\frac{1}{2}\right\}}+\frac{1}{2}\mathbb{I}_{\left\{\frac{1}{2}\leq f<\frac{3}{4}\right\}}+\ldots,\text{ }n\geq1.
+$$
+Voici une visualisation, pour un $\omega\in \Omega$, on a $f(\omega)\in \R_+$ et
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale = 0.75]
+\begin{axis}[
+axis x line=bottom,
+axis y line = left, xlabel={$f(\omega)$}]
+\addplot coordinates {
+(0,0) (0.5,0) (0.5,0.5)
+(1,0.5) (1,1) (3,1)};
+\addplot coordinates {
+(0,0) (0.25,0) (0.25,0.25)
+(0.5,0.25) (0.5,0.5) (0.75,0.5)
+(0.75,0.75) (1,0.75) (1,1)
+(1.25,1) (1.25,1.25) (1.5,1.25)
+(1.5, 1.5) (1.75, 1.5) (1.75,1.75)
+(2,1.75) (2,2) (3,2)
+}
+;
+\end{axis}
+\end{tikzpicture}\caption{(bleu) $f_1$; (rouge) $f_2$}
+\end{center}
+\end{figure}
+
+La suite $(f_n)_{n\geq1}$ est une suite de fonctions étagées positives.
+\begin{itemize}
+\item qui converge vers $f$. En effet,
+\begin{itemize}
+\item Si $\om\in\{f=+\infty\}$ alors $f(\om)=+\infty$ et $\underset{n\rightarrow+\infty}{\lim} f_n=\underset{n\rightarrow+\infty}{\lim} n = +\infty$
+\item Si $\om\in\{f<+\infty\}$ alors pour $\epsilon>0$, il existe $N$ tel que $\frac{1}{2^{N}}<\epsilon$ et $f(x)<N$ donc pour $n\geq N$ il existe $k\in\{0,1,\ldots, n2^{n}-1\}$ pour lequel $\frac{k}{2^{n}}\leq f<\frac{k+1}{2^{n}}$. Par suite
+$$
+0\leq f(\om)-f_{n}(\om)=f(\om)-\frac{k}{2^{n}}<\frac{1}{2^{n}}<\frac{1}{2^{N}}<\epsilon.
+$$
+\end{itemize}
+\item qui est croissante, c'est à dire que pour tout $n\in\N$ et tout $\om\in\Om$, $f_{n}(\om)\leq f_{n+1}(\om)$
+\begin{itemize}
+\item Si $f_{n}(\om)=0$ alors le résultat est trivial,
+\item Si $f_{n}(\om)>0$ alors
+\begin{itemize}
+\item Si $\om\in\{f=\infty\}$ alors $f_n(\om)=n<n+1=f_{n+1}(\om)$
+\item Si $\om \in\{\frac{k}{2^{n}}\leq f<\frac{k+1}{2^{n}}\}$ pour un $k\in\{0,1,2,\ldots,n2^{n}-1\}$ alors
+$$
+f_{n}(\om)=\frac{k}{2^{n}}
+\begin{cases}
+=f_{n+1}(\om),&\text{ si }\om\in\left\{\frac{k}{2^{n}}\leq f< \frac{2k+1}{2^{n+1}}\right\}\\
+ <\frac{2k+1}{2^{k+1}}=f_{n+1}(\om),&\text{ si }\om\in\left\{\frac{2k+1}{2^{n+1}}\leq f< \frac{k+1}{2^{n}}\right\}.
+\end{cases}
+$$
+\end{itemize}
+\end{itemize}
+\end{itemize}
+$\square$
+\end{frame}
+
+
+\subsection{Intégrale des fonctions mesurables positives}
+\begin{frame}[allowframebreaks]
+\underline{2. Intégrale des fonctions mesurables positives}\\
+L'introduction des fonctions étagées permet de définir l'intégrale d'une fonction $f\in\mathcal{M}_{+}$.
+\begin{definition}[Par les fonctions étagées positives]
+L'intégrale d'une fonction $f\in\mathcal{M}_{+}$ par rapport à $\mu$ sur $B\subset\Omega$ est définie par
+$$
+\int_B f\text{d}\mu=\sup\left\{\int_B g\text{d}\mu\text{ ; }g\in\mathcal{E}^{+}\text{ , }g\leq f\right\}
+$$
+\end{definition}
+\begin{prop}
+Soit $f\in \mathcal{M}^+$ et $(h_n)_{n\in \N^\ast}$ une suite croissante d'éléments de $\mathcal{E}^+$, telle que $\lim h_n = f$. Alors 
+$$
+\int f\text{d} \mu = \underset{n\rightarrow \infty}{\lim}\int h_n\text{d} \mu.
+$$
+\end{prop}
+\underline{preuve:}\\
+Par définition de $\int f\text{d} \mu $, on a 
+$$
+\int f\text{d} \mu \geq \int h_n\text{d} \mu,\text{ pour tout }n>0,
+$$
+et en particulier $\int f\text{d} \mu \geq \underset{n\rightarrow\infty}{\lim} \int h_n\text{d} \mu$. Soit $h\in \mathcal{E}^+$ telle que $h\leq f$. On définit 
+$$
+g_n = min (h_n, h),\text{ }n\in \N^{\ast}.  
+$$
+On remarque que $(g_n)_{n\geq 1}$ est une suite croissante de fonctions étagées positives qui converge vers $h$, donc d'après Beppo-Lévi
+$$
+\underset{n\rightarrow \infty}{\lim}\int h_n\text{d}\mu\geq \underset{n\rightarrow \infty}{\lim} \int g_n\text{d}\mu = \int h\text{d}\mu
+$$  
+et ce pour tout $h\leq f$. On en déduit que 
+$$
+\underset{n\rightarrow \infty}{\lim}\int h_n\text{d}\mu \geq \sup \left\{\int h\text{d}\mu\text{; }h\in \mathcal{E}^+\text{, }h\leq f\right\} = \int f\text{d}\mu
+$$
+
+$\square$\\
+
+
+\begin{prop}\label{prop:IntegralProperties}
+Soit $f,g\in\mathcal{M}_{+}$ et $a, b>0$
+\begin{enumerate}
+    \item
+    $$
+    \int (af+ bg)\text{d}\mu = a\int f\text{d}\mu + b\int g\text{d}\mu 
+    $$ 
+    \item $f\leq g \Rightarrow  \int f \text{d}\mu\leq \int g\text{d}\mu$
+% \item[(i)] Si $f\leq g$ alors $0\leq \int_B f\text{d}\mu\leq \int_B g\text{d}\mu$
+% \item[(ii)] Si $A\subset B$ et $f\geq0$, alors $\int_A f\text{d}\mu\geq\int_B f\text{d}\mu$
+% \item[(iii)] Pour $c\geq0$, on a $\int_B cf\text{d}\mu=c\int_B f\text{d}\mu$
+% \item[(iv)] Si $f=0$ alors $\int_B f\text{d}\mu=0$
+% \item[(v)] Si $\mu(B)=0$ alors $\int_{B}f\text{d}\mu=0$
+% \item[(vi)] Si $f\geq 0$ alors $\int_{B}f\text{d}\mu\geq0$
+% \item[(vii)] Si $f\geq 0$ et $\int_B f\text{d}\mu=0$, alors $\mathbb{I}_B f=0$ $\mu$-p.p.
+\end{enumerate}
+\end{prop}
+\underline{Preuve:}\\
+\begin{enumerate}
+    \item Soient $(f_n)_{n\geq 1}$ et $(g_n)_{n\geq 1}$ deux suites croissantes de $\mathcal{E}^+$ qui convrege respectivement vers $f$ et $g$. On en déduit que la suite définie par $af_n+bg_n$ pour $n\geq1$ converge vers $af+bg$. De plus, on a 
+    $$
+    \int (af_n+bg_n)\text{d}\mu = a\int f_n\text{d}\mu +b\int g_n\text{d}\mu 
+    $$
+    ce qui est équivalent à 
+    $$
+    \int (af+bg)\text{d}\mu = a\int f\text{d}\mu+b\int g\text{d}\mu
+    $$
+    après passage à la limite. 
+    \item Si $f\leq g$ alors $h\leq f\Rightarrow h\leq g$ pour toutes fonction $h\in \mathcal{E}^+$ et 
+    $$
+    \int f\text{d}\mu=\sup\left\{\int h\text{d}\mu\text{; }h\in \mathcal{E}^+,\, h\leq f\right\}\leq \sup\left\{\int h\text{d}\mu\text{; }h\in \mathcal{E}^+,\, h\leq g\right\} = \int g\text{d}\mu 
+    $$
+     
+\end{enumerate}
+$\square$
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{theorem}[Beppo-Lévi]
+Si $(f_n)_{n\in\N}$ est une suite croissante de fonctions mesurables positives convergeant simplement ($\mu$-p.p.) vers $f$ alors
+$$
+\underset{n\rightarrow+\infty}{\lim}\int f_n\text{d}\mu=\int f\text{d}\mu.
+$$
+\end{theorem}
+\underline{preuve:}\\
+
+Soit $g\in \mathcal{E}^+$ telle que $f\geq g$, par exemple
+$$
+g=\sum_{i\in I} \inf\{f(\om)\text{ ; }\om\in A_i\}\mathbb{I}_{A_i},
+$$
+où $(A_i)_{i\in I}$ forme une partition de $\Om$. Soit
+$$
+E_n=\{f_n\geq\alpha g\},\text{ }n\in\N,
+$$
+avec $\alpha\in[0,1]$. $(E_n)_{n\in N}$ est une suite croissante d'éléments de $\mathcal{A}$. Comme $\lim f_n = f\geq \alpha g$ alors on peut trouver $n$ assez grand tel que $\om\in E_n$ et donc $\cup_{n\in N}E_n=\Om$. On en déduit que $(\mathbb{I}_{E_n}\alpha g)_{n\in\N^\ast}$ est une suite croissante de fonction étagées positives telle que $\underset{n\rightarrow \infty}{\lim} \mathbb{I}_{E_n}\alpha g = \alpha g$ et 
+$$
+\underset{n\rightarrow \infty}{\lim}\int \mathbb{I}_{E_n}\alpha g\text{d}\mu=\int \alpha g\text{d}\mu,
+$$
+par application de la Proposition \ref{prop:BL1}. On a
+$$
+f_n\geq f_n\mathbb{I}_{E_n}\geq \mathbb{I}_{E_n} \alpha g
+$$
+d'où
+$$
+\underset{n\rightarrow \infty}{\lim}\int f_n\text{d}\mu\geq\alpha \int \mathbb{I}_{E_n} \alpha g\text{d}\mu=\alpha \int  g\text{d}\mu
+$$
+On obtient
+$$
+\lim\int f_n\text{d}\mu\geq \int f\text{d}\mu
+$$
+en faisant tendre $\alpha$ vers $1$ et en prenant le sup sur les fonction étagées positives.
+\end{frame}
+\begin{frame}[allowframebreaks]
+
+\begin{definition}
+Une propriété $\Pi$ est vraie $\mu$-presque partout si et seulement si l'ensemble $\{\omega\in\Omega\text{ ; }\Pi(\omega)\text{  est fausse}\}$ est $\mu$-négligeable au sens où
+$$
+\exists B\in \mathcal{A}\text{, }\{\omega\in\Omega\text{ ; }\Pi(\omega)\text{  est fausse}\}\subset B\text{ et }\mu(B)=0.
+$$
+\end{definition}
+\begin{example}
+Soit $f$ et $g$ deux applications mesurables. Dire que $f\leq g$ $\mu$-presque partout est équivalent à 
+$$
+\mu(\{\omega\in \Omega\text{ ; }\{f(\omega)>g(\omega)\}) = \mu(\{f>g\}) = 0
+$$
+\end{example}
+\begin{prop}
+Soit $f$ une application mesurable à valeurs dans $\overline{R}^{+}$. Alors 
+$$
+\int f\text{d}\mu = 0 \Leftrightarrow f=0\text{ }\mu\text{-p.p.}
+$$
+\end{prop}
+\underline{preuve:}\\
+$\Leftarrow$ Supposons que $f\in \mathcal{E}^+$ alors si $f = \sum_{i = 1}^k\alpha_i\mathbb{I}_{A_i} =0$ $\mu$-pp, cela signifie que soit $\alpha_i = 0$ ou $\mu(A_i) = 0$ pour $i = 1,\ldots k$ puis 
+$$\int f\text{d}\mu = \sum_{i = 1}^{k}\alpha_i\mu(A_i) = 0.$$
+Si $f\in \mathcal{M}^{+}$ alors $f$ est limite d'une suite  croissante de fonctions étagées positives $(f_n)_{n\in\N^{\ast}}$, nulles $\mu$-pp. on a 
+$$
+\int f \text{d}\mu  = \underset{n\rightarrow\infty}{\lim} \int f_n\text{d}\mu = 0
+$$
+par Beppo-Lévi. \\
+$\Rightarrow$ Supposons que $\int f\text{d}\mu$ = 0. Pour tout $n\in\N^{\ast}$, on a 
+$$
+\mathbb{I}_{\left\{f\geq \frac{1}{n}\right\}}\leq n.f,
+$$
+et 
+$$
+0\leq \mu\left(\left\{f\geq \frac{1}{n}\right\}\right) = \int \mathbb{I}_{\{f\geq \frac{1}{n}\}}\text{d}\mu\leq n.\int f\text{d}\mu =0.
+$$
+En remarquant que 
+$$
+\{f \neq 0\} = \bigcup_{n\in\N^{\ast}}\left\{f\geq \frac{1}{n}\right\},
+$$
+puis $\mu\left(\{f \neq 0\}\right) \leq \sum_{n\in\N^\ast}\mu\left(\left\{f\geq \frac{1}{n}\right\}\right) =  0.$\\
+$\square$
+\end{frame}
+\subsection{Intégrale des fonctions mesurables}
+\begin{frame}[allowframebreaks]
+\underline{3. Intégrale des fonctions mesurables}\\
+On note $\mathcal{M}$ l'ensemble des applications mesurables de $(\Omega, \mathcal{A})$ vers $(\overline{\R}, \mathcal{B}_{\overline{\R}})$ et $\mu$ une mesure sur $(\Omega, \mathcal{A})$. Pour tout $f\in \mathcal{M}$, on a 
+$$
+\{f\geq 0\},\{f< 0\}\in \mathcal{A}
+$$ 
+et 
+$$
+f^+ = \mathbb{I}_{\{f\geq 0\}}.f\text{, }f^- = -\mathbb{I}_{\{f< 0\}}.f
+$$
+sont des applications mesurables positives. Il ne faut pas oublier que 
+$$
+f = f^+ - f^-\text{ et }|f| = f^+ + f^-.
+$$
+On peut donc définir 
+$$
+\int f^+\text{d}\mu\text{ et }\int f^-\text{d}\mu
+$$
+et par suite introduire le concept de fonction $\mu$-intégrable.  
+\begin{definition}[Fonction intégrable]
+Une application $f\in \mathcal{M}$ est $\mu$-intégrable si et seulement si 
+$$
+\int f^{+}\text{d}\mu<\infty\text{ et }\int f^{-}\text{d}\mu<\infty
+$$
+et on pose
+$$
+\int f\text{d}\mu=\int f^{+}\text{d}\mu-\int f^{-}\text{d}\mu.
+$$
+On note $\mathcal{L}^{1}(\Omega, \mathcal{A},\mu) := \mathcal{L}^{1}(\mu) $ l'ensemble des fonctions intégrables.
+\end{definition}
+\begin{remark}[Critère important]
+$f\in \mathcal{M}$ est $\mu$-intégrable si et seulement si |f| est $\mu$-intégrable, avec 
+$$
+\int |f|\text{d}\mu < \infty.
+$$
+\end{remark}
+\begin{prop}
+$\mathcal{L}^{1}(\Omega, \mathcal{A},\mu)$ est un espace vecoriel sur $\R$, et l'application $f\mapsto\int f\text{d}\mu$ est une forme linéaire.
+\end{prop}
+\begin{prop}
+Soient $f,g\in \mathcal{M}$.  
+\begin{enumerate}
+    \item 
+    $$
+    \left|\int g\text{d}\mu\right|\leq \int |g|\text{d}\mu 
+    $$
+    \item Supposons que $g$ soit $\mu-$intégrable. Si $|f|\leq g$ alors $f$ est $\mu$-intégrable.
+\end{enumerate}
+\end{prop}
+\underline{preuve:}\\
+\begin{enumerate}
+    \item Inégalité triangulaire 
+    \item On a $f^+\leq g$ et $f^-< g$, ce qui implique que  
+    $$
+    \int f^+\text{d}\mu<\infty\text{ et }\int f^-\text{d}\mu<\infty
+    $$
+    puis $f$ est $\mu$-intégrable 
+\end{enumerate}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{example}[Intégration par rapport à la mesure de Dirac]
+Soit $(\Omega, \mathcal{A})$ un espace mesurable, la mesure de Dirac en $x\in \Omega$ est définie par 
+$$
+\delta_x(A) = \mathbb{I}_A(x),\text{ pour tout }A\in \mathcal{A}. 
+$$
+On veut montrer que toute fonction $f\in \mathcal{M}$ est $\delta_x$-intégrable.\\ 
+% \begin{equation}\label{eq:int_dirac}
+% \int f\text{d}\delta_x = f(x), \text{ pour tout }f\in\mathcal{M}.
+% \end{equation}
+Pour une fonction étagée positive $f = \sum_{i = 1}^{n}\alpha_i\mathbb{I}_{A_i}$, où $A_1,\ldots, A_n$ forment une partition de $\Omega$, on a 
+$$
+\int f\text{d}\delta_x = \sum_{i = 1}^{n}\alpha_i\delta_x(A_i)  =  \sum_{i = 1}^{n}\alpha_i\mathbb{I}_{A_i}(x) = f(x).
+$$
+Pour une fonction mesurable positive, on peut définir une suite croissante $(f_n)_{n\in\N^\ast}$ de fonction étagées positives qui converge vers $f$ alors 
+$$
+\int f\text{d}\delta_x = \underset{n\rightarrow +\infty}{\lim}\int f_n\text{d}\delta_x  =  \underset{n\rightarrow +\infty}{\lim}f_n(x) = f(x)
+$$
+Pour une application mesurable $f\in \mathcal{M}$, on écrit $f = f^+-f^-$ et 
+$$
+\int f\text{d}\delta_x = \int f^+\text{d}\delta_x -\int f^-\text{d}\delta_x = f^+(x)-f^-(x) = f(x)
+$$
+cela prouve l'intégrabilité de $f$.
+\end{example}
+\begin{example}[Intégration par rapport à la mesure de comptage]
+Si $\Omega = \{\omega_1,\omega_2,\ldots\}$ est un ensemble dénombrable, la mesure de comptage est donnée par 
+$$
+\mu(A) = \sum_{i = 1}^\infty p_i\delta_{\omega_i}(A),\text{ }A\in \mathcal{A}.
+$$
+D'après l'exemple précedente, l'application $f\in \mathcal{M}$ est $\mu$-intégrable si et seulement si 
+$$
+\sum_{i = 1}^{\infty}p_i f^+(\omega_i)<\infty\text{ }\sum_{i = 1}^{\infty}p_i f^-(\omega_i)<\infty
+$$
+ce qui est équivalent à 
+$$
+\sum_{i = 1}^{\infty}p_i|f(\omega_i)|<\infty.
+$$
+Il faut que la série de terme générale $(p_i f(\omega_i))_{i\geq1}$ soit absolument convergente.
+\end{example}
+\begin{prop}\label{prop:integrale_ensemble_mesure_nulle}
+Soit $f$ une application mesurable, si $\mu(A) = 0$ alors 
+$$
+\int_A f\text{d}\mu = 0.
+$$
+\end{prop}
+\underline{preuve:}\\
+On a $\{f.\mathbb{I}_A\neq 0\}\subset A$ et $\mu(A) = 0$. Ainsi $f.\mathbb{I}_A=0$ $\mu$-p.p. ce qui implique $|f|.\mathbb{I}_A=0$ $\mu$-p.p. puis 
+$$
+\int |f|.\mathbb{I}_A\text{d}\mu = 0
+$$
+Ce qui implique que 
+$$
+\int f^+.\mathbb{I}_A\text{d}\mu = 0\text{ et }\int f^-.\mathbb{I}_A\text{d}\mu = 0
+$$
+et finalement 
+$$
+\int_A f\text{d}\mu = \int f.\mathbb{I}_A\text{d}\mu = 0.
+$$
+$\square$
+\begin{prop}
+Soient $f$ et $g$ deux applications mesurables à valeurs dans $\overline{\R}$, égales $\mu$- presque partout. Si $f$ est intégrable, alors $g$ aussi et $\int f\text{d}\mu = \int g\text{d}\mu$.
+\end{prop}
+\underline{preuve:}\\
+Soit $A = \{f\neq g\}$ alors 
+$$
+\int f\text{d}\mu = \int_A f\text{d}\mu + \int_{A^c} f\text{d}\mu = \int_{A^c} g\text{d}\mu  =  \int g\text{d}\mu
+$$
+\begin{prop}\label{prop:integrale_finie_fonction_finie}
+Toute application $\mu$-intégrable à valeurs dans $\overline{\R}$ est finie $\mu$-pp. 
+\end{prop}
+\underline{preuve:}\\
+On peut montrer que $|f|$ est finie, soit $M = \left\{|f| = \infty \right\}$. On note que 
+$$
+f\geq n.\mathbb{I}_M\text{ pour tout }n\in \N^{\ast},
+$$ 
+il vient alors 
+$$
+n\mu(M) \leq \int f\text{d}\mu <\infty,
+$$
+ce qui implique que $\mu(M) = 0$.
+\end{frame}
+\subsection{Intégrale de fonctions à valeurs complexes}
+\begin{frame}[allowframebreaks]
+\underline{4. Intégrale de fonctions à valeurs complexes}\\
+Nous avons vu qu'une application $f:(\Omega,\mathcal{A})\mapsto (\mathbb{C},\mathcal{B}_\mathbb{C})$ est mesurable si $\Re(f)$ et $\Im(f)$ sont mesurables. 
+\begin{definition}
+$f$ est dite intégrable si $\Re(f)$ et $\Im(f)$ sont intégrables et dans ce cas
+$$
+\int f \text{d}\mu = \int\Re(f)\text{d}\mu+i\int \Im(f)\text{d}\mu.
+$$
+\end{definition}
+
+On note 
+$$
+|f| = \sqrt{\Re(f)^2+\Im(f)^2}.
+$$
+
+\begin{prop}
+$|f|$ est intégrable si et seulement si $\Re(f)$ et $\Im(f)$ sont intégrables. 
+\end{prop}
+\underline{preuve:}\\
+On a $|\Re(f)|\leq |f|$ et $|\Im(f)|\leq |f|$ mais aussi $|f|\leq |\Re(f)|+|\Im(f)|$. 
+
+\begin{prop}
+L'ensemble $\mathcal{L}_{\mathbb{C}}^{1}(\Omega, \mathcal{A},\mu)$ des fonctions à valeurs complexes intégrables est un espace vecoriel sur $\mathbb{C}$, et l'application $f\mapsto\int f\text{d}\mu$ est une forme linéaire.
+\end{prop}
+\begin{prop}
+Pour $f\in \mathcal{L}_{\mathbb{C}}^{1}(\Omega, \mathcal{A},\mu)$, on a 
+$$
+\left|\int f\text{d}\mu\right|\leq \int |f|\text{d}\mu
+$$
+\end{prop}
+\underline{preuve:}\\
+Posons $\int f\text{d}\mu = re^{i\theta}$, on note que 
+$$
+\left|\int f\text{d}\mu\right| = r =e^{-i\theta}\int f\text{d}\mu = \int e^{-i\theta}f\text{d}\mu.
+$$
+Or 
+$$
+\int e^{-i\theta}f\text{d}\mu = \int \Re\left(e^{-i\theta}f\right)\text{d}\mu + i \int \Im\left(e^{-i\theta}f\right)\text{d}\mu
+$$
+puis 
+$$
+\int \Im\left(e^{-i\theta}f\right)\text{d}\mu = 0
+$$
+On en déduit que 
+$$
+\left|\int f\text{d}\mu\right| = \int \Re\left(e^{-i\theta}f\right)\text{d}\mu \leq \int \left|e^{-i\theta}f\right|\text{d}\mu = \int|f|\text{d}\mu.
+$$
+\end{frame}
+\section{Théorème de convergence}
+\begin{frame}[allowframebreaks]
+\underline{II. Théorèmes de convergence}
+\begin{lemma}[Lemme de Fatou]
+Soit $(f_n)_{n\in\N}\in\mathcal{M}_{+}$, on a
+$$
+\int \liminf \, f_{n}\text{d}\mu\leq \liminf\int \, f_{n}\text{d}\mu.
+$$
+\end{lemma}
+\underline{preuve:}\\
+On pose $g_n=\underset{k\geq n}{\text{inf}}f_k$, pour $n\in\N$, ce qui définit une suite croissante de fonctions positives dont la limite est $\liminf f_n$, on a
+$$
+f_n\geq g_n \Rightarrow \int f_n\text{d}\mu\geq \int g_n\text{d}\mu
+$$
+d'où
+$$
+\liminf \int f_n\text{d}\mu\geq \liminf \int g_n\text{d}\mu
+$$
+puis par le théorème de Beppo-Lévi, il vient
+$$
+\liminf \int g_n\text{d}\mu=\lim\int g_n\text{d}\mu=\int \liminf f_n\text{d}\mu.
+$$
+\flushright$\square$
+\flushleft
+
+\begin{remark}[Moyen Mnémotechnique]
+Soit
+$$
+f_n(x)=\mathbb{I}_{[n,n+1]}, \text{ pour }n\geq0,
+$$
+alors $\liminf f_n=0$ et $\int f_n(x)\text{d}\lambda(x)=1$ donc
+$$
+0=\int \liminf f_n\text{d}\lambda < \liminf \int f_n \text{d}\lambda=1.
+$$
+\end{remark}
+\begin{example}
+Soit
+$$
+f_n(x)=n\sin^2\left(\frac{\sqrt{x}}{n^{1/3}}\right),\text{ pour }n\geq0\text{ et }x\in \left]0,1\right[
+$$
+On a $\liminf f_n=+\infty$ puis
+$$
++\infty=\int \liminf f_n\text{d}\lambda<\liminf\int f_n\text{d}\lambda
+$$
+puis $\lim\int f_n\text{d}\mu=\infty$
+\end{example}
+\begin{theorem}[Théorème de convergence dominée]
+Soit $(f_n)_{n\in\N}\in\mathcal{M}$ convergeant presque partout vers $f$, et telle qu'il existe une fonction $g\in\mathcal{L}^{1}(\mu)$ vérifiant $|f_n|\leq g$, pour tout $n\in\N$ alors
+$$
+\underset{n\rightarrow+\infty}{\lim}\int f_n\text{d}\mu=\int f\text{d}\mu.
+$$
+\end{theorem}
+\underline{preuve:}\\
+Les fonctions $f_n$ sont intégrables car dominées par $g$. Par suite, les fonctions $g+f_n$ et $g-f_n$ sont intégrables et positives: On peut leur appliquer le lemme de Fatou, ce qui donne
+$$
+\int \liminf (g+f_n)\text{d}\mu\leq \liminf \int (g+f_n)\text{d}\mu\Leftrightarrow\int g\text{d}\mu+\int \liminf f_n\text{d}\mu\leq \int g\text{d}\mu+\liminf \int f_n\text{d}\mu.
+$$
+d'une part et
+$$
+\int \liminf (g-f_n)\text{d}\mu\leq \liminf \int (g-f_n)\text{d}\mu\Leftrightarrow\int g\text{d}\mu-\int \limsup f_n\text{d}\mu\leq  \int g\text{d}\mu + \liminf \left(-\int f_n\text{d}\mu\right).
+$$
+d'autre part. On en déduit que
+$$
+\int f\text{d}\mu \leq \liminf \int f_n\text{d}\mu\text{  et } \int f\text{d}\mu \geq \limsup \int f_n\text{d}\mu
+$$
+puis
+$$
+\int f_n\text{d}\mu\rightarrow \int f\text{d}\mu.
+$$
+\flushright$\square$
+\begin{example}
+Soit
+$$
+f_n(x)=\frac{\sin^n(x)}{x^2},\text{ pour }n\in\N \text{ et }x\in \left]1,+\infty\right[.
+$$
+On a $|f_n(x)|\leq g(x)=\frac{1}{x^2}$ intégrable. Soit $N=\pi/2 + \pi\mathbb{N}$, pour $x\in \left]1,+\infty\right[/N$ on a $\underset{n\rightarrow+\infty}{\lim} f_n(x)=0$, comme $N$ est de mesure nulle alors on a convergence de $(f_n)$ vers $0$ $\lambda$ presque partout. Puis par application du théorème de convergence dominée, on a
+$$
+\underset{n\rightarrow+\infty}{\lim}\int_{\left]1,+\infty\right[} f_n\text{d}\lambda=\int_{\left]1,+\infty\right[} \underset{n\rightarrow+\infty}{\lim} f_n\text{d}\lambda=0.
+$$
+\end{example}
+\end{frame}
+\section{Intégrale et série d'applications}
+\begin{frame}[allowframebreaks]
+\underline{III. Intégrale et série d'applications}\\
+\begin{prop}[Intégrale d'une série de fonctions mesurables positives]\label{prop:serie_app_mesurable_positive}
+Soit $(f_n)_{n\in\N}$ une suite de fonctions de $\mathcal{M}_+$ et soit $f=\sum_{n\in\N}f_n$. Alors
+$$
+\int f\text{d}\mu=\sum_{n\in\N}\int f_n\text{d}\mu.
+$$
+\end{prop}
+\underline{preuve:} examen.
+\begin{prop}
+Supposons que pour tout $\omega$, $(f_n(\omega))_{n\N^\ast}$ soit une suite alternée tel que $(|f_n(\omega)|)_{n\in\N^\ast}$ décroisse vers $0$. Si $f_1$ est intégrable alors 
+$$
+\int\sum_{n\in\N^\ast}f_n\text{d}\mu
+=\sum_{n\in\N^\ast}\int f_n\text{d}\mu.
+$$
+\end{prop}
+\underline{preuve:} Par hypothèse, $\sum_{n\in\N^\ast}f_n$ converge (Critère de convergence des série alternée). On a également 
+$$
+\left|\sum_{k=1}^{n}f_k\right| \leq |f_1|, \text{ }n\geq1. 
+$$
+On applique ensuite le théorème de convergence dominée sur la suite $\left(\sum_{k=1}^n f_k\right)_{n\in\N^\ast}$.\\
+$\square$\\
+\begin{prop}
+Soit $(f_n)_{n\in \N^\ast}$ une suite d'applications intégrables qui vérifient 
+$$
+\sum_{n\in \N^{\ast}}\int|f_n|\text{d}\mu<\infty.
+$$
+Alors la série $\sum_{n\in\N^{\ast}}f_n$ converge $\mu$-pp, sa somme $f$ est intégrable et
+$$
+\int\sum_{n\in\N^\ast}f_n\text{d}\mu = \sum_{n\in\N^\ast}\int f_n\text{d}\mu.
+$$
+\end{prop}
+\underline{preuve:}\\
+La suite $(|f_n|)_{n\in\N^{\ast}}$ est une suite de fonction mesurable positives, par application de la Proposition \ref{prop:serie_app_mesurable_positive} on a 
+$$
+\int \sum_{n\in\N^\ast}|f_n|\text{d}\mu = \sum_{n\in\N^\ast}\int |f_n|\text{d}\mu.
+$$
+On en déduit que $\sum_{n\in\N^\ast}|f_n|$ est fini $\mu$-p.p. (Proposition \ref{prop:integrale_finie_fonction_finie}) et que la suite $(f_n)_{n\in\N^\ast}$ est absolument convergente. Sa somme, $f$, vérifie 
+$$
+|f|\leq \sum_{n\in\N^\ast}|f_n|
+$$ 
+et est donc intégrable. On vérifie également que 
+$$
+\left|\sum_{k=1}^n f_k\right|\leq\sum_{n\in\N^\ast} |f_n|
+$$
+puis il vient 
+$$
+\int \sum_{n\in\N^\ast} f_n \text{d}\mu=\sum_{n\in\N^\ast}\int f_n\text{d}\mu,
+$$
+par application du théorème de convergence dominée. 
+\begin{prop}
+Si $(f_n)_{n\in\N^\ast}$ est une suite d'applications mesurables dont la série converge $\mu$-p.p., on a l'inégalité suivante 
+$$
+\int\left|\sum_{n = 0}^{+\infty}f_n\right|\text{d}\mu\leq \sum_{n = 0}^{+\infty}\int|f_n|\text{d}\mu
+$$
+\end{prop}
+\underline{preuve:}\\
+Soit 
+\begin{itemize}
+\item $\sum_{n = 0}^{+\infty}\int|f_n|\text{d}\mu=\infty$ et l'inégalité est vérifiée
+\item $\sum_{n = 0}^{+\infty}\int|f_n|\text{d}\mu<\infty$ alors comme $\left|\sum_{n=0}^{\infty}f_n\right|\leq\sum_{n=0}^{\infty}|f_n| <\infty$ et 
+$$
+\int\left|\sum_{n = 0}^{+\infty}f_n\right|\text{d}\mu\leq \int\sum_{n = 0}^{+\infty}|f_n|\text{d}\mu =\sum_{n = 0}^{+\infty}\int|f_n|\text{d}\mu. 
+$$
+\end{itemize}
+\end{frame}
+\section{Intégrale de Lebesgue et de Riemann}
+\begin{frame}[allowframebreaks]
+\underline{IV. Intégrale de Lebesgue et de Riemann}\\
+Soit $(\Omega, \mathcal{A},\mu) = (\R, \mathcal{B}_\R,\lambda)$ où $\lambda$ désigne la mesure de Lebesgue. Soit $f:(\R, \mathcal{B}_\R)\mapsto (\overline{\R}, \mathcal{B}_{\overline{\R}})$ mesurable. Nous allons examiner le lien netre intégrale de Riemann et de Lebesgue. 
+
+
+L'intégrale de Riemann étudie les fonctions continues sur un intervalle compact. Soit $f$ une fonction continue par morceaux sur un intervalle fermé $[a,b]$. Soit $P$ une partition de $[a,b]$:$a = x_0 <x_1<\ldots<x_n = b$. On pose
+$$
+S_p = \sum_{i = 1}^{n}(x_i-x_{i-1})M_i\text{ et }s_p = \sum_{i = 1}^{n}(x_i-x_{i-1})m_i,
+$$
+où
+$$
+M_i= \underset{x\in [x_{i-1}, x_{i}]}{\sup} f(x)\text{ et }m_i= \underset{x\in [x_{i-1}, x_{i}]}{\inf} f(x).
+$$
+$f$ est intégrable sur $[a,b]$ si pour tout $\epsilon >0$ il existe une partition $P$ telle que 
+$$
+S_P-s_p<\epsilon.
+$$
+Si $f$ est Riemann intégrable alors $\underset{P}{\inf} S_P = \underset{P}{\sup} s_P$ .\\
+
+Soit $f$ une application définie sur $\left[a,b\right[$, on dit que $\int_{a}^bf(x)\text{d}x$ est convergente, pour tout $c<b$, l'intégrale $\int_{a}^c f(x)\text{d}x$ est convergente et si $\underset{c\rightarrow b}{\lim}\int f(x)\text{d}x$ existe. On note alors $\int_{a}^bf(x)\text{d}x$ et on l'appelle intégrale impropre de Riemann. On procède de la même manière pour définir l'intégrale impropre sur $\left]a,b\right[$ avec $-\infty\leq a<b\leq +\infty$.
+\begin{remark}[Fonction Riemann intégrable mais pas Lebesgue intégrable]
+Soit 
+$$
+f = \mathbb{I}_{\mathbb{Q}_1},
+$$
+où $\mathbb{Q}_1$ désigne l'ensemble des nombres rationels dans $[0,1]$. $f$ est Lebesgue intégrable, avec 
+$$
+\int f(x) \text{d}\lambda(x) = \int \mathbb{I}_{\mathbb{Q}_1}(x)\text{d}\lambda(x) = \mu(\mathbb{Q}_1) = 0.
+$$
+mais pas Riemann intégrable puisque 
+$$S_P = 1\text{ et } s_P = 0,$$
+pour toute partition $P$ de $[0,1]$
+\end{remark}
+\begin{theorem}\label{theo:Riemann-Lebesgue1}
+Si $f$ est Riemann intégrable sur $[a,b]$, elle est Lebesgue intégrable sur $[a,b]$, et les deux intégrales coincident. 
+\end{theorem}
+\underline{preuve:}\\
+Soit $P$ une partition quelconque de $[a,b]$, on pose 
+$$
+g = \sum_{i = 1}^{n-1}M_i\mathbb{I}_{\left[x_{i-1}, x_i\right[}+ M_n\mathbb{I}_{\left[x_{n-1}, x_n\right]}\text{ et }h = \sum_{i = 1}^{n-1}m_i\mathbb{I}_{\left[x_{i-1}, x_i\right[}+ m_n\mathbb{I}_{\left[x_{n-1}, x_n\right]}.
+$$
+On note que $g$ et $h$ sont des fonctions étagées qui vérifient $h\leq f\leq g$ et 
+$$
+S_P = \int_{[a,b]} g\text{d}\lambda\text{ et }s_P = \int_{[a,b]} h\text{d}\lambda
+$$
+si $f$ est mesurable, alors $\int_{[a,b]} f\text{d}\lambda$ existe et coincide avec $\int_a^b f\text{d}\lambda = \underset{P}{\sup} s_P$. 
+\begin{theorem}
+Soit $\left]a,b\right[$ un intervalle ouvert $(-\infty\leq a<b\leq\infty)$. Si $\int_a^bf(x)\text{d}x$ est absolument convergente, alors $f$ est Lebesgue intégrable sur $\left]a,b\right[$ et les deux intégrales coincident. 
+\end{theorem}
+\underline{preuve:}\\
+$\forall a,b,c,d$ tels que $-\infty\leq a <c <d<b\leq +\infty$, on a d'après le Théorème \ref{theo:Riemann-Lebesgue1}, 
+$$
+\int_{[c,d]} |f|\text{d}\lambda  = \int_c^d|f(x)|\text{d}x <\int_a^b|f(x)|\text{d}x<\infty
+$$
+D'autre part, en vertu du théorème de Beppo-Lévi
+$$
+\int_{[a,b]} |f|\text{d}\lambda =\underset{d\rightarrow b}{\underset{c\rightarrow a}{\lim}}\int_{[c,d]} |f|\text{d}\lambda (x)
+$$
+puis $\int_{[a,b]} |f|\text{d}\lambda=\int_a^b |f(x)|\text{d}x$.
+
+\end{frame}
+\begin{frame}{Bibliographie}
+Mes notes se basent sur les documents suivants \cite{Ca09,le2006integration,GaKu11}
+\bibliographystyle{plain}
+\bibliography{Integration_notes}
+ \end{frame}
+
+\end{document}

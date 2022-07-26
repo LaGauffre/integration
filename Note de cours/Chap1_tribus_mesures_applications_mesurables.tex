@@ -1,0 +1,1448 @@
+\documentclass[8pt,notheorems]{beamer}
+\usetheme{Copenhagen}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{tkz-graph}
+\usepackage{color}
+\usepackage{listings}
+
+\usepackage{amsmath,amsfonts,amsthm,t1enc}
+\usepackage{fourier}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{verbatim}
+
+\usetikzlibrary{matrix}
+\usetikzlibrary{automata,arrows,positioning,calc}
+\setbeamertemplate{footline}{\hfill \insertframenumber/\inserttotalframenumber}
+\def \si {\sigma}
+\def \la {\lambda}
+\def \al {\alpha}
+% \def\e*{\end{eqnarray*}}
+\def \di{\displaystyle}
+
+\def \E{\mathbb E}
+\def \R{\mathbb R}
+\def \Om{\Omega}
+\def \om{\omega}
+\def \N{\mathbb N}
+\def \Q{\mathbb Q}
+\def \Z{\mathbb Z}
+\def \NZ{\mathbb{N}_0}
+\def \I{\mathbb I}
+\def \w{\widehat}
+\def \P {\mathbb P}
+\def \V{\mathbb V}
+
+
+\newcommand{\CL}{\mathbb{C}}
+\newcommand{\RL}{\mathbb{R}}
+\newcommand{\nat}{{\mathbb N}}
+\newcommand{\Laplace}{\mathscr{L}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\ve}{\bm{\mathrm{e}}} % vector e
+
+\renewcommand{\L}{\mathcal{L}} % e.g. L^2 loss.
+
+\newcommand{\ih}{\mathrm{i}}
+\newcommand{\oh}{{\mathrm{o}}}
+\newcommand{\Oh}{{\mathcal{O}}}
+\newcommand{\Exp}{\mathbb{E}}
+
+\newcommand{\Norm}{\mathcal{N}}
+\newcommand{\LN}{\mathcal{LN}}
+\newcommand{\SLN}{\mathcal{SLN}}
+
+\renewcommand{\Pr}{\mathbb{P}}
+\newcommand{\Ind}{\mathbb I}
+\newcommand\bfsigma{\bm{\sigma}}
+\newcommand\bfSigma{\bm{\Sigma}}
+\newcommand\bfLambda{\bm{\Lambda}}
+\newcommand{\stimes}{{\times}}
+\def \limsup{\underset{n\rightarrow+\infty}{\overline{\lim}}}
+\def \liminf{\underset{n\rightarrow+\infty}{\underline{\lim}}}
+
+\setbeamertemplate{theorem}[ams style]
+\setbeamertemplate{theorems}[numbered]
+%\makeatletter
+%\def\th@mystyle{%
+%    \normalfont % body font
+%    \setbeamercolor{block title example}{bg=orange,fg=white}
+%    \setbeamercolor{block body example}{bg=blue!20,fg=black}
+%    \def\inserttheoremblockenv{block}
+%  }
+%\makeatother
+%\theoremstyle{mystyle}
+
+\makeatletter
+    \ifbeamer@countsect
+      \newtheorem{theorem}{\translate{Theorem}}[section]
+    \else
+      \newtheorem{theorem}{\translate{Theoreme}}
+    \fi
+    \newtheorem{corollary}{\translate{Corollaire}}
+    \newtheorem{prop}{\translate{Proposition}}
+    \newtheorem{lemma}{\translate{Lemme}}
+    \newtheorem{problem}{\translate{Probleme}}
+    \newtheorem{solution}{\translate{Solution}}
+
+    \theoremstyle{definition}
+    \newtheorem{definition}{\translate{Definition}}
+    \newtheorem{definitions}{\translate{Definitions}}
+
+    \theoremstyle{example}
+    \newtheorem{example}{\translate{Exemple}}
+    \newtheorem{remark}{\translate{Remarque}}
+    \newtheorem{examples}{\translate{Examples}}
+
+\makeatletter
+\def\th@mystyle{%
+    \normalfont % body font
+    \setbeamercolor{block title example}{bg=orange,fg=white}
+    \setbeamercolor{block body example}{bg=orange!20,fg=black}
+    \def\inserttheoremblockenv{exampleblock}
+  }
+\makeatother
+\theoremstyle{mystyle}
+\newtheorem{fact}{Fact}
+
+
+
+
+
+    % Compatibility
+    \newtheorem{Beispiel}{Beispiel}
+    \newtheorem{Beispiele}{Beispiele}
+    \theoremstyle{plain}
+    \newtheorem{Loesung}{L\"osung}
+    \newtheorem{Satz}{Satz}
+    \newtheorem{Folgerung}{Folgerung}
+    \newtheorem{Fakt}{Fakt}
+    \newenvironment{Beweis}{\begin{proof}[Beweis.]}{\end{proof}}
+    \newenvironment{Lemma}{\begin{lemma}}{\end{lemma}}
+    \newenvironment{Proof}{\begin{proof}}{\end{proof}}
+    \newenvironment{Theorem}{\begin{theorem}}{\end{theorem}}
+    \newenvironment{Problem}{\begin{problem}}{\end{problem}}
+    \newenvironment{Corollary}{\begin{corollary}}{\end{corollary}}
+    \newenvironment{Example}{\begin{example}}{\end{example}}
+    \newenvironment{Examples}{\begin{examples}}{\end{examples}}
+    \newenvironment{Definition}{\begin{definition}}{\end{definition}}
+\makeatother
+
+
+
+
+
+
+
+
+
+
+
+% ============================================================
+% Title
+% ============================================================
+
+\title[]{Intégration L3 Actuariat}
+\subtitle{Chapitre I: Tribu, mesure et applications mesurables}
+\author{Pierre-Olivier Goffard}
+\institute{
+	   Université de Lyon 1\\
+	ISFA\\
+	   \texttt{pierre-olivier.goffard@univ-lyon1.fr}
+	  }
+\date{
+ISFA\\
+\today}
+\lstset{language=SAS}
+\begin{document}
+
+\frame{\titlepage}
+
+
+% ============================================================
+\section{Tribus}
+\subsection{Tribus sur un ensemble quelconque}
+\begin{frame}[allowframebreaks]
+\underline{I. Tribus}\\
+
+\underline{1. Tribus sur un ensemble quelconque}\\
+Soit $\Omega$ un ensemble. 
+\begin{example}
+On considère l'expérience aléatoire qui consiste à jeter une pièce en l'air. Il est possible de proposer les espaces suivants
+\begin{itemize}
+    \item $\Omega_1 = \{\text{Pile, Face}\}$
+    \item $\Omega_2 = \R^3$ correspondant à la localisation du centre de gravité de la pièce à l'issu du lancer
+    \item $\Omega_3 = \left(\R^{3}\right)^{[0,T]}$ correspondant à la suite des positions de la pièces à tout instant entre $0$ et $T$
+\end{itemize}
+La définition de l'espace d'état va dépendre de ce qui nous intéresse. $\Omega_3$ est un espace fonctionnelle, espace des fonctions continues sur $[0,T]$ à valeurs dans $\R^3$!
+\end{example}
+Une fois l'ensemble $\Omega$ définit, on introduit les évènements $A$ comme des parties de $\Omega$. On a $A\in \mathcal{P}(\Omega)$, il s'agit de l'ensemble des résultats $\omega$ de l'expérience qui conduisent à la réalisation de $A$.
+\begin{definition}[Terminologie]
+\begin{enumerate}
+    \item $\Omega$ est un évènement certain, $\emptyset$ correspond à un évènement impossible.
+    \item Pour $A, B\subset \Omega$ deux évènements,
+    $$
+    A\cup B\text{ se réalise  si $A$ ou $B$ se réalisent}
+    $$  
+    et
+    $$
+    A\cap B\text{ se réalise  si $A$ et $B$ se réalisent simultanément}
+    $$  
+    \item Pour tout $A\subset \Omega$, on définit par 
+    $$
+    A^c = \{x\in\Omega\text{ ; }x\notin A\}
+    $$
+    son complément dans $\Omega$, appelé aussi évènement contraire de $A$.
+    \item Soit $B\subset A$, on définit par 
+    $$
+    A/B = A\cap B^c
+    $$ 
+    la différence entre $A$ et $B$ qui se réalise en cas de réalisation de $A$ mais pas de $B$. 
+    \item Deux évènements sont incompatibles si $A\cap B = \emptyset$
+\end{enumerate}
+\end{definition}
+\begin{example}[Discret/Continu]
+\begin{enumerate}
+\item Lancer d'un dé à $6$ faces,
+\begin{itemize}
+\item $\Omega=\{1,2,3,4,5,6\}$
+\item $w={6}$ est un évènement élémentaire
+\item $A = \text{'Le dé prend une valeur paire'}=\{2,4,6\}$
+\end{itemize}
+\item Lancer d'une balle de ping-pong sur une table,
+\begin{itemize}
+\item $\Omega\subset\mathbb{R}^{2}$
+\item $w={x,y}$ est un évènement élémentaire
+\item $A = \text{'La balle tombe dans un gobelet placé au bout de la table'}$
+\end{itemize}
+\end{enumerate}
+\end{example}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{definition}[Suite d'évènements]
+Soit $(A_n)_{n\in\N}$ une suite d'évènements. 
+\begin{enumerate}
+    \item Si $A_1\subset A_2\subset \ldots$ alors $(A_n)_{n\in\N}$ est une suite croissante d'évènements et 
+    $$
+    \underset{n\rightarrow\infty}{\lim} A_n = \bigcup_{n=1}^{\infty}A_n.
+    $$
+    \item Si $A_1\supset A_2\supset \ldots$ alors $(A_n)_{n\in\N}$ est une suite décroissante d'évènements et 
+    $$
+    \underset{n\rightarrow\infty}{\lim} A_n = \bigcap_{n=1}^{\infty}A_n
+    $$
+\end{enumerate}
+\end{definition}
+\begin{definition}[Limite supérieure et inférieure]
+Soit $(A_n)_{n\in\N}$ une suite d'évènements de $\Omega$, on définit les limites sup et inf par 
+$$
+\limsup A_n = \bigcap_{k = 1}^{+\infty}\bigcup_{n\geq k}A_n
+\text{ et }\liminf A_n = \bigcup_{k = 1}^{+\infty}\bigcap_{n\geq k}A_n.$$
+\end{definition}
+Pour écrire qu'une infinité de $A_n$ se réalisent, on écrit qu'à partir de n'importe quel rang, il existe des évènements qui se réalisent ce qui correpond à la limite sup de $(A_n)$
+$$
+\limsup A_n = \bigcap_{k = 1}^{+\infty}\bigcup_{n\geq k}A_n.
+$$
+Pour écrire que seul un nombre fini de $A_n$ se réalisent, on écrit qu'il existe un rang à partir duquel seul les évènements contraires aux $A_n$ se réalisent. Cela correspond à la limite inf de la suite $(A_n^c)$
+$$
+\liminf A_n^c = \bigcup_{k = 1}^{+\infty}\bigcap_{n\geq k}A_n^c.
+$$
+Le signe intersection s'interprète de la même façon que "\textit{pour tout}" et le signe union joue le rôle d'"\textit{il existe}"
+\begin{example}
+Soit $\Omega = \{1,2,3\}$, on définit une suite d'évènements $(A_n)_{n\in\N^{\ast}}$ avec 
+$$
+A_{2n-1} = \{1, 2\}\text{ et }A_{2n} = \{2,3\}
+$$
+alors on a 
+$$
+\limsup A_n = \{1,2,3\}\text{ et }\liminf A_n = \{2\}.
+$$
+\end{example}
+Ce concept de limite sup et inf provient de l'analyse réelle pour construire des suites numériques convergentes à partir de suites qui ne sont pas monotones. Toute suite croissante (resp. décroissante) $(a_n)_{n\in\N}$ de $\overline{\RL} = \RL\cup\{-\infty, +\infty\}$, est convergente dans $\overline{\RL}$ et
+$$
+\underset{n\rightarrow+\infty}{\lim} a_n=\sup\{a_n\text{ ; }n\geq1\}\left(\text{ resp. }\underset{n\rightarrow+\infty}{\lim} a_n=\inf\{a_n\text{ ; }n\geq1\}\right)
+$$
+\begin{definition}[$\overline{\lim}$ et $\underline{\lim}$]
+On appelle limite supérieure (resp. limite inférieur) d'une suite de $\overline{\RL}$ l'élement de $\overline{\RL}$, notée et définie par
+$$
+\underset{n\rightarrow +\infty}{\overline{\lim}}a_n=
+\underset{k\rightarrow +\infty}{\lim}\left(\underset{n\geq k}{\sup} a_n\right)= \underset{k\geq0}{\inf}\left(\underset{n\geq k}{\sup} a_n\right)
+\text{ }\left(\text{ resp. }\underset{n\rightarrow +\infty}{\underline{\lim}}a_n
+=\underset{k\rightarrow +\infty}{\lim}\left(\underset{n\geq k}{\inf} a_n\right) = \underset{k\geq0}{\sup}\left(\underset{n\geq k}{\inf} a_n\right) \right)
+$$
+\end{definition}
+A la différence de la limite d'une suite, les limites sup et inf existent toujours. Ces notions sont symétriques au sens où
+$$\underset{n\rightarrow+\infty}{\underline{\lim}}a_n=-\underset{n\rightarrow+\infty}{\overline{\lim}}(-a_n).$$
+Des exemples de suites qui ne convergent pas au sens habituelle incluent
+\begin{itemize}
+\item $\left((-1)^{n}\right)_{n\in\N}$
+\item $\left(\sin\left(\frac{n\pi}{4}\right)\right)_{n\in\N}$
+\end{itemize}
+pour lesquels
+$$
+\underset{n\rightarrow+\infty}{\overline{\lim}}a_n=1\text{ et }\underset{n\rightarrow+\infty}{\underline{\lim}}a_n=-1
+$$
+\begin{prop}[Lien avec la limite classique, monotonie des limites inf et sup]\label{prop:Monotonielimsupinf}
+\begin{enumerate}
+\item Soit $(a_{n})_{n\in\N}\in \overline{\RL}$ et $a\in\overline{\RL}$ alors
+\begin{eqnarray*}
+\underset{n\rightarrow+\infty}{\underline{\lim}}a_n&\leq& \underset{n\rightarrow+\infty}{\overline{\lim}}a_n\\
+ \underset{n\rightarrow+\infty}{\underline{\lim}}a_n= \underset{n\rightarrow+\infty}{\overline{\lim}}a_n=a&\Leftrightarrow&\underset{n\rightarrow+\infty}{\lim}a_n=a\\
+ \underset{n\rightarrow+\infty}{\underline{\lim}}a_n=+\infty&\Leftrightarrow& \underset{n\rightarrow+\infty}{\lim}a_n=+\infty\\
+\underset{n\rightarrow+\infty}{\overline{\lim}}a_n=-\infty&\Leftrightarrow&
+\underset{n\rightarrow+\infty}{\lim}a_n=-\infty
+\end{eqnarray*}
+\item Les limites inf et sup sont monotones au sens où, pour deux suites $(a_n)_{n\in\N}$ et $(b_n)_{n\in\N}$ vérifiant $a_n\leq b_n,\forall n\geq n_0$,
+$$
+\underset{n\rightarrow+\infty}{\underline{\lim}}a_n \leq\underset{n\rightarrow+\infty}{\underline{\lim}}b_n\text{ }\underset{n\rightarrow+\infty}{\overline{\lim}}a_n\leq \underset{n\rightarrow+\infty}{\overline{\lim}}b_n
+$$
+\end{enumerate}
+\end{prop}
+\begin{remark}
+$$
+\underset{n\rightarrow+\infty}{\overline{\lim}}a_n\leq\underset{n\rightarrow+\infty}{\underline{\lim}}a_n\Leftrightarrow (a_n)_{n\in\N}\text{ converge dans }\overline{\RL}
+$$
+\end{remark}
+\begin{prop}\label{prop:Comparaisonlimsupinf}
+Soient $(a_n)_{n\in \N}$ et $(b_n)_{n\in \N}$ de $\overline{\RL}$. On a
+\begin{eqnarray}
+\liminf a_n + \liminf b_n&\leq &\liminf (a_n+b_n)\label{eq:alpha}\\
+% &\leq& \liminf a_n + \limsup b_n\nonumber\\
+&\leq& \limsup (a_n+b_n)\nonumber\\
+&\leq& \limsup a_n + \limsup b_n \label{eq:beta}
+\end{eqnarray}
+Chacune des inégalités \eqref{eq:alpha} et \eqref{eq:beta} devient une égalité si l'une des suites converge.
+\end{prop}
+\begin{example}
+Soit $\Omega = \R$, considérons une suite d'intervalles fermés définit par 
+$$
+A_n = \left[(-1)^n, 1 + 2^{-n}\right]
+$$
+on a 
+$$
+\limsup A_n = [-1, 1]\text{ et }\liminf A_n = \{1\}.
+$$
+Pour la limite supérieur on constate que le fait que $k$ soit pair ou impair ne change rien car
+\begin{itemize}
+    \item si $k$ est pair alors 
+    $$
+    \bigcup_{n\geq k}\left[(-1)^n, 1 + 2^{-n}\right] = \left[1, 1 + 2^{-k}\right]\cup \left[-1, 1 + 2^{-(k+1)}\right]\cup\ldots = \left[-1, 1 + 2^{-k}\right] 
+    $$
+    \item si $k$ est impair alors $\bigcup_{n\geq k}\left[(-1)^n, 1 + 2^{-n}\right] = \left[-1, 1 + 2^{-k}\right]$
+\end{itemize}
+\end{example}
+\end{frame}
+\begin{frame}[allowframebreaks]
+% \begin{definition}[Algèbre de Boole]
+% Un sous-ensemble $\mathcal{C}$ de $\mathcal{P}(\Omega)$ est une algèbre (de Boole) sur $\Omega$ si
+% \begin{enumerate}
+% \item $\Omega\in \mathcal{C}$
+% \item $\mathcal{A}$ est stable par passage au complémentaire,
+% $$
+% A\in\mathcal{C}\Rightarrow A^{c}=\Omega / A \in\mathcal{A}.
+% $$
+% \item $\mathcal{C}$ est stable par réunion finie,
+% $$
+% A_1,\ldots,A_k\in\mathcal{C} \Rightarrow \bigcup_{i=1}^{k}A_i\in\mathcal{C}.
+% $$
+% \end{enumerate}
+% \end{definition}
+
+\begin{definition}[Tribu, espace mesurable]
+Un sous-ensemble $\mathcal{A}$ de $\mathcal{P}(\Omega)$ est une tribu sur $\Omega$ si
+\begin{enumerate}
+\item $\Omega\in \mathcal{A}$
+\item $\mathcal{A}$ est stable par passage au complémentaire,
+$$
+A\in\mathcal{A}\Rightarrow A^{c}=\Omega / A \in\mathcal{A}.
+$$
+\item $\mathcal{A}$ est stable par réunion dénombrable,
+$$
+(A_n)_{n\in\mathbb{N}^\ast}\in \mathcal{A} \Rightarrow \bigcup_{i\in\mathbb{N}^\ast}A_i\in\mathcal{A}.
+$$
+\end{enumerate}
+% Le couple $(\Omega,\mathcal{A})$ espace mesurable.
+\end{definition}
+$\mathcal{A}$ est parfois appelée $\sigma$-algèbre.
+\begin{example}[Exemples de tribus]
+\begin{itemize}
+\item $\{\Omega,\emptyset\}$ est la tribu triviale
+\item $\mathcal{P}(\Omega)$ est une tribu
+\item Soit $\Omega=\{a,b,c,d\}$ alors $\{\Omega,\emptyset,a,\{b,c,d\}\}$ est la plus petite tribu contenant $a$.
+\end{itemize}
+\end{example}
+Les propriétés de stabilité de cette classe permettent de combiner des évènements pour en créer des nouveaux qui appartiendront eux aussi à la tribu. 
+\begin{example}
+On reprend l'expérience du pile ou face, soit 
+$$
+A = \text{"Le nombre de lancer nécessaire pour obtenir Pile est pair"}
+$$
+$A$ est la réunion dénombrable des évènements 
+$$
+A_p = \text{"Pile apparaît pour la première fois au $2p$-ième lancer".}
+$$
+\end{example}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{prop}
+Soit $\mathcal{A}$ une tribu de $\Omega$ et $(A_n)$ une suite d'éléments de $\mathcal{A}$, on a 
+\begin{enumerate}
+    \item $\emptyset\in\mathcal{A}$
+    \item $\bigcap_{i\in\N^\ast}A_i\in\mathcal{A}$
+    \item $\bigcap_{i = 1}^{n}A_i\in\mathcal{A}$
+    \item $\bigcup_{i = 1}^{n}A_i\in\mathcal{A}$
+    \item $\limsup A_i\in\mathcal{A}$
+    \item $\liminf A_i\in\mathcal{A}$
+\end{enumerate}
+\end{prop}
+Il s'agit de conséquences assez immédiates des axiomes des bases
+\begin{definition}[Sous-tribus]
+Une sous-tribu $\mathcal{B}$ de $\mathcal{A}$ est une tribu de $\Omega$ telle que $\mathcal{B}\subset\mathcal{A}$.
+\end{definition}
+\begin{prop}
+L'intersection de deux tribus de $\Omega$ est une tribu. 
+\end{prop}
+\begin{definition}[Tribu engendrée]
+La tribu engendrée par $\mathcal{E}\subset\mathcal{P}(\Omega)$ (famille de parties de $\Omega$), notée $\sigma(\mathcal{E})$ est l'intersection de toute les tribus contenant $\mathcal{E}$.
+\end{definition}
+$\sigma(\mathcal{E})$ est la plus petite tribu (au sens de l'inclusion) contenant $\mathcal{E}$. 
+\begin{example}
+\begin{enumerate}
+\item Soit $A\in\Omega$ alors $\sigma(A)=\{A,A^{c},\emptyset,\Omega\}$
+\item Soit $\mathcal{S}=\{S_1,\ldots,S_n\}$ une partition de $\Omega$, c'est à dire que
+$$
+\bigcup_{k=1}^{n}S_k=\Omega\text{, et }S_i\cap S_j=\emptyset\text{ pour }i\neq j
+$$
+Alors $\sigma(\mathcal{S})=\left\{\bigcup_{k\in T}S_k\text{ ; }T\subset\{1,2,\ldots,n\}\right\}$
+\end{enumerate}
+\end{example}
+\end{frame}
+\subsection{Tribu Borélienne}
+\begin{frame}[allowframebreaks]
+
+\underline{2. Tribu Borélienne}
+\\
+\begin{definition}[Espace topologique]
+Soit $E$ un ensemble. Soit $\mathcal{O}$ une famille de parties de $E$, appelée ouverts de $E$, vérifiant
+\begin{itemize}
+\item $\emptyset,E\in\mathcal{O}$,
+\item Stable par réunion quelconque (dénombrable ou pas),
+\item Stable par intersection finie.
+\end{itemize}
+Le couple $(E,\mathcal{O})$ est un espace topologique
+\end{definition}
+\begin{example}[Ouvert dans un espace métrique]
+Si $E$ est un espace métrique alors on peut définir une distance entre $x\in E$ et $y\in E$ par $d(x,y)$. Un ouvert $O$ est une partie de $E$ dont la frontière est vide, ou dont tout les point apartiennent à l'intérieur de $O$. Concrètement,
+$$
+\forall x\in O, \exists r>0\text{ tel que }B(x,y)=\{y\in E\text{ ; }d(x,y)<r\}\subset O
+$$
+\end{example}
+Pour $E=\mathbb{R}$, les ouverts sont les parties qui pour chaque point $x$ contiennent un intervalle du type $\left]x-\epsilon,x+\epsilon\right[$. On note
+$$
+\mathcal{I}_{\mathbb{R}}=\left\{\left]a,b\right[\text{, }-\infty<a\leq b<+\infty\right\},
+$$
+l'ensemble des intervalles ouverts bornées. Il contient $\emptyset$ (cas a=b).
+
+\begin{definition}[Tribu borélienne, borélien]
+La tribu borélienne est la tribu $\mathcal{B}(E)$ engendré par les ouverts de $E$. On appelle borélien un ensemble appartenant à cette tribu.
+\end{definition}
+La tribu borélienne $\mathcal{B}(E)$ contient tout les ouverts de $E$, ainsi que tout les fermés (par passage au complémentaire), les intersections et réunions de suites d'ouverts et de fermés. La tribu borélienne $\mathcal{B}(\mathbb{R})$ est engendrée par intervalles ouverts de $\mathbb{R}$, c'est la conséquence du lemme suivant.
+\begin{lemma}
+Tout ouvert de $\mathbb{R}$ est la réunion d'une suite d'intervalles ouverts
+\end{lemma}
+\underline{preuve:}\\
+Remarquons que l'ensemble
+$$
+\mathcal{I}^{\ast}=\left\{\left]r-\frac{1}{n},r+\frac{1}{n}\right[\text{ ; }r\in\mathbb{Q},n\in\mathbb{N}^{\ast} \right\}
+$$
+est dénombrable puisqu'il existe une bijection de $\mathbb{Q}\times\mathbb{N}^{\ast}$ sur $\mathcal{I}^{\ast}$. Soit $U$ un ouvert de $\mathbb{R}$, supposé non vide, et soit $x\in U$. Il existe un $\epsilon>0$ tel que $]x-\epsilon,x+\epsilon[\subset U$, puis $\exists n\geq0$ tel que $\frac{1}{n}\leq\frac{\epsilon}{2}$ et enfin un
+$$
+r\in\mathbb{Q}\cap\left]x-\frac{1}{n},x+\frac{1}{n}\right[.
+$$
+On voit alors que
+$$
+x\in\left]r-\frac{1}{n},r+\frac{1}{n}\right[.
+$$
+A chaque $x\in U$ est associé un intervalle $I_x\in\mathcal{I}^{\ast}$ tel que $x\in\mathcal{I}_x\subset U$ si bien que $U=\bigcup_{x\in U}\{x\}\subset\bigcup_{x\in U}I_x\subset U$ et , par suite $\bigcup_{x\in U}I_x=U$. On écrit donc $U$ comme la réunion d'une suite $(I_n)\in\mathcal{I}^{\ast}$ qui est aussi une suite de $\mathcal{I}_{\R}$ puisque $\mathcal{I}^{\ast}\subset\mathcal{I}_{\R}$.
+\flushright$\square$
+\flushleft
+La tribu borélienne $\mathcal{B}(\mathbb{R})$ peut donc être généré par différents type d'intervalles dont
+\begin{itemize}
+\item $\left[a,b\right]$
+\item $\left[a,+\infty\right[$
+\item $\left]a,+\infty\right[$
+\item $\left]a,b\right]$
+\end{itemize}
+\end{frame}
+\subsection{Tribus produits}
+\begin{frame}[allowframebreaks]
+\begin{definition}
+Soient $\Omega$ et $\Omega'$ deux ensembles. La tribu engendrée par les ensembles $A\times B\in\mathcal{A}\times \mathcal{B}$, où $\mathcal{A}$ et $\mathcal{B}$ sont des tribus de $\Omega$ et $\Omega'$ respectivement, est la tribu produit $\mathcal{A}\otimes \mathcal{B}$
+\end{definition}
+\begin{prop}
+\begin{enumerate}
+    \item Si $\mathcal{A} = \sigma(A_i\text{ , }i\in I)$ et $\mathcal{B} = \sigma(B_j\text{ , }j\in J)$ alors 
+    $$\mathcal{A}\otimes \mathcal{B} = \sigma(A_i\times B_j\text{ , }(i,j)\in I\times J)$$
+    \item $\mathcal{B}(\R^d)$ = $\mathcal{B}(\R)^{\otimes d}$
+\end{enumerate}
+\end{prop}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\section{Mesure}
+\subsection{Définition et propriétés}
+\underline{II. Mesures}\\
+\underline{1. Définition et propriétés}\\
+Le couple $(\Omega,\mathcal{A})$ est un espace mesurable.
+\begin{definition}[Mesure (positive)]
+On appelle mesure (positive) une application $\mu:\mathcal{A}\mapsto \overline{R}_+$ telle que:
+\begin{itemize}
+\item[(i)] $\mu(\emptyset)=0$,
+\item[(ii)] pour toute suite $(A_n)_{n\in\mathbb{N}^\ast}$ de parties disjointes de $\mathcal{A}$, on a
+$$
+\mu\left(\bigcup_{n\in\mathbb{N}^\ast} A_n\right)=\sum_{n\in\mathbb{N}^\ast} \mu(A_n). \text{ ( $\sigma$-additivité)}
+$$
+\end{itemize}
+Le tripet $(\Omega, \mathcal{A},\mu)$ est un espace mesuré.
+\end{definition}
+\begin{definition}[Terminologie]
+\begin{enumerate}
+\item Si $\mu(\Omega)<+\infty$ alors $\mu$ est une mesure finie
+\item Si $(A_n)_{n\geq1}\in\mathcal{A}$, disjoints, vérifient 
+$$
+n\geq1,\text{ }\mu(A_n)<\infty\text{ et }\bigcup_{n\geq1}A_n = \Omega
+$$
+alors $\mu$ est $\sigma$-finie.
+\item Si $\mu(\Omega)=1$ alors $\mu$ est une mesure de probabilité. D'ailleurs on désigne parfois $(\Omega,\mathcal{A})$ comme un espace probabilisable.
+\item Le triplet $(\Omega,\mathcal{A}, \mu)$ est appelé espace mesuré (ou probabilisé si $\mu$ est une mesure de probabilité).
+\item Une mesure signée est une mesure définie comme la différence de deux mesures positives.
+\item Une propriété $\mathcal{P}$ est vraie $\mu$-presque partout s'il existe $A\in\mathcal{A}$ tel que
+$$
+\forall x\in\Omega /A, \text{ }\mathcal{P}(x)\text{ est vraie et }\mu(A) = 0 
+$$
+\item Soit $A\in\mathcal{A}$, on dit que $\mu$ est portée par $A$ si $\mu(A^{c})=0$.
+\item $\mu$ est une mesure atomique si elle est portée par les atomes $\{\omega\in\Omega\}$
+\item $\mu$ est une mesure diffuse si $\mu(\{\omega\})=0$ (les atomes $\{\omega\}$ sont des parties négligeables)
+\end{enumerate}
+\end{definition}
+\end{frame}
+\begin{frame}[allowframebreaks]
+Soit $(\Om, \mathcal{A}, \mu)$ un espace mesuré.
+\begin{prop}[Propriété d'un mesure]
+Soient $(A_n)_{n\in\mathbb{N}^\ast}$ une suite d'évènements de $\mathcal{A}$.
+\begin{enumerate}
+\item $A_1\cap A_2 = \emptyset \Longrightarrow \mu(A_1\cup A_2)=\mu(A_1) + \mu(A_2)$
+\item Si $A_1\subset A_2$ alors $\mu(A_1)\leq \mu(A_2)$ (monotonie de $\mu$), de plus, si $\mu(A_1) < \infty$, on a
+$$
+\mu(A_2/A_1)=\mu(A_2)-\mu(A_1)
+$$
+\item$
+\mu(A_1\cup A_2)=\mu(A_1)+\mu(A_2)-\mu(A_1\cap A_2) \text{ (formule inclusion-exclusion)}
+$
+\item $\mu(A_1\cap A_2)\leq \min(\mu(A_1),\mu(A_2)) $ et $\mu(A_1\cup A_2)\geq  \max(\mu(A_1),\mu(A_2)) $
+\item
+ $$\mu\left(\bigcup_{k=1}^{+\infty}A_k\right)\leq \sum_{k=1}^{\infty}\mu\left(A_k\right)\text{ (sous $\sigma$-additivité)}$$
+\item Si $(A_n)$ est une suite croissante ($A_i\subset A_{i+1}\text{, }i\in \mathbb{N}^\ast$) et que $\cup_{n\in\N^\ast}A_n = A$, alors $\left(\mu(A_i)\right)_{i\in\N^\ast}$ est une suite croissante qui converge vers $\mu(A)$.
+\item Si $(A_n)$ est une suite décroissante ($A_{i+1}\subset A_{i}\text{, }i\in \mathbb{N}^\ast$) telle que $\mu(A_1)<\infty$ et que $\cap_{n\in\N^\ast}A_n = A$, alors $\left(\mu(A_i)\right)_{i\in\N^\ast}$ est une suite décroissante qui converge vers $\mu(A)$.
+\end{enumerate}
+\end{prop}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\underline{preuve:}
+\begin{enumerate}
+\item On suppose que $A_i = \emptyset$ pour tout $i>2$ et on exploite la $\sigma$-additivité de $\mu$.
+\item Soit $A_1\subset A_2\subset\mathcal{A}$, on a
+$$
+\mu(A_2)=\mu(\{A_2/A_1\} \cup A_1)=\mu(A_2/A_1) + \mu(A_1)\geq \mu(A_1)\text{ (car $\mu$ est une mesure positive)}
+$$
+On déduit immédiatement de ce qui précède que $\mu(\{A_2/A_1\})=\mu(A_2)-\mu(A_1)$
+\item Soit $A_1,B_2\in\mathcal{A}$, on a
+\begin{eqnarray*}
+\mu(A_1\cup A_2)&=&\mu\{A_1\cup [A_2/(A_1\cap A_2)]\}\\
+&=&\mu(A_1)+\mu[A_2/(A_1\cap A_2)]\\
+&=&\mu(A_1)+\mu(A_2)-\mu(A_1\cap A_2)
+\end{eqnarray*}
+\item Examen
+\item On définit la suite $(B_n)_{n\geq1}\in\mathcal{A}$ telle que 
+\begin{eqnarray*}
+B_1 &=& A_1,\\
+ B_2 &=& A_2\cap A_1^c\\
+ \vdots&\vdots&\vdots\\ 
+ B_n &= &A_n\cap A_{n-1}^c\cap\ldots\cap A_1^{c}
+\end{eqnarray*}
+Les $B_n$ sont disjoints et vérifient $B_n\subset A_n$. On vérifie que 
+$$
+\bigcup_{k=1}^{+\infty}B_k = \bigcup_{k=1}^{+\infty}A_k
+$$ 
+par double inclusion. On a d'une part 
+$$
+\bigcup_{k=1}^{+\infty}B_k \subset \bigcup_{k=1}^{+\infty}A_k
+$$ 
+et de plus pour $\omega\in \bigcup_{k=1}^{+\infty}A_k$, il existe un plus petit $n_0$ tel que $\omega\in A_{n_0}$ puis $\omega\in B_{n_0}$ et $\omega \in \bigcup_{k=1}^{+\infty}B_k$. On en déduit que 
+$$
+\bigcup_{k=1}^{+\infty}B_k \supset \bigcup_{k=1}^{+\infty}A_k
+$$ 
+puis l'égalité. On peut alors écrire 
+$$
+\mu\left(\bigcup_{k=0}^{+\infty}A_k\right) = \mu\left(\bigcup_{k=0}^{+\infty}B_k\right) = \sum_{k = 0}^{+\infty}\mu(B_k)\leq \sum_{k = 0}^{+\infty}\mu(A_k).  
+$$
+\item Comme $\mu(A_{i+1})\geq\mu(A_i)$ et $\mu(A_i)<\mu(A)$ alors $(\mu(A_n))_{n\in\N}$  est une suite croissante bornée, donc qui converge. Soit $B_1 = A_1$ et $B_n=A_{n}/A_{n-1}$ pour $k\geq2$, les $B_k$ sont disjoints et vérifient $\bigcup_{k=1}^{n}B_k = A_n$ (on peut vérifier cela par récurrence). On a 
+$$
+\mu(A) = \mu\left(\bigcup_{k=1}^{+\infty}B_k\right) = \sum_{k = 1}^{\infty}\mu(B_k) = \underset{n\rightarrow +\infty}{\lim} \sum_{k = 1}^{n}\mu(B_k) =\underset{n\rightarrow +\infty}{\lim} \mu(\bigcup_{k = 1}^{n}B_k) = \underset{n\rightarrow +\infty}{\lim} \mu(A_n).  
+$$
+\item Considérons la suite définit par 
+$$
+A_n' = A_1 / A_n,\text{ pour }n\in \mathbb{N}^\ast.
+$$
+La suite $(A_n')_{n\in\mathbb{N}^\ast}$ est une suite croissante de limite
+$$
+A' = \bigcup_{n\in \mathbb{N}^\ast}A_n' = \bigcup_{n\in \mathbb{N}^\ast}A_1\cap A_n^c = A_1\cap\bigcup_{n\in \mathbb{N}^\ast} A_n^c = A_1\cap \left(\bigcap_{n\in \mathbb{N}^\ast} A_n\right)^c=A_1\cap A^c = A_1\cap A
+$$
+On a donc 
+\begin{equation*}
+\lim \mu(A_n') = \mu(A') \Leftrightarrow \lim \mu(A_1)-\mu(A_n) = \mu(A_1) - \mu(A)\Leftrightarrow \lim \mu(A_n) = \mu(A) 
+\end{equation*}
+A noter que l'on a besoin que $\mu(A_1) <\infty$, pour pouvoir considérer la suite des $A_n' = A_n^c$, on aurait besoin de $\mu(\Omega)<\infty$.
+\end{enumerate}
+\flushright$\square$
+\end{frame}
+\begin{frame}
+\begin{prop}
+Soient $\mu$ et $\nu$ deux mesures définies sur un espace mesurable $(\Omega, \mathcal{A})$ et $\alpha>0$ alors 
+\begin{enumerate}
+    \item $\mu+\nu$ est une mesure
+    \item$\alpha\times\mu$ est une mesure
+\end{enumerate}
+\end{prop}
+\end{frame}
+\subsection{Mesure de comptage}
+\begin{frame}[allowframebreaks]
+\underline{2. Mesure de comptage}\\
+Soient $(\Omega, \mathcal{A})$ un espace mesurable,  
+\begin{definition}[Mesure de Dirac]
+Soient $x\in\Omega$ et $A \in\mathcal{A}$. La mesure définie par 
+$$
+\delta_x(A)=\begin{cases}
+1,&x\in A,\\
+0,& \text{sinon.}
+\end{cases}
+$$
+est appelée mesure de Dirac en $x$. 
+\end{definition}
+Montrons que $A\mapsto \delta_x(A)$ définit bien une mesure. 
+\begin{enumerate}
+    \item $\delta_x(\emptyset) = 0$
+    \item Soit $(A_i)_{i\geq0}$ une suite d'évènements disjoints de $\mathcal{A}$. 
+    \begin{itemize}
+        \item S'il existe $i$ tel que $x\in A_i$ alors $x\in\bigcup_j A_j$ et $\delta_x\left(\bigcup_j A_j\right)=1$. De plus, comme les $A_i$ sont disjoints alors $ x\notin A_j$ pour $j\neq i$. On a donc 
+        $$
+        \sum_j\delta_x(A_j) =\delta_x(A_i) = \delta_x\left(\bigcup_i A_i\right) = 1.  
+        $$
+        \item Si $x\notin A_i,\text{ }\forall i$ alors $x\notin \bigcup_i A_i$ et 
+        $$
+        \delta_x\left(\bigcup_i A_i\right) = \sum_i\delta_x(A_i) = 0.
+        $$  
+    \end{itemize}
+\end{enumerate}
+
+\begin{definition}[Mesure de comptage]
+Si $\Omega$ est un ensemble dénombrable alors
+$$
+C(A) = \text{Card}(A)\text{ , }A\in\mathcal{A} 
+$$
+définie une mesure appelée mesure de comptage. Il est possible d'écrire
+$$
+C(A) = \sum_{x\in\Omega}\delta_x(A). 
+$$
+\end{definition}
+% Montrer que l'application $A\mapsto C(A) / C(\Omega)$ définit une mesure de probabilité. => Examen.
+\end{frame}
+\subsection{Mesure de probabilité}
+\begin{frame}[allowframebreaks]
+\underline{2. Mesure de probabilité}\\
+Une expérience aléatoire est répétée $n$ fois, supposons que $A$ s'est réalisé $k\leq n$ au cours de ces expériences. $k$ est la fréquence absolue d'occurence de $A$ et $k/n$ est sa fréquence d'occurence relative. Lorsque $n$ devient grand, la fréquence relative se stabilise autour d'un nombre $\mathbb{P}(A)$ appelé probabilité de $A$.\\
+
+A partir des fréquences relatives on constate que 
+\begin{itemize}
+    \item $0\leq \mathbb{P}(A)\leq 1$
+    \item $\mathbb{P}(\Omega)= 1$
+    \item Si $A\subset B$ alors  $\mathbb{P}(A)\leq \mathbb{P}(B)$
+    \item $A\cap B = \emptyset\Rightarrow \mathbb{P}(A\cup B) = \mathbb{P}(A) + \mathbb{P}(B)$
+\end{itemize}
+propriétés cohérentes avec la définition d'une mesure. Il s'agit de l'interprétation dite fréquentiste des probabilités. 
+\begin{example}[Evènements élémentaires équiprobables]
+Soit une expérience aléatoire dont les résultats $\omega$ sont équiprobable et forment un ensemble $\Omega$ fini. L'application $\mathbb{P}:\mathcal{P}(\Omega)\mapsto[0,1]$ définie par
+$$
+\mathbb{P}(A) = \frac{Card(A)}{Card(\Omega)}
+$$ 
+est une mesure de probabilité. On a 
+$$
+\mathbb{P}(\{\omega\}) = \frac{1}{Card(\Omega)}
+$$ 
+et le calcul des probabilités se résume à des problèmes de dénombrement. 
+\end{example}
+Montrer que $\mathbb{P}(A) = \frac{Card(A)}{Card(\Omega)}$ est une mesure de probabilité $\Rightarrow$ Examen. 
+\end{frame}
+\begin{frame}[allowframebreaks]
+Soit $(\Omega,\mathcal{A},\mathbb{P})$ un espace probabilisé. 
+\begin{lemma}[Borel-Cantelli, première partie]
+Si $(A_n)_{n\geq 1}$ est une suite d'évènements telle que $\sum_{n\geq1}\mathbb{P}(A_n)<\infty$ alors 
+$$
+\mathbb{P}\left(\limsup A_n\right)= 0.
+$$
+\end{lemma}
+\underline{preuve:}\\
+Notons que 
+$$
+\mathbb{P}(\bigcup_{n\geq i}A_n)\leq \sum_{n\geq i }\P(A_n),\text{ pour tout }i\geq 1,
+$$
+d'après la Proposition 5. De plus, 
+$\limsup A_n  = \bigcap_{k\geq 1}\bigcup_{n\geq k}A_n\subset \bigcup_{n\geq i}A_n$ pour tout $i\geq1$. Donc 
+$$
+0\leq \P(\limsup A_n)\leq \sum_{n\geq i }\P(A_n),\text{ pour tout }i\geq 1.
+$$
+Le membre de droite tend vers $0$ comme reste d'une série convergente. \\
+$\square$\\
+
+La probabilité qu'une infinité d'évènements se réalisent est nulle. $\limsup A_n$ est un évènement presque impossible (ou de mesure de probabilité négligeable). On a de manière équivalente 
+$$
+\P(\liminf A_n^c) = 1
+$$ 
+$\liminf A_n^c$ est un évènement presque certain. 
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+\begin{definition}[Probabilité conditionnelle]
+Soit $(\Omega, \mathcal{A},\mathbb{P})$ un espace probabilisé. Soit $A$ et $B$ deux évènements, tel que $\P(B)>0$, alors on définit la probabilité conditionnelle de $A$ sachant $B$ par 
+$$
+\P(A|B) = \frac{\P(A\cap B)}{\P(B)}. 
+$$
+\end{definition}
+L'application $\P(.|B)$ définit bien une probabilité sur $(\Omega, \mathcal{A})$, en effet,
+\begin{enumerate}
+    \item $\P(\emptyset|B) = \frac{\P(\emptyset\cap B)}{\P(B)} = \frac{\P(\emptyset)}{\P(B)} = 0$. 
+    \item $\P(\Omega|B) = \frac{\P(\Omega\cap B)}{\P(B)} = \frac{\P(B)}{\P(B)} = 1$.
+    \item Soit $(A_n)_{n\geq 1}$ une suite d'évènements disjoints alors 
+    $$
+    \P\left(\bigcup_{n\geq 1}A_n|B\right) = \frac{\P\left(\bigcup_{n\geq 1}A_n\cap B\right)}{\P(B)} = \sum_{n\geq 1}\frac{\P(A_n\cap B)}{\P(B)} =  \sum_{n\geq 1}\P(A_n| B). 
+    $$
+\end{enumerate}
+On peut montrer que l'ensemble $\mathcal{A}_B = \{A\cap B\text{, }A\in\mathcal{A}\}$ est une tribu, appelée tribu trace, et définir un nouvel espace probabilisé avec $(\Omega, \mathcal{A}_B, \P(.|B))$ 
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{theorem}[Loi des probabilités totales]
+Soit $(\Omega, \mathcal{A},\P)$ un espace probabilisé, soit $(A_i)_{1\leq i\leq n}$ une partition de $\Omega$, telle que $\P(A_i)>0,\text{ }\forall i\geq1$, alors 
+$$
+\P(B) =\sum_{i =1}^{n}\P(B|A_i)\P(A_i),\text{ pour tout }B\in\mathcal{A}.
+$$ 
+\end{theorem}
+\underline{preuve:} On a, pour tout $B\in\mathcal{A}$, 
+$$
+\P(B)= \P\left(B\cap \Omega\right)=\P\left(B\cap \bigcup_{i = 1}^n A_i\right)=\P\left(\bigcup_{i = 1}^n B\cap  A_i\right) = \sum_{i = 1}^{n}\P(B\cap A_i) =  \sum_{i = 1}^{n}\P(B|A_i)\P(A_i).
+$$
+\begin{theorem}[Bayes]
+Soit $(\Omega, \mathcal{A},\P)$ un espace probabilisé, soit $(A_i)_{1\leq i\leq n}$ une partition de $\Omega$, telle que $\P(A_i)>0\text{ }\forall i\geq1$, et $B\in\mathcal{A}$ un évènement de probabilité non nulle. Alors, 
+$$
+\P(A_i|B) = \frac{\P(B|A_i)\P(A_i)}{\sum_{i =1}^{n}\P(B|A_i)\P(A_i)},\text{ pour tout }i = 1,\ldots, n.
+$$ 
+\end{theorem}
+\underline{preuve:}\\
+examen.
+\begin{example}
+Rey tente de s'échapper des griffes de Kylo Ren et de l'empire. Elle choisit au hasard un véhicule parmi 
+\begin{itemize}
+    \item le Millenium Falcon (MF)
+    \item Le TIE fighter (TIE)
+    \item Le X-Wing starfighter (XW)
+\end{itemize}
+La probabilité qu'elle s'échappe (E) est de 
+\begin{itemize}
+    \item $0.4$ si elle opte pour le Millenium Falcon
+    \item $0.6$ si elle opte pour Le TIE fighter
+    \item $0.7$ si elle opte pour Le X-Wing starfighter
+\end{itemize}
+Quelle est la probabilité qu'elle s'échappe si elle a choisit le Millenium Falcon?
+\end{example}
+D'après l'énoncé, $\P(MF) = \P(TIE) = \P(XW) = 1/3$ et 
+$$
+\P(E|MF) = 0.4,\text{ }\P(E|TIE) = 0.6,\text{ et }\P(E|XW) = 0.7 
+$$
+On applique la formule de Bayes pour obtenir
+$$
+\P(MF|E) = \frac{\P(E|MF)\P(MF)}{\P(E|MF)\P(MF)+\P(E|TIE)\P(TIE)+\P(E|XW)\P(XW)}
+$$
+et on remplace. 
+\end{frame} 
+\begin{frame}[allowframebreaks]
+\begin{definition}[Evènements indépendants]
+Soit $(\Omega, \mathcal{A},\P)$ un espace probabilisé,  Les évènements $A,B\in\mathcal{A}$ sont indépendants sous la probabilité $B$ si et seulement si
+$$
+\P(A\cap B ) = \P(A)\times \P(B).
+$$
+\end{definition}
+On observe directement que 
+$$
+\P(A|B) = \P(A).
+$$
+\begin{prop}
+Si $A$ et $B$ sont indépendants sous $\P$ alors 
+\begin{enumerate}
+    \item $A^c$ et $B$ sont indépendants
+    \item $A$ et $B^c$ sont indépendants
+    \item $A^c$ et $B^c$ sont indépendants
+\end{enumerate}
+\end{prop}
+\underline{preuve:}
+\begin{enumerate}
+    \item On note que 
+    $$
+    A = (A\cap B^c)\cup(A\cap B)
+    $$
+    puis 
+    $$
+    \P(A) = \P(A\cap B^c) + \P(A)\P(B)
+    $$
+    et finalement 
+    $$
+    \P(A\cap B^c) = \P(A)(1-\P(B)) = \P(A)\P(B^c), 
+    $$
+    d'où l'indépendance de $A$ et de $B^c$. 
+    \item Même raisonnement
+    \item idem
+\end{enumerate}
+\begin{definition}[Evènements mutuellement indépendants]
+La suite $(A_n)_{n\geq1}\in \mathcal{A}$ est une suite d'évènement mutuellement indépendants si 
+pour tout sous ensemble $(A_{i_1},\ldots, A_{i_k})$ d'évènement, avec $(i_1,\ldots, i_k)\in \N^k$ un ensemble d'indices, on a
+$$
+\P(A_{i_1}\cap\ldots\cap A_{i_k}) = \P(A_{i_1})\times\ldots \P(A_{i_k}). 
+$$
+\end{definition}
+\begin{example}
+Il ne faut pas confondre mutuellement indépendant et indépendant deux à deux !\\
+
+En effet, soit l'espace probabilisé $(\Omega,\mathcal{A}, \P)$ avec 
+$$
+\Omega = \{\omega_1, \omega_2, \omega_3, \omega_4\}\text{, }\mathcal{A} = \mathcal{P}(\Omega)\text{ et }\P(\omega_i) = 1/4,\forall i=1,2,3,4.
+$$
+On définit les évènements $A_1 = \{\omega_1,\omega_4\}$, $A_2 = \{\omega_2,\omega_4\}$ et $A_3=\{\omega_3,\omega_4\}$ alors on observe que $A_1$ et $A_2$ sont indépendants, $A_1$ et $A_3$ sont indépendants et $A_2$ et $A_3$ sont indépendants. Cependant,
+$$
+\P(A_1\cap A_2\cap A_3)\neq \P(A_1)\times \P(A_2)\times \P(A_3).
+$$
+\end{example}
+Soit $(\Omega, \mathcal{A}, \P)$ un espace probabilisé, et une suite $(A_n)_{n\geq1}$ d'évènements mutuellement indépendants. 
+\begin{prop}
+$$
+\P\left(\bigcap_{n\geq1}A_n\right) = \underset{n\rightarrow +\infty}{\lim}\prod_{k=1}^{n}\P(A_k).
+$$
+\end{prop}
+\underline{preuve:}\\
+La suite d'évènement $\left(\bigcap_{k=1}^{n}A_k\right)_{n\geq1}$ est décroissante, on a donc 
+$$
+\P\left[\left(\bigcap_{k=1}^{\infty}A_k\right)\right] =\underset{n\rightarrow \infty}{\lim} \P\left(\bigcap_{k=1}^{n}A_k\right) = \underset{n\rightarrow \infty}{\lim}\prod_{k=1}^{n} \P\left(A_k\right). 
+$$
+\begin{lemma}[Borel-Cantelli deuxième partie]
+Si $\sum_{n=1}^{\infty} \P(A_n) = \infty$, alors 
+$$
+\P(\limsup A_n) = 1.
+$$
+\end{lemma}
+\underline{preuve:}\\
+Notons que (pour exploiter l'indépendance des $A_n$)
+$$
+\limsup A_n = \bigcap_{k\geq1}\bigcup_{n\geq k}A_n = \left(\bigcup_{k\geq1}\bigcap_{n\geq k}A_n^c\right)^c =\left(\liminf A_n^c\right)^c. 
+$$
+Comme les évènement $A_n^{c}$ sont indépendants alors  
+$$
+\P\left(\bigcap_{n\geq k} A_n^c\right) = \prod_{n\geq k}\P(A_n^c) = \prod_{n\geq k}(1-\P(A_n)).
+$$
+Comme $1-x\leq e^{-x}$ pour $0\leq x\leq1$, alors 
+$$
+\P\left(\bigcap_{n\geq k} A_n^c\right) \leq \exp\left(-\sum_{n\geq k} \P(A_n)\right) = 0.
+$$
+On en déduit que 
+$$
+\P\left(\bigcup_{n\geq k} A_n\right) = 1-\P\left(\bigcap_{n\geq k} A_n^c\right) = 1
+$$
+pour tout $k\geq 1$ et donc valable lorsque $k\rightarrow \infty$. Or $\left(\bigcup_{n\geq k} A_n\right)_{k\geq1}$ est une suite décroissante et donc 
+$\P(\limsup A_n) = \P(\bigcap_{k\geq 1}\bigcup_{n\geq k} A_n) = \underset{k\rightarrow \infty}{\lim} \P\left(\bigcup_{n\geq k} A_n\right) = 1$. \\
+$\square$\\
+En combinant les deux partie du lemme de Borel-Cantelli, on parvient au résultat suivant
+\begin{theorem}[Loi du 0-1]
+Pour $(A_n)_{n\geq 1}$ une suite d'évènements mutuellement indépendants, on a 
+$$\P\left(\limsup A_n\right) = \begin{cases}1,&\text{  si }\sum_{k = 1}^{\infty}\P(A_n) = \infty\\
+0,& \text{ si }\sum_{k = 1}^{\infty}\P(A_n) < \infty
+\end{cases}$$
+\end{theorem}
+\begin{example}
+Admettons qu'on lance une pièce un nombre infini de fois, si on note 
+$$
+A_n = \text{"le n-ième lancer est pile"}
+$$
+alors $\sum_{n = 1}^{\infty}\P(A_n) = \sum_{n = 1}^{\infty}\frac{1}{2} = \infty$ et donc $\P(\limsup A_n) = 1$, ce qui revient à obtenir de façon certain un nombre infini de pile. 
+\end{example}
+\end{frame}
+\subsection{Mesure de Lebesgue}
+\begin{frame}[allowframebreaks]
+\underline{3. Mesure de Lebesgue}\\
+\begin{definition}[Mesure de Lebesgue]
+On appelle mesure de Lebesgue sur $(\R,\mathcal{B}_\R)$, la mesure $\lambda$ telle que, pour tout intervalle $\left]a,b\right]$,
+$$
+\lambda(\left]a,b\right]) = b-a.
+$$
+\end{definition}
+La mesure de Lebesgue est la seule mesure sur $(\R,\mathcal{B}_\R)$ qui mesure un intervalle par sa longueur. Une idée de la preuve est donné en appendice.\\
+\underline{Conséquence:}
+\begin{itemize}
+    \item $\lambda$ est une mesure $\sigma$-finie
+    \item $\lambda(\{a\})=0$ pour tout $a\in\R$, $\lambda$ est une mesure diffuse. 
+    \item La mesure de Lebesgue d'un ensemble dénombrable est nulle
+    \item Pour tout $a,b\in\R$, on a 
+    $$
+    \lambda(\left]a,b\right]) = \lambda(\left]a,b\right[) = \lambda(\left[a,b\right]) = \lambda(\left[a,b\right[) 
+    $$
+    \item La mesure de Lebesgue est invariante par symétrie et translation, précisément si on pose 
+    $$
+    A^{-} = \{y\in\R\text{ : }-y\in A\}\text{ et }A+x = \{y\in\R\text{ : }y = x+z,\text{ }z\in A\}
+    $$ 
+    alors $\lambda(A) = \lambda(A^{-}) = \lambda(A+x) $ 
+\end{itemize}
+\begin{definition}[Mesure de Lebesgue sur les pavés]
+On appelle mesure de Lebesgue sur $(\R^k,\mathcal{B}(\R^k))$ la mesure $\lambda_k$ telle que, pour $A = \prod_{i = 1}^{k}\left]a_i,b_i\right[$, 
+$$
+\lambda_k(A) =\prod_{i = 1}^{k}(b_i-a_i).
+$$
+\end{definition}
+\begin{example}[Discret/Continu]
+\begin{enumerate}
+\item Lancer d'un dé à $6$ faces,
+\begin{itemize}
+\item $\Omega=\{1,2,3,4,5,6\}$
+\item $\text{Card}(\Omega)=6$
+\item $w={6}$ est un évènement élémentaire
+\item $A = \text{'Le dé prend une valeur paire'}=\{2,4,6\}$
+\item $\text{Card}(A)=3$
+\item La probabilité de A est donnée par $P(A)=\frac{\text{Card}(A)}{\text{Card}(\Omega)}=\frac{1}{2}$
+\end{itemize}
+\item Lancer d'une balle de ping-pong sur une table,
+\begin{itemize}
+\item $\Omega\subset\mathbb{R}^{2}$
+\item $\mu(\Omega)=l*L$
+\item $w={x,y}$ est un évènement élémentaire
+\item $A = \text{'La balle tombe dans un gobelet placé au bout de la table'}$
+\item $\mu(A)=\text{"Aire couverte par les gobelets"}$
+\item La probabilité de A est donnée par $P(A)=\frac{\mu(A)}{\mu(\Omega)}$. Il s'agit d'un cas particulier dans lequel la balle atteint n'importe quel point de la table avec la même probabilité.
+\end{itemize}
+\end{enumerate}
+\end{example}
+\end{frame}
+\section{Applications mesurables}
+\subsection{Rappels et définitions}
+\begin{frame}[allowframebreaks]
+
+\underline{III. Applications mesurables}\\
+\underline{1. Rappels et définition}\\
+Soit $(\Omega,\mathcal{A})$ et $(E,\mathcal{B})$ deux espaces mesurables, et  $f:\Omega\mapsto E$ une application. On définit l'application inverse de $f$ par $f^{-1}:\mathcal{P}(E)\mapsto \mathcal{P}(\Omega)$ par 
+$$
+f^{-1}(B) = \{\omega\in\Omega\text{ : }f(\omega)\in B\},\text{ pour }B\in\mathcal{P}(E).
+$$
+On écrit aussi $f^{-1}(B) = \{f\in B\}$. Elle vérifie, ,
+\begin{itemize}
+\item 
+$
+f^{-1}\left(\bigcup_{i\in I}    B_i\right)=\bigcup_{i\in I}f^{-1}\left(B_i\right),
+$
+\item $f^{-1}\left(\bigcap_{i\in I}B_i\right)=\bigcap_{i\in I}f^{-1}\left(B_i\right)$
+\item $f^{-1}(B^c) = f^{-1}(B)^c$
+\end{itemize}
+où $B, (B_i)_{i\in I}\in E$ et $I$ est un ensemble d'indice.
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{prop}[$(g\circ f)^{-1}$]
+Considérons trois ensembles non vides $E_1,E_2$ et  $E_3$, et deux fonctions $f:E_1\mapsto E_2$ et $g:E_2\mapsto E_3$. Alors pour tout $A_3\subset E_3$, on a
+$$
+(g\circ f)^{-1}(A_3)=f^{-1}\left[g^{-1}(A_3)\right].
+$$
+\end{prop}
+\begin{definition}[Application mesurable]\label{def:FnMesurable}
+Soient $(\Omega,\mathcal{A})$ et $(E,\mathcal{B})$ deux espaces mesurables.  $f:\Omega\mapsto E$ une application mesurable si 
+$$
+f^{-1}(B)\in\mathcal{A}\text{ pour tout }B\in\mathcal{B}.
+$$
+\end{definition}
+\begin{definition}[Variable aléatoire réelle]\label{def:FnMesurable}
+Une variable aléatoire réelle est une application mesurable $X:(\Omega,\mathcal{A})\mapsto (\R,\mathcal{B}_\R)$.
+\end{definition}
+Les variables aléatoires réelles permettent de quantifier les évènements d'une expérience aléatoire. On peut définir des vecteurs aléatoires $(X_1,\ldots, X_p)$ comme applications mesurables de $(\Omega,\mathcal{A})$ vers $(\R^p,\mathcal{B}_{\R^p})$.
+\begin{example}[Fonction indicatrice]
+Soient $A\subset\Omega$ l'application $\mathbb{I}_A: \Omega\mapsto\{0,1\}$, définie,  par 
+$$
+\mathbb{I}_A(\omega) = \begin{cases}
+1,&\text{ si }\omega\in A\\
+0,&\text{ sinon.}
+\end{cases}
+$$
+Ici $\mathcal{B} =\mathcal{P}\left(\{0,1\}\right)$. Soit $B\in \mathcal{B}$, on a 
+\begin{itemize}
+    \item $\mathbb{I}_A^{-1}(B) = \emptyset$ si $B$ ne contient ni $0$, ni $1$. En fait $B = \emptyset$
+    \item $\mathbb{I}_A^{-1}(B) = A$ si $B$ contient $1$ et pas $0$
+    \item $\mathbb{I}_A^{-1}(B) = A^c$ si $B$ contient $0$ mais pas $1$
+    \item $\mathbb{I}_A^{-1}(B) = \Omega$ si $B$ contient $0$ et $1$
+\end{itemize}
+Si $A\in \mathcal{A}$ alors l'application $\mathbb{I}_A$, aussi appelé fonction indicatrice sur $A$ est mesurable. Si $A_1,A_2,\ldots, A_n\in\mathcal{A}$ forment une partition de $\Omega$ alors l'application 
+$$
+f = \sum_{i = 1}^n x_i\mathbb{I}_{A_i}
+$$
+où $x_1,\ldots, x_n\in\R$ est une application mesurable de $(\Omega, \mathcal{A})$ vers $(\R,\mathcal{B}(\R))$.
+\end{example}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{theorem}\label{theo:theo1}
+Soit $\Omega$ un ensemble. Soit $(E, \mathcal{B})$ un espace mesurable et soit $f:\Omega\mapsto E$ une application. On a 
+\begin{enumerate}
+\item $f^{-1}(\mathcal{B}) = \left\{f^{-1}(B)\text{ , }B\in\mathcal{B}\right\}$ est une tribu sur $\Om$
+\item Pour tout $\mathcal{C}\subset\mathcal{P}(E)$: $f^{-1}(\sigma(\mathcal{C}))=\sigma(f^{-1}(\mathcal{C}))$
+\end{enumerate}
+\end{theorem}
+\underline{preuve:}\\
+\begin{enumerate}
+\item On exploite les propriétés ensemblistes de $f^{-1}$,
+\begin{itemize}
+\item[(i)] $f^{-1}(E)=\Om$ donc $\Om\in f^{-1}(\mathcal{B})$
+\item[(ii)] Soit $A\in f^{-1}(\mathcal{B})$. Il existe $B\in \mathcal{B}$ tel que $A=f^{-1}(B)$. On a 
+$$
+A^c =f^{-1}(B)^{c} =  f^{-1}(B^{c})\in f^{-1}(\mathcal{B})$$
+\item[(iii)] Soit $(A_n)_{n\in\N}\in f^{-1}(\mathcal{B})$. Il existe $B_n\in \mathcal{B}$ tel que $A_n=f^{-1}(B_n) ,\text{ }\forall n\in\N$. On a $\bigcup_{n\in\N}A_n=\bigcup_{n\in\N}f^{-1}(B_n)=f^{-1}\left(\bigcup_{n\in\N}B_n\right)\in f^{-1}(\mathcal{B})$.
+\end{itemize} 
+\item On remarque que $f^{-1}(\sigma(\mathcal{C}))$ est une tribu qui contient $f^{-1}(\mathcal{C})$ donc 
+$$
+\sigma(f^{-1}(\mathcal{C}))\subset f^{-1}(\sigma(\mathcal{C})).
+$$ 
+On définit
+$$
+\mathcal{F}=\left\{B\subset E\text{ ; } f^{-1}(B)\in\sigma\left(f^{-1}(\mathcal{C})\right)\right\}
+$$
+et on montre qu'il s'agit d'une tribu sur $E$ qui contient $\mathcal{C}$. 
+\begin{itemize}
+\item[(i)] $E\in\mathcal{F}$ puisque $f^{-1}(E)=\Om\in\sigma\left(f^{-1}(\mathcal{C})\right)$
+\item[(ii)] Soit $B\in\mathcal{F}$, on a $f^{-1}(B^{c})=f^{-1}(B)^{c}\in\sigma\left(f^{-1}(\mathcal{C})\right)$ donc $B^c\in\mathcal{F}.$
+\item[(iii)] Soit $(B_{n})_{n\in\N}$, on a $f^{-1}(\bigcup_{n\in\N}B_n)=\bigcup_{n\in\N}f^{-1}(B_n)\in\sigma\left(f^{-1}(\mathcal{C})\right)$ donc $\bigcup_{n\in\N}B_n\in\mathcal{F}$
+\end{itemize}
+On observe ainsi que $\mathcal{F}$ est une tribu sur $E$ contenant $\mathcal{C}$ et par consequent $\sigma(\mathcal{C})\subset\mathcal{F}$. On observe alors que 
+$$
+f^{-1}(\sigma(\mathcal{C}))\subset f^{-1}(\mathcal{F})\subset \sigma(f^{-1}(\mathcal{C})).
+$$
+\end{enumerate}
+$\square$\\
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{definition}[Tribu engendrée par f]
+$f^{-1}(\mathcal{B})$ est la tribu engendrée par $f$. Il s'agit de la plus petite tribu $\mathcal{T}$ de $\Omega$ pour laquelle $f$ est une application mesurable de $(\Omega,\mathcal{T})$ vers $(E, \mathcal{B})$.
+\end{definition}
+\begin{corollary}[Caractérisation de la mesurabilité]\label{cor:CaracMesurabilite}
+Soit $\mathcal{C}\subset \mathcal{P}(E)$ vérifiant $\sigma(\mathcal{C})=\mathcal{B}$. Soit $f:(\Omega,\mathcal{A})\mapsto (E,\mathcal{B})$ une application. 
+$$
+f\text{ est mesurable } \Leftrightarrow f^{-1}(\mathcal{C})\subset\mathcal{A}.
+$$
+\end{corollary}
+\underline{preuve:}\\
+$\Rightarrow$ Supposons que $f$ soit mesurable, alors $f^{-1}(\mathcal{C})\subset\mathcal{A}$ découle de la définition de la mesurabilité. \\
+$\Leftarrow$ Supposons que  $f^{-1}(\mathcal{C})\subset\mathcal{A}$ alors on a
+$$
+f^{-1}(\mathcal{B})=f^{-1}(\sigma(\mathcal{C}))=\sigma(f^{-1}(\mathcal{C}))\subset\mathcal{A}
+$$
+car $f^{-1}(\mathcal{C})\subset \mathcal{A}$ et $\sigma(f^{-1}(\mathcal{C}))$ est la plus petite tribu de $\Om$ contenant $f^{-1}(\mathcal{C})$. Cela implique que $f$ est mesurable. \\
+ $\square$\\
+\begin{prop}[Mesurabilité de $g\circ f$]\label{prop:composee_fonctions_mesurable}
+La composée de deux fonctions mesurables est mesurable.
+\end{prop}
+\underline{preuve:}\\
+
+Soit $(\Om_i,\mathcal{A}_i),i=1,2,3$ des espaces mesurables et $f:\Om_1\mapsto \Om_2$ et $g:\Om_2\mapsto \Om_3$. Pour tout $A_3\in\mathcal{A}_3$, on a
+$$
+(g\circ f)^{-1}(A_3)=f^{-1}(g^{-1}(A_3))
+$$
+avec $g^{-1}(A_3)\in\mathcal{A}_2$ puis $f^{-1}(g^{-1}(A_3))\in\mathcal{A}_1$, ce qui permet de conclure que $(g\circ f)$ est mesurable.\\
+$\square$
+\begin{theorem}[$\mu_f$]\label{theo:mesure_image}
+Soit $(\Omega,\mathcal{A})$ et $(E,\mathcal{B})$ deux espaces mesurables, et $f:(\Omega,\mathcal{A})\mapsto (E,\mathcal{B})$ une application mesurable. A toute mesure $\mu$ sur $(\Omega,\mathcal{A})$ on peut associer une mesure $\mu_f$ sur $(E, \mathcal{B})$ définie par 
+$$
+\mu_f(B) = \mu\left[f^{-1}(B)\right],\text{ }B\in\mathcal{B}.
+$$
+\end{theorem}
+\underline{preuve:}\\
+$\mu_f$ est à valeurs positives,comme $\mu$. De plus, 
+$$
+\mu_f(\emptyset) = \mu\left[f^{-1}(\emptyset)\right] = \mu(\emptyset) = \emptyset.
+$$ 
+Soit $(B_n)_{n\geq 0}$ une suite d'évènements de $\mathcal{B}$ deux à deux disjoints. La suite d'évènements $\left\{f^{-1}(B_n)\right\}_{n\geq 0}$ est une suite d'évènements disjoints de $\mathcal{A}$. En effet, supposons l'existence de $\omega\in f^{-1}(B_1)\cap f^{-1}(B_2)$, alors $f(\omega)\in B_1$ et $f(\omega)\in B_2$ ce qui contredit l'hypothèse $B_1\cap B_2 =\emptyset$. Par suite,
+$$
+\mu_f\left(\bigcup_{n\geq0}B_n\right) = \mu\left[f^{-1}\left(\bigcup_{n\geq0}B_n\right)\right] =\mu\left[\bigcup_{n\geq0}f^{-1}\left(B_n\right)\right] = \sum_{n\geq0}\mu\left[f^{-1}\left(B_n\right)\right]=\sum_{n\geq0}\mu_f\left(B_n\right).
+$$
+$\square$
+\begin{definition}[Mesure image]
+$\mu_f$ est appelée mesure image de $\mu$ par $f$.
+\end{definition}
+Une application permet de passer d'un espace mesuré $(\Omega,\mathcal{A}, \mu)$ à un autre espace mesuré $(E,\mathcal{B},\mu_f)$
+\begin{definition}[Loi de probabilité d'une variable aléatoire réelle]
+Soit $(\Omega, \mathcal{A}, \P)$ un espace probabilisé. La loi de probabilité $\P_X$ de la variable aléatoire $X:(\Omega, \mathcal{A},\P)\mapsto(\R,\mathcal{B}_\R)$ est une mesure de probabilité définie par 
+$$
+P_X(B) = \P(X\in B) = \P(X^{-1}(B)),\text{ }\forall B\in\mathcal{B}_\R. 
+$$
+Il s'agit de la mesure image de $\P$ par $X$.
+\end{definition}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\begin{corollary}[Continuité et mesurabilité]
+Soient que $(E_1,\mathcal{O}_1)$ et $(E_2,\mathcal{O}_2)$ deux espaces topologiques et $\mathcal{B}_1$ et $\mathcal{B}_2$ leur tribu borélienne associée, et $f:E_1\mapsto E_2$ une application. On a
+$$
+f\text{ est continue }\Rightarrow f\text{ est mesurable }.
+$$
+\end{corollary}
+\underline{preuve:}\\
+On note simplement que $\mathcal{O}_{2}\subset \mathcal{B}_2$ et $\sigma(\mathcal{O}_{2})\subset \mathcal{B}_2$ puis
+$$
+f^{-1}(\mathcal{O}_{2})\subset \mathcal{O}_{1}\subset\mathcal{B}_{1}
+$$
+f est mesurable d'après le corollaire \ref{cor:CaracMesurabilite}.\\
+$\square$
+
+\end{frame}
+\subsection{Produits d'espace mesurable}
+\begin{frame}[allowframebreaks]
+\underline{2. Produits d'espace mesurable}\\
+Soit $\Omega$ un ensemble, et $(E_i,\mathcal{B}_i)_{i\in I}$ une famille d'espace mesurable et $(f_i)_{i\in I}$ une famille d'applications
+$$
+f_i:\Omega \mapsto (E_i,\mathcal{B}_i). 
+$$ 
+\begin{definition}
+La tribu engendrée par la famille $(f_i)_{i\in I}$ est la plus petite tribu sur $\Omega$ pour laquelle les $f_i$ sont mesurables. 
+\end{definition}
+Il s'agit de la plus petite tribu contenant $\left\{f_i^{-1}(B)\text{ ; }i\in I,\text{ }B\in\mathcal{B}_i\right\}$. On la notera $\mathcal{T}$. Soit $g:(F,\mathcal{F})\mapsto(\Omega,\mathcal{T}) $.\\
+\begin{tikzpicture}[->, -stealth', auto, semithick, node distance=3cm]
+\tikzstyle{every state}=[text=black,scale=0.8]
+\node[]    (1)               {$(\Omega,\mathcal{T})$};
+\node[]    (2)[right of=1]   {$(E_i,\mathcal{B}_i)$};
+\node[]    (3)[below of=1]   {$(F,\mathcal{F})$};
+
+\path
+(1) edge[above]     node{$f_i$}         (2)
+(3) edge[left]     node{$g$}           (1)
+(3) edge[below right]     node{$f_i\circ g$}       (2);
+
+\end{tikzpicture}
+\begin{theorem}
+Une condition nécéssaire et suffisante pour que $g$ soit mesurable est que, pour tout $i\in I$, $f_i\circ g$ soit mesurable. 
+\end{theorem}
+\underline{preuve:}\\
+Si $g$ est mesurable alors les composées $f_i\circ g$ sont mesurables puisque $\mathcal{T}$ rend les $f_i$ mesurable. \\
+
+Réciproquement, considérons 
+$$
+\mathcal{G} = \left\{f_i^{-1}(B)\text{ ; }i\in I\text{ , }B\in\mathcal{B}_i\right\}
+$$
+et supposons que pour tout $i\in I$, $f_i\circ g$ soit mesurable. Alors, pour tout $B\in\mathcal{B}_i$
+$$
+(f_i\circ g)^{-1}(B)\in \mathcal{F} 
+$$
+puis 
+$$
+g^{-1}(f_i^{-1}(B))\in \mathcal{F}
+$$
+On en déduit que $g^{-1}(\mathcal{G})\subset\mathcal{F}$ et finalement
+$$
+\sigma\left[g^{-1}(\mathcal{G})\right] = g^{-1}\left[\sigma(\mathcal{G})\right] = g^{-1}(\mathcal{T})\subset\mathcal{F} . 
+$$
+$g$ est bien mesurable.\\
+$\square$\\
+Soient $(\Omega_1,\mathcal{A}_1)$ et $(\Omega_2,\mathcal{A}_2)$ deux espaces mesurables. On désigne par 
+$$
+p_1:(\omega_1,\omega_2)\mapsto \omega_1\text{ et }p_2:(\omega_1,\omega_2)\mapsto \omega_2,\text{ }(\omega_1,\omega_2)\in \Omega_1\times \Omega_2.
+$$
+les applications projections canoniques. 
+\begin{definition}
+La tribu produit $\mathcal{A}_1\otimes \mathcal{A}_2$ sur $\Omega_1\times \Omega_2$ est la tribu engendré par les applications $p_1$ et $p_2$, c'est à dire la plus petite tribu rendant mesurables les applications projections. 
+\end{definition}
+\begin{prop}
+Soit $g$ une application définie sur un espace mesurable $(F, \mathcal{F})$, à valeur dans un espace produit $(\Omega_1\times \Omega_2, \mathcal{A}_1\otimes \mathcal{A}_2)$. Une condition nécessaire et suffisante pour que $g$ soit mesurable est que 
+$$
+p_1\circ g:(F,\mathcal{F})\mapsto (\Omega_1,\mathcal{A}_1)\text{ et }p_2\circ g:(F,\mathcal{F})\mapsto (\Omega_2,\mathcal{A}_2)
+$$
+soient mesurable.
+\end{prop}
+Deux conséquences immédiates:
+\begin{itemize}
+    \item Une application mesurable de $(\Omega,\mathcal{A})$ à valeurs dans $(\R^2,\mathcal{B}_{\R^2})$ n'est rien d'autre qu'un couple d'applications mesurables de $(\Omega, \mathcal{A})$ à valeur dans $(\mathbb{R},\mathcal{B}_{\R})$. 
+    \item Une application de $(\Omega,\mathcal{A})$ à valeur dans $(\mathbb{C},\mathcal{B}_{\mathbb{C}})$ est mesurable si et seulement si $\Re f$ et $\Im f$ sont mesurables de $(\Omega,\mathcal{A})$ dans $(\R,\mathcal{B}_\R)$
+\end{itemize}
+\end{frame}
+\subsection{Propriétés des applications mesurables numériques}
+\begin{frame}[allowframebreaks]
+\underline{3. Propriétés des applications mesurables (numériques)}\\
+Soient $f$ et $g$ sont deux applications mesurables de $(\Omega,\mathcal{A})$ dans $(\mathbb{R},\mathcal{B}(\mathbb{R}))$
+\begin{prop}
+\begin{enumerate}
+\item $$
+\text{f est mesurable }\Leftrightarrow \forall a\in \R,\text{ }\{f<a\}\in\mathcal{A}
+$$
+Valide aussi avec $\{f\leq a\}$, $\{f> a\}$, et $\{f\geq a\}$.
+\item $$f,g\text{ mesurables }\Rightarrow \{f<g\},\{f\leq g\}, \{f=g\}, \{f\neq g\}\in\mathcal{A} $$
+
+\end{enumerate}
+\end{prop}
+\flushleft
+\underline{preuve:}\\
+\begin{enumerate}
+\item On remarque simplement que $\{f<a\}=f^{-1}(\left]-\infty,a\right[)$
+\item Soit $\om\in \{f<g\}$ alors
+\begin{eqnarray*}
+f(\om)<g(\om)&\Leftrightarrow& \exists r\in\mathbb{Q},\text{ }f(\om)<r<g(\om)\\
+&\Leftrightarrow& \exists r\in\mathbb{Q}\text{ } \om\in \{f<r\}\cap\{g>r\}\\
+&\Leftrightarrow&   \om\in \bigcup_{r\in\mathbb{Q}}\{f<r\}\cap\{g>r\}
+\end{eqnarray*}
+On en déduit que $\{f<g\}=\bigcup_{r\in\mathbb{Q}}\{f<r\}\cap\{g>r\}\in\mathcal{A}$. Les autres propriétés se déduisent des observations suivantes
+$$
+\{f\leq g\}=\Om/\{f> g\},\text{ }\{f=g\}=\{f\geq g\}\cap\{f\leq g\}\text{ et }\{f\neq g\}=\Om/\{f= g\}
+$$
+\end{enumerate}
+$\square$
+\begin{prop}[Vecteur de fonctions mesurables]\label{prop:ComposeeVecteurMesurable}
+$h:\omega\in\mathbb{\Omega}\mapsto (f(\omega),g(\omega))$ est une fonction mesurable de $(\Omega,\mathcal{A})$dans $\left(\mathbb{R}^{2},\mathcal{B}\left(\mathbb{R}^{2}\right)\right)$
+\end{prop}
+\underline{preuve:}\\
+Soit $A\times B$ un pavé dans $\mathcal{B}(\mathbb{R}^{2})$, on a
+$$
+h^{-1}(A\times B)=f^{-1}(A)\cap g^{-1}(B)\in\mathcal{A}
+$$
+Comme $\sigma(A\times B)=\mathcal{B}(\R^{2})$ alors $h$ est mesurable par application du corollaire \ref{cor:CaracMesurabilite}.
+$\square$\\
+\begin{prop}[Opérations sur les fonctions mesurables]
+\begin{enumerate}
+    \item Les applications 
+    $$
+    f+g;\text{ }\alpha\times f\text{, avec }\alpha\in \R;\text{ }f\times g;
+    $$
+    sont mesurables.
+    \item Les applications
+    $$\text{ }\inf(f,g);\text{ }\sup(f,g);\text{ }f^+ = \sup(f,0);\text{ }f^+ = \inf(f,0);\text{ }|f|$$
+    sont mesurables. 
+    \item Soit $(f_n)_{n\geq0}$ une suite d'applications mesurables de $(\Omega,\mathcal{A})$ à valeurs dans $(\R,\mathcal{B}(\R))$. Si $\underset{n\geq 0}{\sup} f_n$ et $\underset{n\geq 0}{\inf} f_n$ sont finies alors 
+    $$\underset{n\geq 0}{\sup} f_n;\text{ }\underset{n\geq 0}{\inf} f_n;\text{ }\limsup f_n;\text{ }\liminf f_n.
+    $$
+    sont mesurables. En particulier, si $\underset{n\rightarrow + \infty}{\lim}f_n = f$ alors $f$ est mesurable.
+\end{enumerate}
+\end{prop}
+\underline{preuve:}
+\begin{enumerate}
+    \item L'application $\Psi:\R^2\mapsto \R$ définie par $\Psi(x,y)= x+y$ est continue donc mesurable. On remarque que l'application $f+g$ est la composée de $\Psi\circ h$, où $h:(x,y)\mapsto (f(x), g(x))$, ce qui la rend mesurable. Le raisonnement est similaire pour $\alpha f$ et $fg$.
+    \item On remarque simplement que $\{\sup(f,g)>a\} = f^{-1}(\left[a,+\infty\right[)\cup g^{-1}(\left[a,+\infty\right[)\in\mathcal{A}$. Le raisonnement est similaire pour $\inf(f,g)$, $\sup(f,0)$ et $\inf(f,0)$. On garde $|f|$ pour l'examen :).
+    \item Par définition $\limsup f_n = \underset{k\geq0}{\inf}\underset{n\geq k}{\sup}f_n$ qui est mesurable en vertu du point précédent. De même $\liminf f_n$. Enfin si $f_n$ tend vers $f$ alors 
+    $$
+    f = \underset{n\rightarrow+\infty}{\lim} f_n =\limsup f_n= \liminf f_n.
+    $$ 
+    est mesurable.
+\end{enumerate}
+\end{frame}
+
+
+
+
+\appendix
+\begin{frame}[allowframebreaks]
+\underline{A.1 Existence et unicité de la mesure de Lebesgue}
+
+Il est naturel de mesurer un intervalle de $\mathbb{R}$ par sa longueur ou une union d'intervalles disjoints par la somme de leur longueur respective.
+\begin{definition}[$\mathcal{I}_{\mathbb{R}}$, application longueur]
+L'application longueur $l:\mathcal{I}_{\mathbb{R}}\mapsto\mathbb{R}_{+}$ définie par
+$$
+l(\left]a,b\right[)=b-a,\text{ et }l(\emptyset)=0.
+$$
+\end{definition}
+L'objectif est de définir une application permettant de mesurer une partie quelconque de $\mathbb{R}$ ou pour être précis les ouverts de $\mathbb{R}$. Comme $\mathbb{R}=\bigcup_{k=1}^{+\infty}]-k,k[$ alors toute partie de $\mathbb{R}$ peut être recouverte. Cette application sera une mesure sur $\mathcal{B}(\mathbb{R})$ coincidant avec l'application longueur sur les intervalles ouverts.
+\begin{theorem}[Caratheodory]\label{theo:Caratheodory}
+Il existe une et une seule mesure sur $\mathcal{B}(\mathbb{R})$, notée $\lambda$, appelée mesure de Lebesgue, telle que
+$$
+\lambda\left(\left]a,b\right[\right)=b-a,\text{ pour tout }-\infty<a<b<+\infty.
+$$
+\end{theorem}
+\underline{preuve (synthétique):}\\
+\underline{Existence:}\\
+Pour une partie $A\subset\mathcal{P}(\mathbb{R})$ on introduit l'instrument de mesure suivant.
+\begin{definition}[Mesure extérieure de Lebesgue]
+On appelle mesure extérieure de Lebesgue dans $\mathbb{R}$ l'application $\lambda^{\ast}:\mathcal{\mathbb{R}}\mapsto\overline{\mathbb{R}}^{+}$ définie, pour tout $A\in\mathcal{P}(\mathbb{R})$, par
+$$
+\lambda^{\ast}=\inf\left\{
+\sum_{n=0}^{+\infty}l(I_n)\text{ ; }(I_{n})_{n\in\N}\in\mathcal{I}_{\mathbb{R}}
+\text{ et }A\subset\bigcup_{n=1}^{\infty}I_n
+\right\}
+$$
+ \end{definition}
+\begin{prop}[Propriétés de $\lambda^{\ast}$]
+L'application $\lambda^{\ast}$ vérifie les propriétés suivantes
+\begin{enumerate}
+\item $\lambda^{\ast}(\emptyset)=0$
+\item $\lambda^{\ast}(A)\leq \lambda^{\ast}(B)$ pour $A,B\subset\mathbb{R}$ telles que $A\subset B$ ($\lambda^{\ast}$ est monotone).
+\item Soit $(A_n)_{n\in\mathbb{N}}\in\mathbb{P}(\mathbb{R})$ et $A=\bigcup_{n\in\mathbb{N}}A_n$ alors
+$$
+\lambda^{\ast}(A)\leq \sum_{n\in\mathbb{N}}\lambda^{\ast}(A_n).
+$$
+($\lambda^{\ast}$ est sous $\sigma$-additive)
+\item $\lambda^{\ast}\left(\left]a,b\right[\right)=b-a$ pour tout $a,b\in\mathbb{R}$ tels que $-\infty<a<b<+\infty$.
+\end{enumerate}
+\end{prop}
+$\lambda^{\ast}$ n'est pas $\sigma$-additive et n'est donc pas une mesure sur $\mathcal{P}(\mathbb{R})$ On va montrer que $\lambda^{\ast}$ est une mesure si on restreint l'application à $\mathcal{B}(\mathbb{R})$. Concrètement , on montre que $\lambda^{\ast}$ est une mesure sur une tribu $\mathcal{L}$ qui englobe $\mathcal{B}(\mathbb{\R})$
+\begin{definition}[La tribu de Lebesgue $\mathcal{L}$]
+Soit
+$$
+\mathcal{L}=\left\{ E\in\mathcal{P}(\R)\text{ ; }\lambda^{\ast}(A)=\lambda^{\ast}(A\cap E)+\lambda^{\ast}(A\cap E^{c})\right\}, \text{pour tout }A\subset\mathcal{P}(\R),
+$$
+un sous-ensemble de $\mathcal{P}(\R)$, appelé tribu de Lebesgue.
+\end{definition}
+\begin{prop}[Propriétés de $\mathcal{L}$]
+\begin{enumerate}
+\item $\mathcal{L}$ est une tribu sur $\mathbb{R}$,
+\item $\lambda^{\ast}_{|\mathcal{L}}:\mathcal{L}\mapsto\overline{\R}_+$ est une mesure.
+\end{enumerate}
+\end{prop}
+Les membres de la tribu $\mathcal{L}$ réalisent un bon partage des parties de $\R$.\\
+\underline{preuve:}\\
+
+Il est immédiat que $\mathbb{R}\in \mathcal{L}$ et que $\mathcal{L}$ est stable par passage au complémentaire. De même, on remarque que $\lambda^{\ast}(\emptyset)=0$.\\
+\textbf{Etape 1.} On va montrer que $\mathcal{L}$ est stable par réunion finie et que $\lambda^{\ast}$ vérifie, pour $(E_i)_{i=1,\ldots,n}$ telles que $E_i\cap E_j=\emptyset$ pour $i\neq j$,
+$$\lambda^{\ast}\left(A\cap\bigcup_{i=1}^{n}E_i\right) =
+\sum_{i=1}^{n}\lambda^{\ast}(A\cap E_i).
+$$
+Soit $E_1,E_2\subset\mathcal{L}$ et $E=E_1\cup E_2$. On rappelle que $E\subset\mathcal{L}$ si
+$$
+\lambda^{\ast}(A)=\lambda^{\ast}(A\cap E)+\lambda^{\ast}(A\cap E^{c})
+$$
+Nous savons que $\lambda^{\ast}(A)\leq\lambda^{\ast}(A\cap E)+\lambda^{\ast}(A\cap E^{c})$ du fait de la $\sigma$ sous-additivé de $\lambda^{\ast}$. Notons que
+\begin{eqnarray}
+\lambda^{\ast}(A\cap E)&=&\lambda^{\ast}[A\cap (E_1\cup E_2)]\nonumber\\
+&=&\lambda^{\ast}[(A\cap E_1)\cup (A\cap E_2)]\nonumber\\
+&=&\lambda^{\ast}[(A\cap E_1)\cup (A\cap E_2\cap E_1^{c})]\nonumber\\
+&\leq& \lambda^{\ast}(A\cap E_1)+\lambda^{\ast}(A\cap E_2\cap E_1^{c}).\label{eq:IneqExistence}
+\end{eqnarray}
+Comme $E_{2}\subset\mathcal{L}$ et $A\cap E_{1}^{c}\in\mathcal{P}(\R)$ alors
+\begin{equation}\label{eq:eq1Existence}
+\lambda^{\ast}(A\cap E_{1}^{c})=\lambda^{\ast}(A\cap E_{1}^{c}\cap E_{2})+\lambda^{\ast}(A\cap E_{1}^{c}\cap E_{2}^{c})=\lambda^{\ast}(A\cap E_{1}^{c}\cap E_{2})+\lambda^{\ast}(A\cap E^{c}).
+\end{equation}
+On a également
+\begin{equation}\label{eq:eq2Existence}
+\lambda^{\ast}(A)=\lambda^{\ast}(A\cap E_{1})+\lambda^{\ast}(A\cap E_{1}^{c}).
+\end{equation}
+puisque $E_1\subset\mathcal{L}$. En ré-injectant \eqref{eq:eq1Existence} et \eqref{eq:eq2Existence} dans l'inégalité \eqref{eq:IneqExistence}, on obtient
+$$
+\lambda^{\ast}(A) \geq  \lambda^{\ast}(A\cap E) + \lambda^{\ast}(A\cap E^{c}).
+$$
+Supposons que $E_{1}\cap E_{2}=\emptyset$ alors
+\begin{eqnarray*}
+\lambda^{\ast}(A\cap E)&=&\lambda^{\ast}[A\cap(E_1\cup E_2)]\\
+&=&\lambda^{\ast}[(A\cap E_1)\cup (A\cap E_2)]\\
+&=&\lambda^{\ast}\{[(A\cap E_1)\cup (A\cap E_2)]\cap E_1\}+\lambda^{\ast}\{[(A\cap E_1)\cup (A\cap E_2)]\cap E_1^{c}\}\\
+&=&\lambda^{\ast}(A\cap E_1)+\lambda^{\ast}(A\cap E_2)
+\end{eqnarray*}
+Les deux propriétés se généralisent pour une suite $(E_n)_{n=1,\ldots,n}$ par récurrence. \\
+\end{frame}
+\begin{frame}[allowframebreaks]
+\textbf{Etape 2.}\\
+Considérons $(E_n)_{n\in\mathbb{N}}\subset\mathcal{L}$ et $E=\cup_{n\in\mathbb{N}}E_n$. Soit
+$$
+F_0=E_0\text{ et }F_n=E_n|(E_n\cap\bigcup_{p=0}^{n-1}F_p)
+$$
+de sorte que $F_0,F_1,\ldots$ appartienent à $\mathcal{L}$, soient disjoints, et vérifient $E=\bigcup_{n\in\N}F_n$. On a
+\begin{eqnarray}
+\lambda^{\ast}(A)&=&\lambda^{\ast}(A\cap \bigcup_{p=0}^{n}F_p)+\lambda^{\ast}\left[A\cap \left(\bigcup_{p=0}^{n}F_p\right)^{c}\right]\nonumber\\
+&\geq&\lambda^{\ast}(A\cap \bigcup_{p=0}^{n}F_p)+\lambda^{\ast}\left[A\cap E\right]\nonumber\\
+&\geq&\sum_{p=0}^{n}\lambda^{\ast}(A\cap F_p)+\lambda^{\ast}\left[A\cap E\right]\nonumber
+\end{eqnarray}
+En passant à la limite lorsque $n\rightarrow+\infty$, on obtient
+\begin{eqnarray*}
+\lambda^{\ast}(A)&\geq& \sum_{p=0}^{+\infty}\lambda^{\ast}(A\cap F_p)+\lambda(A\cap E^{c})\\
+&\geq& \lambda^{\ast}(A\cap E)+\lambda(A\cap E^{c})\text{ sous $\sigma$-additivité}.
+\end{eqnarray*}
+ce qui prouve que $E\subset\mathcal{L}$.\\
+\end{frame}
+\begin{frame}[allowframebreaks]
+On montre maintenant que $\lambda^{\ast}$ est bien une mesure sur $\mathcal{L}$. Soit $(E_{n})_{n\in\mathbb{N}}$ telle que $E_n\cap E_m=\emptyset$ si $n\neq m$. Comme $\bigcup_{p=0}^{n}E_p\subset E$ alors
+\begin{eqnarray*}
+\lambda^{\ast}(A\cap E)&\geq&\lambda\left(\bigcup_{p=0}^{n}A\cap E_p\right)\\
+&=&\sum_{p=0}^{n}\lambda(A\cap E_p).
+\end{eqnarray*}
+On obtient $\lambda^{\ast}(E)\geq \sum_{p=0}^{+\infty}\lambda^{\ast}(E_p)$ en choisissant $A=E$ puis en passant à la limite lorsque $n\rightarrow+\infty$. De plus $\lambda^{\ast}(E)\leq\sum_{p=0}^{\infty}\lambda^{\ast}(E_p)$ en vertu de la sous $\sigma$-additivité. On a donc
+$$
+\lambda^{\ast}(E)=\sum_{n=0}^{+\infty}\lambda^{\ast}(E_p).
+$$
+Pour montrer l'existence du théorème \eqref{theo:Caratheodory}, il suffit de montrer que $\left]a,+\infty\right[\subset\mathcal{L}$ pour tout $a\in \mathbb{R}$ car dans ce cas $\mathcal{B}(\mathbb{R})\subset\mathcal{L}$ puisque $\left]a,+\infty\right[$ engendre $\mathcal{B}(\mathbb{R})$. Soit $E=\left]a,+\infty\right[$, pour $a\in\mathbb{R}$ et $A\in\mathbb{P}(\mathbb{R})$, on veut montrer que
+\begin{equation}\label{eq:eq3}
+\lambda^{\ast}(A)=\lambda^{\ast}(A\cap E)+\lambda^{\ast}(A\cap E^{c}).
+\end{equation}
+D'après la définition de $\lambda^{\ast}$, il existe $(I_n)_{n\in\N}\in\mathcal{I}_{\R}$, telle que $A\subset\bigcup_{n\in\N}I_n$ et $\lambda^{\ast}(A)=\sum_{n\in\N}l(I_n)-\epsilon$.
+Comme
+$$
+\begin{cases}
+A\cap E\subset&\bigcup_{n\in\N}I_n\cap E,\\
+A\cap E^{c}\subset&\bigcup_{n\in\N}I_n\cap E^{c},
+\end{cases}
+$$
+alors la $\sigma$ sous-additivité implique que
+$$
+\begin{cases}
+\lambda^{\ast}(A\cap E)\leq&\sum_{n\in\N}\lambda^{\ast}(I_n\cap E),\\
+\lambda^{\ast}(A\cap E^{c})\leq&\sum_{n\in\N}\lambda^{\ast}(I_n\cap E^{c}).
+\end{cases}
+$$
+On a
+\begin{eqnarray*}
+  \lambda^{\ast}(A\cap E)+\lambda^{\ast}(A\cap E^{c})&\leq& \sum_{n\in\mathbb{N}}\lambda^{\ast}(I_n\cap E)+\lambda^{\ast}(I_n\cap E^{c})\\
+  &=&\sum_{n\in\N}l(I_n),
+\end{eqnarray*}
+puis $\lambda^{\ast}(A\cap E)+\lambda^{\ast}(A\cap E^{c})\leq\lambda^{\ast}(A)+\epsilon$, où $\epsilon$ peut être choisi arbitrairement petit. Finalement, $\lambda^{\ast}(A)\leq \lambda^{\ast}(A\cap E)+\lambda^{\ast}(A\cap E^{c})$ est une conséquence de la $\sigma$ sous-additivité, ce qui permet de conclure à l'égalité \eqref{eq:eq3}.\\
+Pour l'unicité, on montre que s'il existe une autre mesure $m$ sur $\mathcal{B}(\R)$
+telle que $m(\left]a,b\right[)=b-a$ alors elle coincide avec $\lambda^{\ast}$. La proposition suivante est dès lors très utile.
+\begin{prop}[Condition suffisante pour l'égalité de deux mesures]\label{prop:EgaliteMesure}
+  Soit $(\Om,\mathcal{A})$ un espace mesurable et $m,\mu$ deux mesures sur $\mathcal{A}$. Supposons qu'il existe $\mathcal{C}\subset\mathcal{A}$ tel
+  \begin{enumerate}
+    \item $\mathcal{C}$ engendre $\mathcal{A}$
+    \item $\mathcal{C}$ est stable par intersection fini
+    \item Il existe $(C_n)_{n\in\N}\in\mathcal{C}$ telle que $C_n\cap C_m=\emptyset$ si $n\neq m$, et $\Om=\bigcup_{n\in\N}C_n$.
+    \item $m(C)=\mu(C)$ pour tout $C\subset\mathcal{C}$
+  \end{enumerate}
+  On a alors $m=\mu$
+\end{prop}
+La preuve se termine en appliquant la proposition \eqref{prop:EgaliteMesure},
+avec $\mathcal{C}=\{\left]a,b\right]\text{ , }-\infty< a<b<+\infty\}$. On vérifie que
+\begin{itemize}
+\item $\sigma(\mathcal{C})=\mathcal{B}(\R)$
+\item $\mathcal{C}$ est stable par intersection
+\item Considérons la suite
+$$
+F_n=]n,n+1],\text{ }n\in\mathbb{Z}
+$$
+est dénombrable, disjointe et telle que $\bigcup_{n\in\mathbb{Z}}F_n=\R$
+\item On a par continuité décroissante
+\begin{eqnarray*}
+m(]a,b])&=&\underset{n\rightarrow+\infty}{\lim}m(]a,b+\frac{1}{n})\\
+&=&\underset{n\rightarrow+\infty}{\lim}b-a+\frac{1}{n}\\
+&=&b-a\\
+&=&\lambda^{\ast}(]a,b])\\
+\end{eqnarray*}
+\end{itemize}
+
+ On définit alors $\lambda:=\lambda^{\ast}_{|\mathbb{B}(\mathbb{R})}$\\
+En résumé,
+\begin{eqnarray*}
+\lambda^{\ast}:\mathcal{P}(\R)\mapsto\overline{\mathbb{R}}^{+}&\Rightarrow&\lambda^{\ast}_{|\mathcal{L}}:\mathcal{L}\mapsto\overline{\mathbb{R}}_{+}\text{ est une mesure}\\
+&\Rightarrow&\lambda:=\lambda^{\ast}_{\mathcal{B}(\R)}:\mathcal{B}(\R)\mapsto\overline{\mathbb{R}}_{+}\text{ est la seule mesure telle que  }\lambda(\left]a,b\right[)=b-a\\
+&\Rightarrow& \text{La mesure de Lebesgue}
+\end{eqnarray*}
+
+\end{frame}
+\begin{frame}[allowframebreaks]{Références bibliographiques}
+Mes notes se basent sur les documents suivants \cite{Ca09,le2006integration,GaKu11}
+\bibliographystyle{plain}
+\bibliography{Integration_notes}
+\end{frame}
+\end{document}

@@ -1,0 +1,241 @@
+\documentclass[11pt, answers]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsopn, color}
+\usepackage[margin=1in]{geometry}
+\usepackage{titlesec}
+\usepackage{tipa}
+\usepackage{hyperref}
+
+
+
+% Style
+\setlength\parindent{0pt}
+\shadedsolutions
+
+% Define course info
+\def\semester{2020}
+\def\course{Intégration L3}
+\def\name{P.-O. Goffard \& C. Jahel}
+%\def\quizdate{10/5, 10/6}
+\def\hwknum{}
+%\def\title{\MakeUppercase{Homework \hwknum -- quiz \quizdate }}
+\def\title{\MakeUppercase{TD 1: Rappel d'analyse réelle et dénombrement}}
+
+% Define commands
+\def\Bin{\operatorname{Bin}}
+\def\Geom{\operatorname{Geom}}
+\def\Pois{\operatorname{Pois}}
+\def\Exp{\operatorname{Exp}}
+\newcommand{\E}{\mathbb E}            % blackboard E
+\newcommand{\bP}{\mathbb P}            % blackboard P
+\newcommand{\Var}{\text{Var}}            % blackboard P
+\newcommand{\Om}{\Omega}            % blackboard P
+\newcommand{\om}{\omega}            % blackboard P
+\newcommand{\N}{\mathbb N}            % blackboard P
+\newcommand{\R}{\mathbb R}            % blackboard P
+\newcommand{\A}{\mathcal A}            % blackboard P
+\def \si {\sigma}
+\def \la {\lambda}
+\def \al {\alpha}
+% \def\e*{\end{eqnarray*}}
+\def \di{\displaystyle}
+
+\def \E{\mathbb E}
+\def \N{\mathbb N}
+\def \Z{\mathbb Z}
+\def \NZ{\mathbb{N}_0}
+\def \I{\mathbb I}
+\def \w{\widehat}
+\def \P {\mathbb P}
+\def \V{\mathbb V}
+\newtheorem{lemma}{Lemme}
+
+
+\newcommand{\CL}{\mathbb{C}}
+\newcommand{\RL}{\mathbb{R}}
+\newcommand{\nat}{{\mathbb N}}
+\newcommand{\Laplace}{\mathscr{L}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\ve}{\bm{\mathrm{e}}} % vector e
+
+\renewcommand{\L}{\mathcal{L}} % e.g. L^2 loss.
+
+\newcommand{\ih}{\mathrm{i}}
+\newcommand{\oh}{{\mathrm{o}}}
+\newcommand{\Oh}{{\mathcal{O}}}
+
+
+\newcommand{\Norm}{\mathcal{N}}
+\newcommand{\LN}{\mathcal{LN}}
+\newcommand{\SLN}{\mathcal{SLN}}
+
+\renewcommand{\Pr}{\mathbb{P}}
+\newcommand{\Ind}{\mathbb I}
+\newcommand\bfsigma{\bm{\sigma}}
+\newcommand\bfSigma{\bm{\Sigma}}
+\newcommand\bfLambda{\bm{\Lambda}}
+\newcommand{\stimes}{{\times}}
+\def \limsup{\underset{n\rightarrow+\infty}{\overline{\lim}}}
+\def \liminf{\underset{n\rightarrow+\infty}{\underline{\lim}}}
+
+% \newcommand{\limsup}{\overline{\lim}\,}            % blackboard P
+% \newcommand{\liminf}{\underline{\lim}\,}            % blackboard P
+
+\begin{document}
+
+% Heading
+{\center \textsc{\Large\title}\\
+	\vspace*{1em}
+	\course -- \semester\\
+	\name\\
+	\vspace*{2em}
+	\hrule
+\vspace*{2em}}
+\begin{questions}
+\question Etudier la convergence des séries de terme générale $u_n$ suivante 
+\begin{parts}
+\part $u_n = \frac{(n^2+1)2^n}{(2n+1)!}$
+\begin{solution}
+Nous avons 
+$$
+\frac{u_{n+1}}{u_n}=\frac{2(n^2+2n+2)}{(2n+2)(2n+3)(n^2+1)}\rightarrow 0,
+$$
+donc la série converge d'après le critère de d'Alembert
+\end{solution}
+\part $u_n = \left(\frac{n^2-5n+1}{n^2-4n+2}\right)^{n^2}$
+\begin{solution}
+Nous avons
+$$
+u_n=\exp\left\{n^2\left[\ln\left(n^2-5n+1\right)-\ln\left(n^2-4n+2\right)\right]\right\}\underset{n\rightarrow \infty}{\approx}\exp\left[-n+O(1)\right].
+$$
+Nous pouvons alors comparer la série de terme générale $(u_n)$ à l'intégrale convergente $\int_1^\infty f(t)\text{d}t$ de la fonction $f:t\mapsto e^{-t}$ continue, positive et décroissante. Il est aussi possible d'observer que $u_n^{1/n}<e^{-1}$ et de conclure à la convergence de la série via le critère de Cauchy. 
+\end{solution}
+\part $u_n =\left(1+\frac{1}{n}\right)^{n^2}e^{-n}$
+\begin{solution}
+Nous avons 
+$$
+u_n = \exp\left[n^2\ln\left(1+\frac{1}{n}\right)-n\right] \underset{n\rightarrow \infty}{\approx}\exp\left[n-2+o\left(1\right)-n\right] \rightarrow e^{-2}>0,
+$$
+la série diverge grossièrement.
+\end{solution} 
+\part $u_n = \left(1+\frac{1}{n}\right)^{-n^2}$
+\begin{solution}
+Nous avons 
+$$
+u_n = \exp\left\{-n^2\ln\left(1+\frac{1}{n}\right)\right\}\underset{n\rightarrow \infty}{\approx} \exp\left\{-n^2\left(\frac{1}{n}+o\left(\frac{1}{n}\right)\right)\right\}\approx \exp\left\{-n+o\left(n\right)\right\},
+$$
+puis $u_n^{1/n}\rightarrow e^{-1}<1$, la série converge en vertu du critère de Cauchy.
+\end{solution}
+\part $u_n = \frac{2n+1}{n^2(n+1)^2}$
+\begin{solution}
+Nous avons $u_n=O\left(\frac{2}{n^2}\right)$, la série converge par comparaison avec la série convergente de terme générale $2/n^2$.
+\end{solution}
+\end{parts}
+\question Soit $(a_n)$ une suite numérique dont la suite des sommes partielles est supposées bornée. Soit $(f_n)$ une suite décroissante de réels positifs de limite nulle. Montrer que la série de termes générale $a_nf_n$ converge. 
+\underline{Indication:} Penser au critère de Cauchy pour les suites.
+
+\begin{solution}
+Soit $A_n = \sum_{k = 0}^{n}a_k$, on utiliser le critère de Cauchy. On note que 
+$$
+\sum_{k = n}^{p}a_kf_k = \sum_{k = n}^{p}(A_k - A_{k-1})f_k = A_pf_p-A_{n-1}f_n +\sum_{k = n+1}^{p}(f_{k-1}-f_{k})A_{k-1}.
+$$
+On pose $M = \sup\{A_k\text{ , }k\geq 0\}$ et $\epsilon_n = \sup\{f_{k-1}\text{, }k\geq n\}$ puis il vient
+\begin{eqnarray*}
+\left|\sum_{k = n}^{p}a_kf_k\right|&\leq& M\epsilon_n + M\epsilon_n + \sum_{k = n+1}^{p}|f_{k-1}-f_{k}|A_{k-1}\\
+&=& 2M\epsilon_n + \sum_{k = n+1}^{p}|f_{k-1}-f_{k}|A_{k-1}\leq 3M\epsilon_n
+\end{eqnarray*}
+\end{solution}
+
+\question Calculer les limites  $\limsup\, (-1)^n\left(1+\frac{1}{n}\right)$ et $\liminf (-1)^n\left(1+\frac{1}{n}\right)$
+\begin{solution}
+Soit $u_n = (-1)^n\left(1+\frac{1}{n}\right)$, on a $\underset{k\geq n}{\sup}\,u_n  =\underset{k\geq n}{\sup}\,u_{2n}$ et $\underset{n\rightarrow +\infty}{\lim}\,u_{2n} = 1$. Le sup d'une suite est toujours supérieure au sup d'une suite extraite!
+\end{solution}
+% \part $\limsup\,\sin(n)$
+% \begin{solution}
+% L'ensemble $\{n+m\frac{\pi}{2}\text{ ; }n,m\in\Z\}$ est dense dans $\RL$ donc
+% $\underset{k\geq n}{\sup}\, \sin(k) = 1$ puis $\limsup\, \sin(n) = 1$. Je ne compends pas...
+% \end{solution}
+% \end{parts}
+\question Soit $\Omega$ un ensemble non vide et $(\Omega)_i\in I$ une partition de $\Omega$ avec $I$ un ensemble fini d'indice. Montrer que $(A\cap \Omega_i)_{i\in I}$ est une partition de $A\subset \Omega$ non vide. 
+\begin{solution}
+Soit $A_i = A\cap \Omega_i$ pour $i\in I$. On a $A_i\cap A_j\subset \Omega_i\cap \Omega_j = \emptyset$ et 
+$$
+A = A\cap\Omega = \bigcup_{i\in I}A\cap\Omega_i = \bigcup_{i\in I}A_i. 
+$$
+\end{solution}
+\question Combien d'injection $f:A\mapsto B$ peut on définir en admettant que $\text{Card}(A) = p \leq n =\text{Card}(B)$? 
+\begin{solution}
+$\frac{n!}{(n-p)!}$
+\end{solution}
+\question On dispose de $n$ euros que l'on souhaite distribuer à $k < n$ personnes
+\begin{parts}
+\part En admettant que chaque personne doit recevoir au moins 1 euro, combine de répartition sont possibles?
+\begin{solution}
+$\binom{n-1}{k-1}$, en effet si on numérote les participants $x_1,\ldots,x_n$, on considère $f$ une injection de $\{2,\ldots,k\}$ dans $\{2,\ldots, n\}$ et on impose $f(1)=1$ et $f(n+1)=n$. On attribue au participant $i$ la valeur $g(i)=min_{j\neq i}\{f(j)>f(i)\} -f(i)$. Pour une configuration de joueurs ordonnées, il y a donc $\frac{(n-1)!}{(n-k)!}$ possibilités. On divise par $k!$ pour retrouver toutes les répartitions sans ordonnancement des participants.
+\end{solution}
+\part En relachant la contrainte précédente (possibilité que quelqu'un ne reçoive rien), combien de répartition sont possibles?
+\begin{solution}
+$\binom{n+k-1}{n}$, cela revient à distribuer $n+k$ euros en en donnant au moins un à chaque participant.
+\end{solution}
+
+\end{parts}
+\question Montrer que l'ensemble 
+$$
+\Omega = \{x\in\mathbb{R}\text{ ; }\exists P\in\mathbb{Z}[x]\backslash \{0\}\text{ t.q. }P(x) = 0\}
+$$ 
+des réels algébriques est dénombrable. 
+\underline{Indication:} Commencer par étudier $\mathbb{Z}[x]$ 
+\begin{solution}
+Il est facile de voir que $\mathbb Z$ est dénombrable. Il suit que $\mathbb{Z}^n$ est aussi dénombrable pour tout $n\in \mathbb N$. Par union dénombrable, on voit que $\mathbb{Z}_{fin}= \cup_n \mathbb{Z}^n$ est dénombrable.
+
+De plus, il existe une bijection naturelle entre $\mathbb Z_n[X]$ et $\mathbb{Z}^n$, donc $\mathbb{Z}[X]$ est dénombrable.
+
+Enfin $\Omega = \bigcup_{P\in \mathbb{Z}[X]} \{x \text{ racine de P.}\}$ et comme le nombre de racine d'un polynome est fini, on a le résultat.
+\end{solution}
+
+\question Soit $f:X\mapsto \mathcal{P}(X)$ arbitraire, montrer que $f$ n'est pas surjective en considérant $A = \{x\in X\text{ ; }x\notin f(x)\}$. $\mathcal{P}(\N)$ est-il dénombrable?
+\begin{solution}
+Supposons que $f$ est surjective, en particulier, il existe $a\in X$ tel que $f(a)=A$. Si $a\A$, cela signifie par définition que $a\notin A$ et réciproquement, $a\notin A$ signifie que $a\in A$, un tel $a$ ne peut pas exister.
+
+$\mathcal P(\mathbb N)$ n'est pas dénombrable, puisqu'il n'existe pas de surjection de $\mathbb N$ dans $\mathcal{P}(\mathbb{N})$.
+\end{solution}
+
+\question Soit $\theta :\mathcal{P}(X)\mapsto\mathcal{P}(X)$ croissant pour l'inclusion, 
+\begin{parts}
+\part Montrer que 
+$$
+\mathcal{F}= \{A\in\mathcal{P}(X)\text{ ; }A\subset\theta(A)\},
+$$
+est non vide et stable par union arbitraire. 
+\begin{solution}
+$\varnothing\in \mathcal F$ donc $\mathcal F$ n'est pas vide.
+
+Soit $(A_i)_{i\in I}$ une famille telle que $A_i\subset \theta(A)$ pour tout $i\in I$. On a $ A_i \subset \cup_{i\in I} A_i$ et donc par croissance $ \theta(A_i) \subset \theta(\cup_{i\in I} A_i)$. En particulier comme $A_i\in \mathcal F$, $A_i\subset \theta(\cup_{i\in I} A_i)$ et en prenant la réunion, on a $\cup_{i\in I} A_i\subset \theta(\cup_{i\in I} A_i)$.
+\end{solution}
+\part Montrer que $\mathcal{F}$ admet un plus grand élément $E$ qui vérifie $\theta(E) = E$. 
+\begin{solution}
+On rappelle le Lemme de Zorn :
+\begin{lemma} Tout ensemble non vide (partiellement) ordonné tel que toute partie d'éléments totalement ordonnée admet un majorant, admet un majorant.
+\end{lemma}
+La question $(a)$ nous permet donc d'affirmer que $\mathcal F$ respecte les hypothèses de ce Lemme, en particulier, il y a une partie maximale $E\in \mathcal F$. Si $E$ est strictement inclus dans $\theta(E)$, $\theta(E)$ est une partie plus grande que $E$ dans $\mathcal F$, ce qui contredit le caractère maximal de $E$, d'où l'égalité.
+\end{solution}
+\part Soit $f:X\mapsto Y$ et $g:Y\mapsto X$ injectives, construire $h:X\mapsto Y$ bijective.
+\underline{Indication:} Utiliser a) et b) avec $\theta:\mathcal{P}(X)\mapsto \mathcal{P}(X)$ telle que $\theta(A) = \left[g\left(f(A)^c\right)\right]^c$.
+\begin{solution}
+On vérifie que $\theta$ est croissante pour l'inclusion. Soit $A\subset B \in \mathcal P (X)$, on a
+\begin{align*}
+&f(A)\subset f(B) \\
+&\Rightarrow f(B)^c \subset f(A)^c \\
+& \Rightarrow g\left( f(B)^c \right) \subset g\left( f(A)^c \right) \\
+& \Rightarrow \left[ g\left( f(A)^c \right) \right]^c \subset \left[ g\left( f(B)^c \right) \right]^c.
+\end{align*}
+
+D'après la question $(b)$, il y a donc une partie $E\in \mathcal P(X)$ telle que $E= \theta (E)$. On définit une bijection $h$ de $X$ dans $Y$ en penant $h(x)=f(x)$ si $x\in E$ et $h(x)=g^{-1}(x)$. On vérifie que $h$ est bien une bijection. On remarque que si $x\notin E$, alors $h(x)\notin f(E)$ par définition de $E$ et injectivité de $g$. Ceci nous assure que $h$ est injective. De plus $h$ est bien surjective puisque tout élément de $Y\backslash f(E)$ a une image dans $X\backslash E$.
+\end{solution}
+\end{parts}
+
+
+
+\end{questions}
+\end{document}

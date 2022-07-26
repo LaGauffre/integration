@@ -1,0 +1,377 @@
+\documentclass[11pt, addpoints, answers]{exam}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin  = 1in]{geometry}
+\usepackage{amsmath, amscd, amssymb, amsthm, verbatim}
+\usepackage{mathabx}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+\shadedsolutions
+\definecolor{SolutionColor}{RGB}{214,240,234}
+
+\newcommand{\bbC}{{\mathbb C}}
+\newcommand{\R}{\mathbb{R}}            % real numbers
+\newcommand{\bbR}{{\mathbb R}}
+\newcommand{\Z}{\mathbb{Z}}            % integers
+\newcommand{\bbZ}{{\mathbb Z}}
+\newcommand{\bx}{\mathbf x}            % boldface x
+\newcommand{\by}{\mathbf y}            % boldface y
+\newcommand{\bz}{\mathbf z}            % boldface z
+\newcommand{\bn}{\mathbf n}            % boldface n
+\newcommand{\br}{\mathbf r}            % boldface r
+\newcommand{\bc}{\mathbf c}            % boldface c
+\newcommand{\be}{\mathbf e}            % boldface e
+\newcommand{\bE}{\mathbb E}            % blackboard E
+\newcommand{\bP}{\mathbb P}            % blackboard P
+
+\newcommand{\ve}{\varepsilon}          % varepsilon
+\newcommand{\avg}[1]{\left< #1 \right>} % for average
+%\renewcommand{\vec}[1]{\mathbf{#1}} % bold vectors
+\newcommand{\grad}{\nabla }
+\newcommand{\lb}{\langle }
+\newcommand{\rb}{\rangle }
+
+\def\Bin{\operatorname{Bin}}
+\def\Var{\operatorname{Var}}
+\def\Geom{\operatorname{Geom}}
+\def\Pois{\operatorname{Pois}}
+\def\Exp{\operatorname{Exp}}
+\newcommand{\Ber}{\operatorname{Ber}}
+\def\Unif{\operatorname{Unif}}
+\def\No{\operatorname{N}}
+\newcommand{\E}{\mathbb E}            % blackboard E
+\def\th{\theta }            % theta shortcut
+\def\V{\operatorname{Var}}
+\def\Var{\operatorname{Var}}
+\def\Cov{\operatorname{Cov}}
+\def\Corr{\operatorname{Corr}}
+\newcommand{\epsi}{\varepsilon}            % epsilon shortcut
+
+\providecommand{\norm}[1]{\left\lVert#1\right\rVert} %norm
+\providecommand{\abs}[1]{\left \lvert#1\right \rvert} %absolute value
+
+\DeclareMathOperator{\lcm}{lcm}
+\newcommand{\ds}{\displaystyle}	% displaystyle shortcut
+
+\def\semester{2018-2019 }
+\def\course{Théorie de la mesure }
+\def\title{\MakeUppercase{Examen Final}}
+\def\name{Pierre-O Goffard}
+%\def\name{Professor Wildman}
+
+\setlength\parindent{0pt}
+
+\cellwidth{.35in} %sets the minimum width of the blank cells to length
+\gradetablestretch{2.5}
+
+%\bracketedpoints
+%\pointsinmargin
+%\pointsinrightmargin
+
+\begin{document}
+
+
+\runningheader{\course  \vspace*{.25in}}{}{\title \vspace*{.25in}}
+%\runningheadrule
+\runningfooter{}{Page \thepage\ of \numpages}{}
+
+% \firstpageheader{Name:\enspace\hbox to 2.5in{\hrulefill}\\  \vspace*{2em} Section: (circle one) TR: 3-3:50 \textbar\, TR: 5-5:50 \textbar\,  TR: 6-6:50(Xu) \textbar\,  TR: 6-6:50 }{}{Perm \#: \enspace\hbox to 1.5in{\hrulefill}\\ \vspace*{2em} Score:\enspace\hbox to .6in{\hrulefill} $/$\numpoints}
+\extraheadheight{.25in}
+
+\hrulefill
+
+\vspace*{1em}
+
+% Heading
+{\center \textsc{\Large\title}\\
+	\vspace*{1em}
+	\course -- \semester\\
+	Pierre-O Goffard\\
+}
+\vspace*{1em}
+
+\hrulefill
+
+\vspace*{2em}
+
+\noindent {\bf\em Instructions:} On éteint et on range son téléphone.
+\begin{itemize}
+	\item La calculatrice et les appareils éléctroniques ne sont pas autorisés.
+	\item Vous devez justifier vos réponses de manière claire et concise.
+	\item Vous devez écrire de la manière la plus lisible possible. Souligner ou encadrer votre réponse finale.
+
+\end{itemize}
+
+\begin{center}
+	\gradetable[h]
+\end{center}
+
+\smallskip
+
+\begin{questions}
+\question Soit $(\Omega, \mathcal{A},\mu)$ un espace mesuré. Soient $A,B\in\mathcal{A}$.
+	\begin{parts}
+		\part[1]  Montrer que 
+		$$
+		\mu(A\cup B)=\mu(A)+\mu(B)-\mu(A\cap B)
+		$$
+		\begin{solution}
+			$$
+			\mu(A\cup B)=\mu[(A/A\cap B)\cup B]=\mu(A/A\cap B)+\mu(B)=\mu(A)-\mu(A\cap B)+\mu(B).
+			$$
+		\end{solution}
+		\part[1] Montrer que l'application définie par 
+		$$
+		\mu_A(B)=\frac{\mu(A\cap B)}{\mu(A)}
+		$$
+		est une mesure de probabilité.
+		\begin{solution}
+		Nous avons 
+			\begin{itemize}
+				\item $\mu_A(\emptyset)=\frac{\mu(A\cap \emptyset)}{\mu(A)}=\frac{\mu(\emptyset)}{\mu(A)}=0$
+				\item Soit $(A_n)_{n\in\mathbb{N}}$ une suite de parties disjointes de $\mathcal{A}$,
+				$$
+				\mu_A\left(\bigcup_{n\in\mathbb{N}}A_n\right)=\frac{\mu\left(A\cap \bigcup_{n\in\mathbb{N}}A_n\right)}{\mu(A)}=\frac{\mu\left(\bigcup_{n\in\mathbb{N}}A\cap A_n\right)}{\mu(A)}=\frac{\sum_{n\in\mathbb{N}}\mu\left(A\cap A_n\right)}{\mu(A)}=\sum_{n\in\mathbb{N}}\mu_A(A_n).
+				$$   
+			\end{itemize}
+			$mu_A$ est une mesure. De plus, comme 
+			$$
+			\mu_A(\Omega)=\frac{\mu(A\cap \Omega)}{\mu(A)}=\frac{\mu(A)}{\mu(A)}=1.
+			$$
+			alors $mu_A$ est une mesure de probabilité.
+		\end{solution}
+	\end{parts}
+\question Soit $\mathcal{T}=\{A\in\mathcal{P}(\R)\text{ ; }A=-A\}$, où $-A = \{-x\text{ ; }x\in A\}$.
+\begin{parts}
+\part[1] Montrer que $\mathcal{T}$ est une tribu sur $\R$
+\begin{solution}
+\begin{itemize}
+	\item Pour $x\in \R$, on a $-x\in\R$ donc $\R\in \mathcal{T}$
+	\item Pour $x\in A^c$, on a $-x\notin A$ donc $-x\in A^c$. On en déduit que $A^c\in \mathcal{T}$
+	\item Soit $(A_n)_{n\in\mathbb{N}}\in \mathcal{T}$, si $x\in \bigcup_{n\in\mathbb{N}}A_n$ alors il existe $n\in \mathbb{N}$ tel que $x\in A_n$, donc $-x\in A_n$ puis $-x\in \bigcup_{n\in\mathbb{N}}A_n$. On en déduit que $\bigcup_{n\in\mathbb{N}}A_n\in\mathcal{T}$.    
+\end{itemize}
+$\mathcal{T}$ est bien une tribu.
+\end{solution}
+\part[1] Montrer que $\mathcal{T}'=\{A\in\mathcal{B}(\R)\text{ ; }A=-A\}$ est une tribu.
+\begin{solution}
+$\mathcal{T}'=\mathcal{T}\cap\mathcal{B}(\R)$ est une tribu en tant qu'intersection de deux tribus.
+\end{solution} 
+\end{parts}
+\question La fonction gamma est définie par 
+$$
+\Gamma(x)=\int_0^{\infty}t^{x-1}e^{-t}\text{d}t,\text{ }x>0.
+$$
+et la fonction beta est définie par 
+$$
+B(x,y)=\int_0^{1}t^{x-1}(1-t)^{y-1}\text{d}t,\text{ }x,y>0.
+$$ 
+\begin{parts}
+\part[1] Montrer que 
+$$
+\Gamma(x+1)=x\Gamma(x)
+$$
+\begin{solution}
+Intégration par partie.
+\end{solution}
+\part[2] En déduire que 
+$$
+\Gamma(n)=(n-1)!
+$$
+et 
+$$
+\Gamma(n+1/2)=\Gamma(1/2)\frac{(2n)!}{2^{2n}n!}
+$$
+\begin{solution}
+On a 
+$$
+\Gamma(n)=(n-1)\Gamma(n-1)=\ldots = n!\Gamma(0)=n!
+$$
+et 
+\begin{eqnarray*}
+\Gamma(n+1/2)&=&(n-1+1/2)\Gamma(n-1+1/2)=\ldots =\Gamma(1/2)\frac{(2n-1)(2n-3)\ldots 1}{2^n}\\
+&=&\Gamma(1/2)\frac{2n!}{2^n (2n)(2n-2)\ldots 2}=\Gamma(1/2)\frac{2n!}{2^{2n} n!}
+\end{eqnarray*}
+\end{solution}
+\part[2] A l'aide du changement de variable 
+$
+\begin{cases}
+t = u+v\\
+s= u/(u+v)
+\end{cases},
+$ 
+établir que 
+$$
+\int_{\R_+\times \R_+}f(u+v)u^{x-1}v^{y-1}\text{d}u\text{d}v=B(x,y)\int_0^{+\infty}t^{x+y-1}f(t)\text{d}t,
+$$
+où $f:\R_+\mapsto\R_+$ est une fonction borelienne. 
+\begin{solution}
+L'application associée au changement de variable est donnée par 
+$$
+\phi:(s,t)\mapsto(st,t(1-s)),
+$$ 
+de Jacobien
+$$
+\text{Det}J_\phi = 
+\left|\begin{array}{cc}
+s&t\\
+1-s&-t
+\end{array}\right|=-t.
+$$
+On pose $g:(u,v)\mapsto f(u+v)u^{x-1}v^{y-1}$. Par application de la formule de changement de variable, il vient 
+\begin{eqnarray*}
+\int_{\R_+\times \R_+}g(u,v)\text{d}u\text{d}v&=&\int_{\phi(\R_+\times \R_+)}g(\phi(s,t))|\text{Det}J_\phi|\text{d}s\text{d}t\\
+&=&\int_{\R_+\times [0,1]}f(t)s^{x-1}(1-s)^{y-1}t^{x+y-1}\text{d}s\text{d}t.
+\end{eqnarray*}
+\end{solution}
+\part[1] En déduire la formule suivante 
+$$
+B(x,y)=\frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}.
+$$
+\begin{solution}
+On pose $f(t):=e^{-t}$.
+\end{solution}
+\part[2] Calculer $\Gamma(1/2)$.
+\begin{solution}
+On fixe $x=y=1/2$ et on calcule 
+$$
+B(1/2,1/2)=\int_0^{1}\frac{1}{\sqrt{t(1-t)}}\text{d}t=\ldots = \pi,
+$$
+en réarrangeant sous la racine carré et en appliquant le changement de variable $u = 2t-1$.
+\end{solution}
+\end{parts}
+\question On souhaite calculer l'intégrale de Dirichlet,
+$$
+\int_0^{+\infty}\frac{\sin t}{t}\text{d}t,
+$$
+à l'aide d'une intégrale à paramètre.
+\begin{parts}
+\part[2] Montrer que $\int_0^{+\infty}\frac{\sin t}{t}\text{d}t$ est convergente.
+\begin{solution}
+La fonction $t\mapsto \frac{\sin t}{t}$ est continue sur $(0,\infty)$ et donc localement intégrable. La fonction se prolonge par continuité en $0$ avec $\underset{t\rightarrow 0}{\lim} \frac{\sin t}{t} = 1$. Au voisinage de $\infty$, une intégration par partie donne  
+$$
+\int_{\pi/2}^{+\infty}\frac{\sin t}{t}\text{d}t=-\frac{\cos(M)}{M}+\int_{\pi/2}^{+\infty}\frac{\cos t}{t^{2}}\text{d}t.
+$$ 
+Comme $\frac{\cos t}{t^{2}}\underset{t \rightarrow +\infty}{\sim} \frac{1}{t^{2}}$ alors l'intégrale converge. 
+\end{solution}
+\part[2] Montrer que $t\mapsto \frac{\sin t}{t}$ n'est pas intrégrable par rapport à la mesure de Lebesgue sur $\mathbb{R}_+$.\\
+\underline{Indication: }\\
+Définir la suite de fonctions 
+$$
+f_n(t)=\frac{\sin t}{t}\mathbb{I}_{[n\pi,(n+1)\pi]}(t),\text{ }n\geq0,
+$$
+trouver un équivalent pour la suite 
+$$
+u_n = \int_{\mathbb{R}_+}|f_n(t)|\text{d}\lambda(t),\text{ pour }n\rightarrow +\infty.
+$$
+\begin{solution}
+On note que $\int_0^{n\pi}\frac{|\sin(t)|}{t}\text{d}t=\sum_{k=0}^{n-1}u_n$. On remarque ensuite que  
+\begin{eqnarray*}
+u_n &=&\int_{n\pi}^{(n+1)\pi}\frac{|\sin(t)|}{t}\text{d}t\\
+&=&\int_{0}^{\pi}\frac{|\sin(u+n\pi)|}{u+n\pi}\text{d}u\\
+&=&\int_{0}^{\pi}\frac{|\sin(u)|}{u+n\pi}\text{d}u\\
+&=&\frac{1}{n\pi}\int_{0}^{\pi}|\sin(u)|\frac{n\pi}{u+n\pi}\text{d}u.
+\end{eqnarray*}
+Comme $|\sin(u)|\frac{n\pi}{u+n\pi}\leq 1$ alors par convergence dominée on a 
+$$
+\int_{0}^{\pi}|\sin(u)|\frac{n\pi}{u+n\pi}\text{d}u\rightarrow \int_{0}^{\pi}|\sin(u)| = 2.
+$$
+On en déduit que $u_n\underset{n\rightarrow\infty}{\sim}\frac{2}{n\pi}$ puis que l'intégrale 
+$\int_{\mathbb{R}_+}\frac{\sin(t)}{t}\text{d}\lambda(t)=\sum_{n=0}^{+\infty}\int f_n(t)\text{d}\lambda(t)$ diverge.
+\end{solution}
+\part[2] On pose 
+$$
+F(x)=\int_0^{+\infty}\frac{\sin t}{t}e^{-xt}\text{d}t,\text{ }x\geq0.
+$$
+Montrer que $F$ est dérivable sur $\left]0,+\infty\right[$ et que 
+$$
+F'(x)=-\frac{1}{1+x^{2}}.
+$$
+\underline{Indication:} On notera que $\sin t = -\text{Im}(e^{-it})$ et on n'hésitera pas à sortir l'operateur partie imaginaire de l'intégrale si nécessaire. 
+\begin{solution}
+La fonction $(x,t)\mapsto f(x,t) = \frac{\sin t}{t}e^{-xt}$ admet pour dérivée partielle rapport à $x$ la fonction $t\mapsto \frac{\partial f}{\partial x}(x,t) =  -\sin(t)e^{-xt}$ qui est continue sur $(0,\infty)$ pour tout $x\geq0$. 
+De plus, pour tout $x > a$, avec $a>0$, 
+$$
+\left|\frac{\partial f}{\partial x}(x,t)\right|=|\sin t|e^{-at}<e^{-at}.
+$$
+On peut toujours trouver un voisinage de $x>0$ de la forme $\left]a,\infty\right[$, par le théorème de la continuité de l'intégrale à paramètre, on conclut que $F(x)$ est dérivable. On poursuit avec le calcul de la dérivée, 
+\begin{eqnarray*}
+F'(x) &=& \int_0^{+\infty} \frac{\partial f}{\partial x}(x,t)\text{d}t\\
+&=&\int_0^{+\infty} -\sin t e^{-xt}\text{d}t\\
+&=&\text{Im}\left(\int_0^{+\infty} e^{-t(i+x)}\text{d}t\right)\\
+&=&\text{Im}\left(\frac{1}{i+x}\right)\\
+&=&-\frac{1}{1+x^{2}}.
+\end{eqnarray*}
+\end{solution}
+\part[2] Calculer F(x) et en déduire la valeur de $\int_0^{+\infty}\frac{\sin t}{t}\text{d}t$.
+\begin{solution}
+En intégrant $F'(x)$ entre $u\leq v$, on obtient 
+$$F(v)-F(u)=\arctan(u)-\arctan(v).$$
+Puis en faisant tendre $u$ vers l'infini il vient
+$$
+F(v)=\frac{\pi}{2}-\arctan(v),
+$$ 
+car 
+$$
+F(u)<\int_0^{+\infty}e^{-ut}\text{d}t=\frac{1}{u}\underset{u\rightarrow\infty}{\rightarrow} 0.
+$$
+On en déduit que $\int_0^{+\infty}\frac{\sin t}{t}\text{d}t=\frac{\pi}{2}$ en posant $v=0$.
+\end{solution}
+\end{parts} 
+\end{questions}
+\newpage
+%-------------------------------TABLE-------------------------------
+\hrule
+\vspace*{.15in}
+\begin{center}
+	\large\MakeUppercase{Fonctions Trigonométriques}
+\end{center}
+\vspace*{.15in}
+\hrule
+\vspace*{.25in}
+
+
+\renewcommand\arraystretch{3.5}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Fonction & Ensemble de définition& Dérivée \\
+\hline\hline
+$\sin x$ &$\mathbb{R}$& $\cos x$ \\
+\hline
+$\cos x$ &$\mathbb{R}$& $-\sin x$ \\
+\hline
+$\tan x$ &$\bigcup_{n\in\mathbb{Z}}\left]n\pi-\pi/2, n\pi+\pi/2\right[$ & $1+\tan^2 x$ \\
+\hline
+$\arccos x$ &$[-1,1]$& $-\frac{1}{\sqrt{1-x^2}}$ \\
+\hline
+$\arcsin x$ &$[-1,1]$& $\frac{1}{\sqrt{1-x^2}}$\\
+\hline
+$\arctan x$ &$\mathbb{R}$& $\frac{1}{1+x^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}%
+
+
+
+\end{document}
+
+%%%% Extra problems %%%%--------------------------------------
+
+%\question A coin having probability $0.8$ of landing on heads is flipped.  $A$ observes the result -- either heads or tails -- and rushes off to tell $B$. However, with probability $0.4$, $A$ will have forgotten the result by the time he reaches $B$.  If $A$ has forgotten, then, rather than admitting this to $B$, he is equally likely to tell $B$ that the coin landed on heads or that it landed tails. (If he does remember, then he tells $B$ the correct result).
+%\begin{parts}
+%	\part What is the probability that $B$ is told that the coin landed on heads?
+%	\part What is the probability that $B$ is told the correct result?
+%	\part Given that $B$ is told that the coin landed on heads, what is the probability that it did in fact land on heads?
+%\end{parts}
+
+%\question % Variance, expected value
+%Suppose that $\bP(X=0)=1-\bP(X=1)$.  If $\E[X]=3\Var(X)$, find $\bP(X=0)$.

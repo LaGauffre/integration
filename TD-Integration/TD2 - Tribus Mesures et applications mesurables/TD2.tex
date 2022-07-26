@@ -1,0 +1,201 @@
+\documentclass[11pt,answers]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsopn, color}
+\usepackage[margin=1in]{geometry}
+\usepackage{titlesec}
+\usepackage{tipa}
+\usepackage{hyperref}
+
+
+
+
+% Style
+\setlength\parindent{0pt}
+\shadedsolutions
+
+% Define course info
+\def\semester{2018}
+\def\course{Intégration L3}
+\def\name{Pierre-O Goffard et C. Jahel}
+%\def\quizdate{10/5, 10/6}
+\def\hwknum{}
+%\def\title{\MakeUppercase{Homework \hwknum -- quiz \quizdate }}
+\def\title{\MakeUppercase{Tribus, mesures et applications mesurables}}
+
+% Define commands
+\def\Bin{\operatorname{Bin}}
+\def\Geom{\operatorname{Geom}}
+\def\Pois{\operatorname{Pois}}
+\def\Exp{\operatorname{Exp}}
+\newcommand{\E}{\mathbb E}            % blackboard E
+\newcommand{\bP}{\mathbb P}            % blackboard P
+\newcommand{\Var}{\text{Var}}            % blackboard P
+\newcommand{\Om}{\Omega}            % blackboard P
+\newcommand{\om}{\omega}            % blackboard P
+\newcommand{\N}{\mathbb N}            % blackboard P
+\newcommand{\R}{\mathbb R}            % blackboard P
+\newcommand{\A}{\mathcal A}            % blackboard P
+% \newcommand{\limsup}{\overline{\lim}\,}            % blackboard P
+% \newcommand{\liminf}{\underline{\lim}\,}            % blackboard P
+
+\begin{document}
+
+% Heading
+{\center \textsc{\Large\title}\\
+	\vspace*{1em}
+	\course -- \semester\\
+	\name\\
+	\vspace*{2em}
+	\hrule
+\vspace*{2em}}
+\begin{questions}
+
+\question Soient $f:X\mapsto Y$, $A,A_i\subset X$, $B,B_i\subset Y$. Comparer (en précisant éventuellement si $f$ est injective ou surjective)
+\begin{parts}
+\part $f^{-1}\left(\bigcup_j B_j\right)$ et $\bigcup_j f^{-1}\left( B_j\right)$
+\begin{solution}
+$f^{-1}\left(\bigcup_j B_j\right)=\bigcup_j f^{-1}\left( B_j\right)$, en effet on vérfie facilement que $f^{-1}\left( B_j\right) \subset f^{-1}\left(\bigcup_j B_j\right)$. De plus si $x\in f^{-1}\left(\bigcup_j B_j\right)$ alors $f(x) \in \bigcup_j B_j$, en particulier il existe $j$ tel que $f(x) \in B_j$ et donc $x \in \bigcup_j f^{-1}\left( B_j\right)$.
+\end{solution}
+\part $f^{-1}\left(\bigcap_j B_j\right)$ et $\bigcap_j f^{-1}\left( B_j\right)$
+\begin{solution}
+$f^{-1}\left(\bigcap_j B_j\right)=\bigcap_j f^{-1}\left( B_j\right)$.
+\end{solution}
+\part $f^{-1}\left(B^c\right)$ et $f^{-1}\left( B\right)^c$
+\begin{solution} 
+On a toujours $f^{-1}\left( B\right)^c = f^{-1}\left(B^c\right) $.
+\end{solution}
+\part $f\left(\bigcup_j A_j\right)$ et $\bigcup_j f\left( A_j\right)$
+\begin{solution}
+$f\left(\bigcup_j A_j\right)=\bigcup_j f\left( A_j\right)$
+\end{solution}
+\part $f\left(\bigcap_j A_j\right)$ et $\bigcap_j f\left( A_j\right)$
+\begin{solution}
+$f\left(\bigcap_j A_j\right) \subset \bigcap_j f\left( A_j\right)$, avec un contre exemple si $f$ est constante et les $A_j$ disjoints. On a égalité ssi $f$ injective.
+\end{solution}
+\part $f\left(A^c\right)$ et $f\left( A\right)^c$
+\begin{solution}$f\left(A^c\right)\subset f\left( A\right)^c$ si $f$ est injective.  $f\left( A\right)^c \subset f\left(A^c\right)$ si $f$ est surjective.
+\end{solution}
+\end{parts}
+
+\question Soient $\Omega$ un ensemble et $\mathcal{A}$ une tribu.   
+\begin{parts}
+\part Montrer qu'une tribu est stable par intersection finie.
+\begin{solution} Soit $A_1,\ldots,A_n\in \mathcal A$. On sait que $A_1^c,\ldots,A_n^c\in \mathcal A$ par propriété des tribus. On en déduit que $\cup_{i=1}^n A_i^c\in \mathcal A$ et puis $\left(\cup_{i=1}^n A_i^c\right)^c \in \mathcal A$. Comme $\left(\cup_{i=1}^n A_i^c\right)^c=\cap_{i=1}^n A_i^c$, on a le résultat.
+
+\emph{Remarque : }On aurait en fait pu montrer qu'une tribu est stable par intersection dénombrable. 
+\end{solution} 
+\part Montrer que l'intersection quelconque de tribus de $\Omega$ est une tribu de $\Omega$.
+\begin{solution} On note $\mathcal B = \bigcap_{i\in I} \mathcal A_i$ où les $\mathcal A_i$ sont des tribus sur $\Omega$ et $I$ quelconque. Comme $\Omega \in \mathcal{A}_i$ pour tout $i\in I$, on a $\Omega \in B$. De plus, si $A\in \mathcal B$, alors pour tout $i\in I$, $A\in \mathcal A_i$, et donc $A^c \in \mathcal A_i$ et $A^c \in \bigcap_{i\in I} \mathcal A_i =\mathcal B$. De même, soit $(A_j)_{j\in \mathbb N}\in \mathcal{B}$, alors pour tout $i\in I$, $\bigcup_{j\in \mathbb N} A_j \in \mathcal A_i$ et donc $\bigcup_{j\in \mathbb N} A_j\in \bigcap_{i\in I} \mathcal A_i =\mathcal B$.
+\end{solution}
+\part $F\subset\Omega$. Montrer que $\mathcal{A}_F=\{A\cap F\text{ ; }A\in\mathcal{A}\}$ est une tribu sur $F$. On l'appelle tribu trace. 
+\begin{solution} Comme $\Omega \in \mathcal A$, $F=F\cap \Omega \in \mathcal{A}_F$. Soit $A\in \mathcal{A}_F$, alors il existe $B\in \mathcal A$ tel que $A=B\cap F$, et $F\backslash A = B^c\cap F$ donc $F\backslash A\in \mathcal A_F$ puisque $B^c \in \mathcal{A}$. Enfin, si $(A_i)_{i\in \mathbb N}\in \mathcal A_F$, alors il existe $(B_i)_{i\in \mathbb N}$ tels que $A_i=B_i\cap F$. On a $\cup_i A_i = \cup_i B_i \bigcap F$ et donc $\cup_i A_i\in \mathcal A_f$.
+\end{solution}
+\end{parts}
+\question Soit $(\Omega,\mathcal{A}, \mu)$ un espace mesuré et deux suites $(A_n)_{n\in\N}$, $(B_n)_{n\in\N}\in\mathcal{A}$ telles que $B_n\subset A_n$.
+\begin{parts}
+\part Montrer que
+$$
+\bigcup_{n\in\N} A_n \backslash \bigcup_{n\in\N}B_n\subset \bigcup_{n\in\N}(A_n \backslash B_n).
+$$
+\begin{solution} Soit $x\in \bigcup_{n\in\N} A_n \backslash \bigcup_{n\in\N}B_n$, il existe $n_O\in \mathbb N$ tel que $x\in A_{n_0}$. Vu que $x\notin \bigcup_{n\in\N}B_n$, on a en particulier $x\notin B_{n_0}$ et donc $x\in A_{n_0} \backslash B_{n_0} \subset  \bigcup_{n\in\N}(A_n \backslash B_n)$.
+\end{solution}
+\part Montrer que
+$$
+\mu\left(\bigcup_{n\in\N} A_n\right)-\mu\left(\bigcup_{n\in\N} B_n\right)\leq \sum_{n\in\N}[\mu(A_n)-\mu(B_n)].
+$$
+\begin{solution}
+\begin{align*}
+\mu\left(\bigcup_{n\in\N} A_n\right)-\mu\left(\bigcup_{n\in\N} B_n\right) &= \mu\left(\bigcup_{n\in\N} A_n \backslash \bigcup_{n\in\N}B_n \right) \\
+&\leq \mu\left( \bigcup_{n\in\N}(A_n \backslash B_n) \right) \\
+&\leq \sum_{n\in\N}[\mu(A_n)-\mu(B_n)].
+\end{align*}
+\end{solution}
+\end{parts}
+\question Les ensembles suivants sont-ils des tribus
+\begin{parts}
+\part $\mathcal{F}_1 = \{A\subset X\text{ ; }A \text{ est fini}\}$
+\begin{solution}
+% \begin{itemize}
+% 	\item $\emptyset \in \mathcal{P}(X)$ 
+% 	\item $A\in \mathcal{P}(X)$ alors $A^c$ n'est pas nécessairement fini, en fait cela dépend $X$. Si $X$ est fini alors $A^c$ est nécessairement fini 
+% 	\item Soit $(A_n)\in \mathcal{F}_1$ alors $\bigcup_n A_n\in \mathcal{F}_1$
+% \end{itemize}
+$\mathcal{F}_1$ est une tribu sur $X$ ssi $X$ est fini.
+\end{solution}
+\part $\mathcal{F}_2 = \{A\subset X\text{ ; }A \text{ est dénombrable}\}$
+\begin{solution}
+$\mathcal{F}_2$ est une tribu sur $X$ ssi $X$ est dénombrable.
+\end{solution}
+\part $\mathcal{F}_3 = \{A\subset X\text{ ; }A \text{ est dénombrable ou codénombrable dans } X\}$
+\begin{solution}
+$\mathcal{F}_3$ est une tribu
+\end{solution}
+\part $\mathcal{F}_4 = \{A\subset X\text{ ; }A \text{ est fini ou cofini dans } X\}$
+\begin{solution}
+$\mathcal{F}_4$ est une tribu
+\end{solution}
+\part $\mathcal{F}_5 = \mathcal{P}(X)$
+\begin{solution}
+$\mathcal{F}_5$ est une tribu sur $X$
+\end{solution}
+\end{parts}
+
+\question 
+On considère $(X,\mathcal{T})$ un espace muni d'une tribu.
+\begin{parts}
+\part Soit $A\subset X$, montrer que $1_A$ est mesurable ssi $A\in \mathcal T$.
+\begin{solution}
+On note $\mathcal C$ la tribu de l'espace d'arrivée. On prend $B\in \mathcal C$, $(1_A)^{-1} (B) =\varnothing$ si $1\notin B$ et $ (1_A)^{-1} (B) =A$ sinon, d'où le résultat.
+\end{solution}
+\part Soit $\mathcal P$ une partition au plus dénombrable de $X$ qui engendre $\mathcal T$, et $f$ une fonction réelle $\mathcal T$-mesurable, montrer que $f$ est constante sur $P$ pour tout $P\in \mathcal P$.
+\begin{solution}
+On raisonne pas l'absurde, prenons $P\in \mathcal{P}$ sur lequel $f$ n'est pas constante. On note $x_1,x_2$ deux valeurs telles que $\{x_1,x_2\}\subset f(P)$. On sait que $f^{-1}(x_1) \in \mathcal{T}$ et $f^{-1}(x_2) \in \mathcal{T}$. Comme $\mathcal P$ est une partie dénombrable qui engendre la tribu, $f^{-1}(x_1)$ et $f^{-1}(x_2)$ sont des unions de parties de $\mathcal P$, or elle ont intersection non vide avec $P$, c'est impossible.
+\end{solution}
+\end{parts}
+\question
+\begin{parts}
+\part L'inverse d'une application mesurable est elle mesurable ?
+\begin{solution}
+Non, on peut en particulier considérer $f \colon (\mathbb R, \mathcal B (\mathbb R)) \to (\mathbb R, \{\varnothing, \mathbb R \})$ qui associe $x$ à $x$.
+\end{solution}
+\part Une application mesurable est elle continue ?
+\begin{solution}
+Non, par exemple $f$ tel que $F(x)=1$ si $x<0$ et $f(x)=0$ sinon. On peut aussi considérer $1_{\mathbb Q}$.
+\end{solution}
+\part Une application continue est elle mesurable ?
+\begin{solution}
+Oui, pour la tribu borélienne.
+\end{solution}
+\end{parts}
+\question 
+\begin{parts}
+\part Soit $\mathcal{F} = \{\left]-\infty, x\right[\text{ , }x\in \mathbb{Q}\}$, montrer que $\mathcal{B}_\R = \sigma(\mathcal{F})$
+\begin{solution}
+
+\end{solution}
+\part A-t-on $\mathcal{B}_\R=\sigma\left(\{\{x\}\text{ , }x\in X\}\right)$
+\begin{solution}
+Non, $\sigma\left(\{\{x\}\text{ , }x\in X\}\right)$ ne contient que les ensembles dénombrables ou de complémentaire dénombrable.
+\end{solution}
+\end{parts}
+\question
+Soit $(X,\mathcal T, \mu)$ un espace probabilisé, $f$ une application $\mathcal T$-mesurable. On suppose que $\mu$ est $f$ invariante, c'est à dire que pour tout $T\in \mathcal T$, on a $\mu(T)=\mu\left(f^{-1}(T)\right)$. On fixe $A\in \mathcal T$ et on considère $A' = \{x\in A  \text{ tels que il existe une infinité de } n\in \mathbb N \text{ avec } f^{n}(x)\in A\}$.
+\begin{parts}
+\part Soit $n\geq 1$, on considère $B_n = \{ x\in A \text{ tels que pour tout } f^n(x)\in A \text{ et }k >n, \ f^k(x)\notin A\}$. Montrer que $f^{-nk}(B_n)$ est disjoint de $f^{-nk'}(B_n)$ pour $k\neq k'$ des entiers naturels.
+\begin{solution}
+Supposons $k<k$, soit $x\in f^{-nk}(B_n)$, $f^{nk}(x) \in B_n$, donc $f^{n(k'-k)+n}(f^{nk}(x))\notin A$ et donc necessairement $x\notin f^{-nk'}(B_n)$.
+\end{solution}
+\part En utilisant la finitude de $\mu$, montrer que $\mu(A)=\mu(A')$.
+\begin{solution} $f^{-1}(B_n) = B_{n+1}$, en particulier $\mu(B_i)=\mu(B_j)$ pour tout $i,j$ et comme il en existe une infinité disjointe, on a $\mu(B_n)=0$. De plus, $B=\cup_n B_n = A \backslash A'$ et donc $\mu(B) \leq \sum_n \mu(B_{n})$, et necessairement $\mu(B)=0= \mu(A)-\mu(A')$.
+\end{solution}
+\end{parts}
+\question
+Le but de cet exercice est de construire une partie non mesurable de $\mathbb R$. On considère $R$ la relation d'équivalence sur $[0,1]$ "être à distance rationelle". Soit $A$ un système de représentants des classes d'équivalences (l'existence d'une telle partie repose sur l'axiome du choix !). Montrer que $A$ ne peut pas avoir de mesure pour la mesure de Lebesgue. \underline{Indication} : raisonner par l'absurde et utiliser l'invariance par translation de la mesure de Lebesgue.
+\begin{solution}
+Supposons que $A$ a une mesure, on remarque que $\mathbb R = \bigcup_{q\in \mathbb Q} A+q$, donc $\lambda(A)>0$. Par ailleurs $\bigcup_{q\in \mathbb Q \cap [0,1]} A+q \subset [0,2]$, ce qui signifie que $\lambda (\bigcup_{q\in \mathbb Q \cap [0,1]} A+q) \leq 2$ et donc $\lambda(A)=0$.
+\end{solution}
+\end{questions}
+\bibliographystyle{plain}
+%\bibliography{Integration_notes}
+\end{document}

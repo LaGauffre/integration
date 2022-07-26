@@ -1,0 +1,663 @@
+\documentclass[8pt,notheorems]{beamer}
+\usetheme{Copenhagen}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{beamerthemesplit}
+\usepackage{graphicx}
+\usepackage{tkz-graph}
+\usepackage{color}
+\usepackage{listings}
+
+\usepackage{amsmath,amsfonts,amsthm,t1enc}
+\usepackage{fourier}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{booktabs}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+\usetikzlibrary{positioning}
+\usetikzlibrary{fit}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes}
+\usetikzlibrary{mindmap}
+\usetikzlibrary{decorations.text}
+
+\usetikzlibrary{automata,arrows,positioning,calc}
+\setbeamertemplate{footline}{\hfill \insertframenumber/\inserttotalframenumber}
+\def \si {\sigma}
+\def \la {\lambda}
+\def \al {\alpha}
+% \def\e*{\end{eqnarray*}}
+\def \di{\displaystyle}
+
+\def \E{\mathbb E}
+\def \N{\mathbb N}
+\def \Z{\mathbb Z}
+\def \NZ{\mathbb{N}_0}
+\def \I{\mathbb I}
+\def \w{\widehat}
+\def \P {\mathbb P}
+\def \V{\mathbb V}
+
+
+\newcommand{\CL}{\mathbb{C}}
+\newcommand{\RL}{\mathbb{R}}
+\newcommand{\nat}{{\mathbb N}}
+\newcommand{\Laplace}{\mathscr{L}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\ve}{\bm{\mathrm{e}}} % vector e
+
+\renewcommand{\L}{\mathcal{L}} % e.g. L^2 loss.
+
+\newcommand{\ih}{\mathrm{i}}
+\newcommand{\oh}{{\mathrm{o}}}
+\newcommand{\Oh}{{\mathcal{O}}}
+\newcommand{\Exp}{\mathbb{E}}
+
+\newcommand{\Norm}{\mathcal{N}}
+\newcommand{\LN}{\mathcal{LN}}
+\newcommand{\SLN}{\mathcal{SLN}}
+
+\renewcommand{\Pr}{\mathbb{P}}
+\newcommand{\Ind}{\mathbb I}
+\newcommand\bfsigma{\bm{\sigma}}
+\newcommand\bfSigma{\bm{\Sigma}}
+\newcommand\bfLambda{\bm{\Lambda}}
+\newcommand{\stimes}{{\times}}
+\def \limsup{\underset{n\rightarrow+\infty}{\overline{\lim}}}
+\def \liminf{\underset{n\rightarrow+\infty}{\underline{\lim}}}
+
+\setbeamertemplate{theorem}[ams style]
+\setbeamertemplate{theorems}[numbered]
+%\makeatletter
+%\def\th@mystyle{%
+%    \normalfont % body font
+%    \setbeamercolor{block title example}{bg=orange,fg=white}
+%    \setbeamercolor{block body example}{bg=blue!20,fg=black}
+%    \def\inserttheoremblockenv{block}
+%  }
+%\makeatother
+%\theoremstyle{mystyle}
+
+\makeatletter
+    \ifbeamer@countsect
+      \newtheorem{theorem}{\translate{Theorem}}[section]
+    \else
+      \newtheorem{theorem}{\translate{Theorem}}
+    \fi
+    \newtheorem{corollary}{\translate{Corollary}}
+    \newtheorem{prop}{\translate{Proposition}}
+    \newtheorem{lemma}{\translate{Lemma}}
+    \newtheorem{problem}{\translate{Problem}}
+    \newtheorem{remark}{\translate{Remark}}
+    \newtheorem{solution}{\translate{Solution}}
+
+    \theoremstyle{definition}
+    \newtheorem{definition}{\translate{Definition}}
+    \newtheorem{definitions}{\translate{Definitions}}
+
+    \theoremstyle{example}
+    \newtheorem{example}{\translate{Example}}
+    \newtheorem{examples}{\translate{Examples}}
+
+\makeatletter
+\def\th@mystyle{%
+    \normalfont % body font
+    \setbeamercolor{block title example}{bg=orange,fg=white}
+    \setbeamercolor{block body example}{bg=orange!20,fg=black}
+    \def\inserttheoremblockenv{exampleblock}
+  }
+\makeatother
+\theoremstyle{mystyle}
+\newtheorem{fact}{Fact}
+
+
+
+
+
+
+    % Compatibility
+    \newtheorem{Beispiel}{Beispiel}
+    \newtheorem{Beispiele}{Beispiele}
+    \theoremstyle{plain}
+    \newtheorem{Loesung}{L\"osung}
+    \newtheorem{Satz}{Satz}
+    \newtheorem{Folgerung}{Folgerung}
+    \newtheorem{Fakt}{Fakt}
+    \newenvironment{Beweis}{\begin{proof}[Beweis.]}{\end{proof}}
+    \newenvironment{Lemma}{\begin{lemma}}{\end{lemma}}
+    \newenvironment{Proof}{\begin{proof}}{\end{proof}}
+    \newenvironment{Theorem}{\begin{theorem}}{\end{theorem}}
+    \newenvironment{Problem}{\begin{problem}}{\end{problem}}
+    \newenvironment{Corollary}{\begin{corollary}}{\end{corollary}}
+    \newenvironment{Example}{\begin{example}}{\end{example}}
+    \newenvironment{Examples}{\begin{examples}}{\end{examples}}
+    \newenvironment{Definition}{\begin{definition}}{\end{definition}}
+\makeatother
+
+
+
+
+
+
+
+
+
+
+
+% ============================================================
+% Title
+% ============================================================
+
+\title[]{Intégration L3 Actuariat}
+\subtitle{Chapitre 0: Introduction et rappel}
+\author{Pierre-Olivier Goffard}
+\institute{
+	   Université de Lyon 1\\
+	ISFA\\
+	   \texttt{pierre-olivier.goffard@univ-lyon1.fr}
+	  }
+\date{
+ISFA\\
+\today}
+\lstset{language=SAS}
+\begin{document}
+
+\frame{\titlepage}
+
+
+% ============================================================
+\begin{frame}[allowframebreaks]
+\section{Introduction}
+\underline{I. Introduction }\\
+\begin{columns}
+\begin{column}{0.5\textwidth}
+
+\begin{table}[h!]
+\centering
+\scriptsize
+\begin{tabular}{@{}l|r@{}}
+\toprule
+Actif &Passif \\
+  \midrule
+$A_t$ & $FP_t$ \\
+& $PT_t$\\
+   \bottomrule
+\end{tabular}
+\caption{Bilan année $t$}
+\end{table}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{table}[h!]
+\centering
+\scriptsize
+\begin{tabular}{@{}l|r@{}}
+\toprule
+Actif &Passif \\
+  \midrule
+$A_{t+1}$ & $FP_{t+1}$ \\
+& $PT_{t+1}$\\
+   \bottomrule
+\end{tabular}
+\caption{Bilan année $t+1$}
+\label{tab:itamtplcostAbstract}
+\end{table}
+\end{column}
+\end{columns}
+Le bilan d'une entreprise est une photo de l'état financier au terme d'une période d'exercice. Le passage d'un bilan à l'autre se fait via le compte de résultat qui enregistre les flux durant une période. Pour une compagnie d'assurance, nous avons shématiquement
+\begin{table}[h!]
+\centering
+\scriptsize
+\begin{tabular}{@{}l|r@{}}
+\toprule
+Produits &Charges \\
+  \midrule
+Cotisations & Sinistre = $X$ \\
+Produit Financier& Dotation Provision technique \\
+   \bottomrule
+\end{tabular}
+\caption{Compte de résultat entre $t$ et $t+1$}
+\label{tab:itamtplcostAbstract}
+\end{table}
+\begin{itemize}
+\item Comptabilité des assurances, Normes IFRS, Bilan prudentiel, Solvabilité II, Finance d'entreprise.
+\end{itemize}
+$X$ est une fonction définie par
+$$
+X:\omega\mapsto X(\omega)\in\mathbb{R}_+,\text{ }\omega\in\Omega,
+$$
+appelée variable aléatoire. L'ensemble $\Omega$ représente l'ensemble des réalisations possibles d'une expérience aléatoire. $\omega$ correspond à une réalisation en particulier, on peut parler de scénario. La valeur de $X$ est aléatoire, sa valeur est incertaine mais l'incertitude est quantifiable par la connaissance de sa distribution de probabilité caractérisée par exemple via la fonction de répartition
+$$
+F_X(x) = \mathbb{P}(X\leq x)=\int_{\omega\text{ : }X(\omega)\leq x}\text{d}P(\omega)=\int_{[0,x]}f_X(x)\text{d}\lambda(x).
+$$
+Le calcul des probabilités nécessite l'introduction d'une théorie plus générale de l'intégration que celle de Riemann et la possibilité de mesurer des ensembles plus complexes que des segments ou des pavés..
+\begin{itemize}
+\item[$\hookrightarrow$] Théorie de la mesure/ intégration, probabilité
+\end{itemize}
+\end{frame}
+\begin{frame}[allowframebreaks]
+La prime est calibrée pour assurer une rentabilité en moyenne. On introduit le concept d'espérance mathématique $\mathbb{E}(X)$ qui pondère les valeurs d'une variable aléatoire par leur probabilité d'occurence
+$$
+ \mathbb{E}(X) = \int_\Omega X(\omega)\text{d}P(\omega).
+$$
+Il s'agit de la valeur moyenne de $X$, la prime est donnée par
+$$
+\pi = (1+\eta)\mathbb{E}(X),
+$$
+où $\eta >0$ (souvent exprimé en $\%$)désigne le chargement de sécurité. La positivité de $\eta$ fonde l'activité d'assurance en la rendant profitable. La valeur de $\eta$ représente la stratégie de la compagnie d'assurance. L'assuré accepte ce contrat du fait de son aversion au risque, il préfère une perte déterministe plus élevée en moyenne qu'une éventuelle perte future potentiellement plus importante.
+\begin{itemize}
+\item[$\hookrightarrow$] Micro-écononomie de l'assurance, économie comportementale. 
+\end{itemize} 
+\end{frame}
+\begin{frame}[allowframebreaks]
+$\pi$ représente le cumul des primes $\sum_i \pi_i$, où $i$ désigne un assuré caractérisé par des attributs $\mathbf{Z}= (Z_1,\ldots, Z_p)$. Les assurés sont souvent ségmenté en groupe homogène au vu de leurs caractéristiques et la prime est alors individualisée avec 
+$$
+\pi = (1+\eta)\mathbb{E}(X|\mathbf{Z}),
+$$
+où $\mathbb{E}(X|Z)$ est appellée espérance conditionnelle, ou fonction de regression en statistique. Par exemple, dans le cadre d'une regression linéaire, on a 
+$$
+\mathbb{E}(X|Z_1,\ldots, Z_p) \approx \alpha_0 +\sum_{i = 1}^{p}\alpha_i Z_i. 
+$$
+La relation entre $X$ et $Z$ est \textit{apprise} en utilisant des bases de données d'expérience.
+\begin{itemize}
+    \item[$\hookrightarrow$] Analyse des données et classification, Regression linéaire, Modèle linéaire généralisé, Machine Learning.
+\end{itemize}   
+\end{frame}
+\begin{frame}[allowframebreaks]
+La variable représente le risque du portefeuille de contrat d'assurance, les provisions sont constituées de façon à absorber ces pertes et garantir la solvabilité de la compagnie d'assurance. Le niveau des provisions doit permettre le contrôle de la probabilité de ruine de fin d'exercice. Il est souhaitable que 
+$$
+(P_{t+1}+\text{FP}_{t+1}) + c + P_f - X > 0
+$$
+et donc que la dotation aux provisions, ainsi que les réserves de fonds propres soit suffisante en cas de coup dur. La détermination de ces marges de solvabilité requiert une connaissance plus précise de la distribution de $X$ et notamment de ces quantiles 
+$$
+\text{VaR}_X(\alpha)\text{ tel que } \mathbb{P}(X\leq \text{VaR}_X(\alpha)) = 1- \alpha, 
+$$
+où $\alpha\in(0,1)$ et $\text{VaR}_X(\alpha)$ désigne la \textit{Value-at-Risk} d'ordre $\alpha$. 
+\begin{itemize}
+    \item[$\hookrightarrow$] Provisionnement non-vie, mathématiques actuarielles pour l'assurance vie, théorie de la ruine, Solvabilité II
+\end{itemize}
+\end{frame}
+\begin{frame}[allowframebreaks]
+Il est classique de représenter le risque via une approche fréquence-coût en écrivant 
+$$
+X = \sum_{k=1}^{N}U_k
+$$ 
+\begin{itemize}
+    \item $N\in\mathbb{N}$ est une variable aléatoire de comptage qui représente le nombre de sinistre sur la période
+    \item $U_1,\ldots,U_N$ est une suite de variables aléatoires positives correspondant aux indemnisations versées suite à la déclaration des sinistres
+\end{itemize}
+Les modèles (loi de probabilité) choisi pour la fréquence et le montant des sinistres sont calibrés et validés en utilisant un historique de données et des techniques statistiques.
+\begin{itemize}
+    \item Statistiques inférentielles, théorie des test, modélisation charge-sinistre
+\end{itemize}
+\end{frame}
+\begin{frame}[allowframebreaks]
+L'évolution de l'actif $A_t$ dépend de la retabilité des placements effectués par la compagnie d'assurance dans l'immobilier ou les actions par exemples. Cette évolution est aussi soumis à un aléa, en fait $A_t$ est une suite de variables aléatoires indicés par le temps, on parle de processus stochastiques. Une structure de dépendance régit les trajectoires des processus de dépendance. On s'intéresse à la loi de la valeur future $A_{t+1}$ en fonction du passé $A_{t}, A_{t-1},\ldots$. Les équations différentielles sont remplacés par des équations différentielles stochastiques avec
+$$
+\frac{\text{d}A_t}{A_t} = \mu\text{d}t+\sigma\text{d}B_t
+$$
+L'actif doit toujours refléter la valeur du passif et nécessite de définir des stratégie de gestion de portefeuille. 
+\begin{itemize}
+    \item Modèles aléatoires discret, calcul stochastique, théorie des options, modèle financiers en asurance, Etude des séries temporelles 
+\end{itemize} 
+L'actuaire s'appuie donc sur le calcul des probabilités et l'étude statistique pour faciliter la prise de décision et la bonne gestion financière au sein des compagnie d'assurance. Toutes ces tâches nécessite le concours de l'ordinateur et la maîtrise des logiciels.
+\begin{itemize}
+    \item R, SAS, Python, C++. 
+\end{itemize} 
+
+\end{frame}
+
+\begin{frame}
+\section{Motivations et premières définitions}
+\underline{II. Motivations et premières définitions}\\
+
+\begin{block}{Objectif}
+Assigner à chaque partie d'un ensemble $\Omega$ un nombre réel positif afin de généraliser les notions de
+\begin{itemize}
+\item Longueur d'une courbe
+\item Aire d'une surface
+\item Volume d'un solide
+\end{itemize}
+\end{block}
+\begin{definition}[Espace d'état, evènements, probabilités, variables aléatoires]
+\begin{enumerate}
+\item L'espace d'état $\Omega$ désigne l'ensemble des résultats possible d'un expérience aléatoire. On note $\omega\in\Omega$ le résultat d'une telle expérience.
+\item Un évènement $A\subset\Omega$ est une partie de $\Omega$.
+\item La probabilité d'occurence d'un évènement A est donnée par $P(A)\in[0,1]$.
+\item Une variable aléatoire réelle $X$ est une fonction $\omega\mapsto X(\omega)\in\mathbb{R}$
+\end{enumerate}
+\end{definition}
+\end{frame}
+\begin{frame}
+\begin{example}[Discret/Continu]
+\begin{enumerate}
+\item Lancer d'un dé à $6$ faces,
+\begin{itemize}
+\item $\Omega=\{1,2,3,4,5,6\}$
+\item $\text{Card}(\Omega)=6$
+\item $w={6}$ est un évènement élémentaire
+\item $A = \text{'Le dé prend une valeur paire'}=\{2,4,6\}$
+\item $\text{Card}(A)=3$
+\item La probabilité de A est donnée par $P(A)=\frac{\text{Card}(A)}{\text{Card}(\Omega)}=\frac{1}{2}$
+\item Variable aléatoire $X(\omega)=\omega$
+\end{itemize}
+\item Lancer d'une balle de ping-pong sur une table,
+\begin{itemize}
+\item $\Omega\subset\mathbb{R}^{2}$
+\item $\mu(\Omega)=l*L$
+\item $w={x,y}$ est un évènement élémentaire
+\item $A = \text{'La balle tombe dans un gobelet placé au bout de la table'}$
+\item $\mu(A)=\text{"Aire couverte par les gobelets"}$
+\item La probabilité de A est donnée par $P(A)=\frac{\mu(A)}{\mu(\Omega)}$. Il s'agit d'un cas particulier dans lequel la balle atteint n'importe quel point de la table avec la même probabilité.
+\item Variable aléatoire de Bernouill
+$$X(\omega)=\mathbb{I}_A(\omega)=\begin{cases}
+X(\omega)=1\text{ si }\omega\in A\\
+X(\omega)=0\text{ sinon}
+\end{cases}.
+$$
+L'application $\mathbb{I}_A(.)$ est appelée fonction indicatrice.
+\end{itemize}
+\end{enumerate}
+\end{example}
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+\section{Rappels d'analyse réelle}
+\underline{III. Rappels d'analyse réelle}\\
+
+\underline{1. Comparaison de fonctions et de suites numériques}\\
+Soient $(u_n)_{n\in\N}$ et $(v_n)_{n\in\N}$ deux suites numériques réelles
+\begin{definition}[Grand $O$, petit $o$ et equivalent.]
+Supposons que $(v_n)_{n\in\N}$ ne s'annule plus à partir d'un certain rang.
+\begin{itemize}
+    \item $(u_n)$ est dominée par $(v_n)$ si $\left(\frac{u_n}{v_n}\right)$ est bornée à partir d'un certain rang, soit il existe $M>0$ et $n_0\in\N$ tels que
+    $$
+    |u_n|<M|v_n|,\text{ pour }n\geq n_0.
+    $$
+    et on note $u_n = O(v_n).$
+    \item $(u_n)$ est négligeable devant $(v_n)$ si
+    $$
+    \frac{u_n}{v_n}\rightarrow0\text{ lorsque }n\rightarrow +\infty,
+    $$
+    et on note $u_n = o(v_n)$.
+    \item $(u_n)$ est équivalente à $(v_n)$ si
+    $$
+    \frac{u_n}{v_n}\rightarrow1\text{ lorsque }n\rightarrow +\infty,
+    $$
+    et on note $u_n \sim v_n$.
+\end{itemize}
+\end{definition}
+Soient $f,g:I\mapsto \mathbb{R}$.
+\begin{definition}[Grand $O$, petit $o$ et equivalent.]
+Soit $a\in I$ et supposons qu'il existe un intervalle ouvert de $I$ contenant $a$ tel que $g$ ne s'annule pas.
+\begin{itemize}
+    \item $f$ est dominée par $g$ au voisinage de $a$ s'il existe un intervalle ouvert $J$ de $I$ contenant $a$ et une constante $M>0$ telle que
+    $$
+    \left|\frac{f(x)}{g(x)}\right|\leq M,\text{ pour tout }x\in J,
+    $$
+    et on note $f = O(g(x)).$
+    \item $f$ est négligeable devant $g$ au voisinage de $a$ si
+    $$
+    \frac{f(x)}{g(x)}\rightarrow0\text{ lorsque }x\rightarrow a,
+    $$
+    et on note $f = o(g(x))$.
+    \item $f$ est équivalente à $g$ au voisinage de $a$ si
+    $$
+    \frac{f(x)}{g(x)}\rightarrow1\text{ lorsque }x\rightarrow a,
+    $$
+    et on note $f \sim g(x)$.
+\end{itemize}
+\end{definition}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\underline{2. Convergence de série et d'intégrale}\\
+Soit $(a_n)$ une suite numérique. La série $\sum_n a_n$ de terme générale $a_n$ converge si la suite de ses sommes partielles définie par
+$$
+A_n = \sum_{k = 0}^{n}a_k,\text{  converge}.
+$$
+\begin{prop}[Condition nécessaire et divergence grossière]
+Si $a_n$ est le terme générale d'une série convergente alors
+$\underset{n\rightarrow +\infty}{\lim}a_n =0$
+puisque
+$$
+a_n = A_{n+1}-A_n,\text{ pour tout }n\geq1.
+$$
+Lorsque $\underset{n\rightarrow +\infty}{\lim} a_n\neq 0$, la série de terme générale $a_n$ diverge grossièrement.
+\end{prop}
+\begin{definition}[Convergence absolue]
+La série $\sum a_n$ est absolument convergente lorsque la série de terme générale $|a_n|$ est convergente.
+\end{definition}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\underline{a) Série à termes positifs}\\
+Si les termes $a_n$ sont tous positifs alors la série $\sum a_n$ est une série à termes positifs pour laquelle des critères de convergence peuvent être énoncée.
+\begin{prop}
+La série de terme générale $a_n$ positifs converge si et seulement si la suite des sommes partielles est bornée.
+\end{prop}
+\begin{theorem}[De comparaison de termes généraux]
+Soient $a_n$ et $b_n$ les termes généraux de deux séries, tels que $a_n\leq b_n$ pour tout $n\in\N$, alors
+\begin{enumerate}
+    \item $\sum b_n <\infty\text{ }\Rightarrow\text{ }\sum a_n <\infty$
+    \item $\sum a_n  = \infty\text{ }\Rightarrow\text{ }\sum b_n =\infty$
+\end{enumerate}
+\end{theorem}
+\begin{theorem}[Séries de termes généraux équivalent]
+Soient $a_n$ et $b_n$ les termes généraux de deux séries, tels que $a_n\sim b_n$ alors $\sum a_n$ et $\sum b_n$ sont de même nature.
+\begin{itemize}
+    \item Si les séries convergent alors équivalence des restes
+    $$
+    \sum_{k = n+1}^{+\infty}a_k\sim \sum_{k=n+1}^{+\infty}b_k
+    $$
+    \item Si les séries divergent alors équivalence des sommes partielles
+    $$
+    \sum_{k=1}^{n}a_k\sim \sum_{k=1}^{n}b_k
+    $$
+\end{itemize}
+\end{theorem}
+\begin{prop}[Règle pour la convergences]
+\begin{enumerate}
+    \item Règle de Cauchy
+    $$\underset{n \rightarrow +\infty}{\lim}a_n^{1/n} = l \Rightarrow\begin{cases} \sum a_n <\infty,&\text{ si }l<1\\
+    \sum a_n =\infty,&\text{ si }l>1\\\end{cases}
+    $$
+    \item Règle de d'Alembert
+    $$\underset{n \rightarrow +\infty}{\lim}a_{n+1}/a_n = l \Rightarrow\begin{cases} \sum a_n <\infty,&\text{ si }l<1\\
+    \sum a_n =\infty,&\text{ si }l>1\\\end{cases}
+    $$
+\end{enumerate}
+\end{prop}
+Ces deux critères sont basés sur la comparaison avec des séries géométriques. \\
+\end{frame}
+\begin{frame}[allowframebreaks]
+\underline{b. Séries semi convergentes et autres}\\
+\begin{prop}[Critère de Cauchy]
+La série de terme générale $a_n$ (réel) converge si et seulement si
+$$
+ \forall \epsilon >0, \text{ }\exists N\in \mathbb{N} \text{ tel que }\left|\sum_{k = n+1}^p a_k\right|<\epsilon,\text{ pour }N<n<p.
+$$
+\end{prop}
+Une série semi-convergente est convergente mais pas absolument convergente. La série de terme générale $a_n$ est alternée si $a_n a_{n+1}\leq0$ pour tout $n$.
+\begin{prop}[Un critère pour les séries alternées]
+La série alternée $\sum a_n$ converge si la suite $(|a_n|)$ décroit vers $0$. De plus, $R_N = \sum_{k = N+1}^{+\infty}a_n$ a le même signe que $a_{N+1}$ et $|R_N|\leq |a_{N+1}|$.
+\end{prop}
+\begin{prop}[Critère de Dirichlet]
+Soit $a_n$ le terme générale d'une série dont les sommes partielles sont bornée et $(f_n)$ une suite décroissante vers $0$ de réels positifs. Alors $\sum a_nf_n<\infty$.
+\end{prop}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\underline{c. Bref rappel sur l'intégrale de Riemann et lien série-intégrale}\\
+L'intégrale de Riemann étudie les fonctions continues sur un intervalle compact. Soit $f$ une fonction continue par morceaux sur un intervalle fermé $[a,b]$. Soit $P$ une partition de $[a,b]$:$a = x_0 <x_1<\ldots<x_n = b$. On pose
+$$
+S_p = \sum_{i = 1}^{n}(x_i-x_{i-1})M_i\text{ et }s_p = \sum_{i = 1}^{n}(x_i-x_{i-1})m_i,
+$$
+où
+$$
+M_i= \underset{x\in [x_{i-1}, x_{i}]}{\sup} f(x)\text{ et }m_i= \underset{x\in [x_{i-1}, x_{i}]}{\inf} f(x).
+$$
+$f$ est intégrable si pour tout $\epsilon >0$ il existe une partition $P$ telle que 
+$$
+S_P-s_p<\epsilon
+$$
+On a $S_P\approx s_P=\int_a^{b}f(x)\text{d}x$. Malheureusement, l'intégrale de Riemann ne permet pas de considérer des intervalles ouverts. On fabrique alors une rustine appelé intégrale impropre en définissant la fonction $x\mapsto \int_{a}^{x}f(y)\text{d}y$. Si cette fonction admet une limite $L$ en $b$ alors l'intégrale de $f$ sur $\left[a,b\right[$ est donnée par 
+$$
+\int_{a}^{b}f(y)\text{d}y := L.
+$$
+Le lien entre série et intégrale est précisé dans le résultat suivant 
+\begin{prop}
+Soit $f:\left[a,+\infty\right[\mapsto \mathbb{R}_+$ une fonction positive et $(x_n)_{n\in\N}$ une suite de terme telle que $x_0 = a$ et $x_n\rightarrow +\infty$.
+\begin{itemize}
+    \item Si on pose $u_n = \int_{x_n}^{x_{n+1}}f(x)\text{d}x$ alors la série $\sum u_n$ et l'intégrale $\int_a^{\infty}f(x)\text{d}x$ sont de même nature, d'ailleurs 
+    $$
+    \sum_{n=0}^{+\infty}u_n = \int_a^{+\infty}f(x)\text{d}x.
+    $$
+    \item si de plus $f$ est décroissante sur $\mathbb{R}_+$ alors la série des $f(n)$ et $\int_0^{+\infty}f(x)\text{d}x$ sont de même nature.  
+\end{itemize}
+\end{prop}
+Ce résultat permet de déduire des critères de convergence proche de ceux des série. 
+\begin{prop}[Critère d'intégrabilité de Riemann]
+
+\begin{itemize}
+    \item $f(x)=o(x^{-\alpha})$ au voisinage de $+\infty$ $\Rightarrow$ $\int_a^{+\infty} f(x)\text{d}x$ converge si $\alpha >1$.
+    \item $f(x)=o(x^{-\alpha})$ au voisinage de $+\infty$ $\Rightarrow$ $\int_0^{a} f(x)\text{d}x$ converge si $\alpha <1$.
+\end{itemize}
+\end{prop} 
+\end{frame}
+\begin{frame}[allowframebreaks]
+\underline{3. Limite supérieure et inférieure}\\
+Toute suite croissante (resp. décroissante) $(a_n)_{n\in\N}$ de $\overline{\RL} = \RL\cup\{-\infty, +\infty\}$, est convergente dans $\overline{\RL}$ et
+$$
+\underset{n\rightarrow+\infty}{\lim} a_n=\sup\{a_n\text{ ; }n\geq1\}\left(\text{ resp. }\underset{n\rightarrow+\infty}{\lim} a_n=\inf\{a_n\text{ ; }n\geq1\}\right)
+$$
+\begin{definition}[$\overline{\lim}$ et $\underline{\lim}$]
+On appelle limite supérieure (resp. limite inférieur) d'une suite de $\overline{\RL}$ l'élement de $\overline{\RL}$, noté et défini par
+$$
+\underset{n\rightarrow +\infty}{\overline{\lim}}a_n=
+\underset{k\rightarrow +\infty}{\lim}\left(\underset{n\geq k}{\sup} a_n\right)= \underset{k\geq0}{\inf}\left(\underset{n\geq k}{\sup} a_n\right)
+\text{ }\left(\text{ resp. }\underset{n\rightarrow +\infty}{\underline{\lim}}a_n
+=\underset{k\rightarrow +\infty}{\lim}\left(\underset{n\geq k}{\inf} a_n\right) = \underset{k\geq0}{\sup}\left(\underset{n\geq k}{\inf} a_n\right) \right)
+$$
+\end{definition}
+A la différence de la limite d'une suite, les limites sup et inf existent toujours. Ces notions sont symétriques au sens où
+$$\underset{n\rightarrow+\infty}{\underline{\lim}}a_n=-\underset{n\rightarrow+\infty}{\overline{\lim}}(-a_n).$$
+Des exemples de suites qui ne converge pas au sens habituelle incluent
+\begin{itemize}
+\item $\left((-1)^{n}\right)_{n\in\N}$
+\item $\left(\sin\left(\frac{n\pi}{4}\right)\right)_{n\in\N}$
+\end{itemize}
+pour lesquels
+$$
+\underset{n\rightarrow+\infty}{\overline{\lim}}a_n=1\text{ et }\underset{n\rightarrow+\infty}{\underline{\lim}}a_n=-1
+$$
+\begin{prop}[Lien avec la limite classique, monotonie des limites inf et sup]\label{prop:Monotonielimsupinf}
+\begin{enumerate}
+\item Soit $(a_{n})_{n\in\N}\in \overline{\RL}$ et $a\in\overline{\RL}$ alors
+\begin{eqnarray*}
+\underset{n\rightarrow+\infty}{\underline{\lim}}a_n&\leq& \underset{n\rightarrow+\infty}{\overline{\lim}}a_n\\
+ \underset{n\rightarrow+\infty}{\underline{\lim}}a_n= \underset{n\rightarrow+\infty}{\overline{\lim}}a_n=a&\Leftrightarrow&\underset{n\rightarrow+\infty}{\lim}a_n=a\\
+ \underset{n\rightarrow+\infty}{\underline{\lim}}a_n=+\infty&\Leftrightarrow& \underset{n\rightarrow+\infty}{\lim}a_n=+\infty\\
+\underset{n\rightarrow+\infty}{\overline{\lim}}a_n=-\infty&\Leftrightarrow&
+\underset{n\rightarrow+\infty}{\lim}a_n=-\infty
+\end{eqnarray*}
+\item Les limites inf et sup sont monotones au sens où, pour deux suites $(a_n)_{n\in\N}$ et $(b_n)_{n\in\N}$ vérifiant $a_n\leq b_n,\forall n\geq n_0$,
+$$
+\underset{n\rightarrow+\infty}{\underline{\lim}}a_n \leq\underset{n\rightarrow+\infty}{\underline{\lim}}b_n\text{ }\underset{n\rightarrow+\infty}{\overline{\lim}}a_n\leq \underset{n\rightarrow+\infty}{\overline{\lim}}b_n
+$$
+\end{enumerate}
+\end{prop}
+\begin{remark}
+$$
+\underset{n\rightarrow+\infty}{\overline{\lim}}a_n\leq\underset{n\rightarrow+\infty}{\underline{\lim}}a_n\Leftrightarrow (a_n)_{n\in\N}\text{ converge dans }\overline{\RL}
+$$
+\end{remark}
+\begin{prop}\label{prop:Comparaisonlimsupinf}
+Soient $(a_n)_{n\in \N}$ et $(b_n)_{n\in \N}$ de $\overline{\RL}$. On a
+\begin{eqnarray}
+\liminf a_n + \liminf b_n&\leq &\liminf (a_n+b_n)\label{eq:alpha}\\
+% &\leq& \liminf a_n + \limsup b_n\nonumber\\
+&\leq& \limsup (a_n+b_n)\nonumber\\
+&\leq& \limsup a_n + \limsup b_n \label{eq:beta}
+\end{eqnarray}
+Chacune des inégalités \eqref{eq:alpha} et \eqref{eq:beta} devient une égalité si l'une des suites converge.
+\end{prop}
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+\section{Rappels de dénombrement}
+\underline{IV. Rappels de dénombrement}\\
+Soit $D$ un ensemble de points distincts non vide
+\begin{definition}[\text{Card}(D)]
+Le nombre d'éléments de $D$ est noté $\text{Card}(D)$ pour cardinal de $D$.
+\end{definition}
+Soit $A$ et $D$ deux ensembles non vides, soit $\mathcal{F}(A,D)$ les applications $f:A\mapsto D$.
+\begin{definition}
+On dit que $f:A\mapsto D$ est 
+\begin{itemize}
+    \item injective si $\forall x,y\in A$, $x\neq y \Rightarrow f(x)\neq f(y)$ (CNS $\text{Card}(D)\geq \text{Card}(A)$)
+    \item surjective si $\forall y \in D$, $\exists x\in A$ tel que $f(x)  = y$ (CNS $\text{Card}(D)\leq \text{Card}(A)$)
+    \item bijective si $f$ est injective et surjective. (CNS $\text{Card}(D)= \text{Card}(A)$) 
+\end{itemize}
+\end{definition}
+ 
+\begin{definition}
+Un ensemble $\Omega$ est dénombrable s'il existe une bijection entre $\Omega$ et $\N$.
+\end{definition}
+En pratique, un ensemble est dénombrable lorsque ses éléments peuvent être listés sans omission, ni répétition dans une suite indéxée sur les entiers. 
+\begin{example}
+L'ensemble $\Z$ est dénombrable car $u_n = (-1)^n\lfloor n /2\rfloor$.
+\end{example}
+\begin{definition}[Principe de base du dénombrement]
+Soient $A,B$ deux ensembles non vides.
+\begin{itemize}
+    \item Principe de la bijection: Trouvez une bijection entre l'enemble étudié et un ensemble dont on connait le cardinal
+    \item Principe d'indépendance: $\text{Card}(A\times B)= \text{Card}(A)\times \text{Card}(B)$ 
+    \item Principe de partition: On dit que $(A_i)_{i\in I}$ est une partition de $A$ si $A_i\cap A_j = \emptyset$ pour $i\neq j$ et $\bigcup_{i\in I}A_i = A$. On a alors 
+    $$
+    \text{Card}(A)= \sum_{i\in I}\text{Card}(A_i)
+    $$
+\end{itemize}
+\end{definition}
+\begin{example}[Illustration du principe d'indépendance]
+On peut définir $\text{Card}(A)^{\text{Card}(D)}$ applications de $D$ vers $A$.
+\end{example}
+\begin{definition}[Permutation/Factoriel n]
+Une permutation est une liste ordonnée de $n$ éléments distincts. Le nombre de permutations de $\Omega$ est donné par 
+$$
+n! = n\times(n-1)\times\ldots\times2\times 1.
+$$
+où $\text{Card}(\Omega) = n$. Par convention $0! = 1$.   
+\end{definition}
+Une bijection d'un ensemble $\Omega$ dans lui-même est une permutation.
+\begin{definition}[Arrangement]
+Un arrangement est une liste ordonnée de $p$ éléments pris dans un ensemble de $n\geq p$ éléments distincts. Le nombre d'arrangement de $p$ éléments pris dans un ensemble de $n$ éléments est 
+$$
+n\times (n-1)\times (n-p+1) = \frac{n!}{(n-p)!}.
+$$
+\end{definition}
+Un arrangement est un injection d'un ensemble de $p$ éléments vers une ensemble de $n\geq p$ éléments.
+\begin{definition}[Combinaison]
+Une combinaison est une partie de $p$ éléments issue d'un ensemble de $n$ élément. Le nombre de combinaisons possibles $k$ éléments parmi $n$ éléments est donné par 
+$$
+\binom{n}{k} = \frac{n!}{k!(n-k)!}
+$$
+Il s'agit d'une liste de $p$ éléments choisis dans un ensemble de $n$ éléments dont l'ordre importe peu. 
+\end{definition}
+\begin{prop}
+Le nombre total de parties de $\Omega$ est $2^{\text{Card}(\Omega)}$.
+\end{prop}
+\begin{definition}[Coefficient multinomiale]
+Soit $k_1,\ldots, k_p \in\N$ tels que $\sum_{i = 1}^{p} k_i = n$. 
+Le coefficient multinomial est défini par
+$$
+\binom{n}{k_1,\ldots, k_p} = \frac{n!}{k_1!\ldots k_p!}.
+$$
+\end{definition}
+Il s'agit du nombre de mot de $n$ lettres que l'on peut former en permutant les lettre d'un mot de $n$ lettre dont la première lettre apparait $k_1$ fois, la deuxième $k_2$, etc
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Références bibliographiques}
+Mes notes se basent sur les documents suivants \cite{Ca09,le2006integration,GaKu11}
+\bibliographystyle{plain}
+\bibliography{Integration_notes}
+\end{frame}
+\end{document}

@@ -1,0 +1,36 @@
+\begin{thebibliography}{1}
+
+\bibitem{BaLe07}
+Philippe Barbe and Michel Ledoux.
+\newblock {\em Probabilit{\'e}}.
+\newblock L'Editeur: EDP Sciences, 2007.
+
+\bibitem{Ca09}
+Michel Carbon.
+\newblock Probabilités 1 et 2.
+\newblock {\em Note de cours ENSAI}, 2009.
+
+\bibitem{GaHe13}
+Thierry Gallou{\"e}t and Rapha{\`e}le Herbin.
+\newblock {\em Mesure, int{\'e}gration, probabilit{\'e}s}.
+\newblock Ellipses,
+  \url{https://cel.archives-ouvertes.fr/file/index/docid/637007/filename/mes-int-pro.pdf},
+  2013.
+
+\bibitem{Ga97}
+Jacques Gapaillard.
+\newblock {\em Int{\'e}gration pour la licence: cours avec exercices
+  corrig{\'e}s}.
+\newblock Masson, 1997.
+
+\bibitem{GaKu11}
+Olivier Garet and Aline Kurtzmann.
+\newblock {\em De l'int{\'e}gration aux probabilit{\'e}s}, volume 470.
+\newblock Ellipses, 2011.
+
+\bibitem{le2006integration}
+Jean-Fran{\c{c}}ois Le~Gall.
+\newblock Int{\'e}gration, probabilit{\'e}s et processus al{\'e}atoires.
+\newblock {\em Ecole Normale Sup{\'e}rieure de Paris}, 2006.
+
+\end{thebibliography}

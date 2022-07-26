@@ -1,0 +1,379 @@
+\documentclass[11pt, addpoints, answers]{exam}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin  = 1in]{geometry}
+\usepackage{amsmath, amscd, amssymb, amsthm, verbatim}
+\usepackage{mathabx}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+\shadedsolutions
+\definecolor{SolutionColor}{RGB}{214,240,234}
+
+\newcommand{\bbC}{{\mathbb C}}
+\newcommand{\R}{\mathbb{R}}            % real numbers
+\newcommand{\bbR}{{\mathbb R}}
+\newcommand{\Z}{\mathbb{Z}}            % integers
+\newcommand{\bbZ}{{\mathbb Z}}
+\newcommand{\bx}{\mathbf x}            % boldface x
+\newcommand{\by}{\mathbf y}            % boldface y
+\newcommand{\bz}{\mathbf z}            % boldface z
+\newcommand{\bn}{\mathbf n}            % boldface n
+\newcommand{\br}{\mathbf r}            % boldface r
+\newcommand{\bc}{\mathbf c}            % boldface c
+\newcommand{\be}{\mathbf e}            % boldface e
+\newcommand{\bE}{\mathbb E}            % blackboard E
+\newcommand{\bP}{\mathbb P}            % blackboard P
+
+\newcommand{\ve}{\varepsilon}          % varepsilon
+\newcommand{\avg}[1]{\left< #1 \right>} % for average
+%\renewcommand{\vec}[1]{\mathbf{#1}} % bold vectors
+\newcommand{\grad}{\nabla }
+\newcommand{\lb}{\langle }
+\newcommand{\rb}{\rangle }
+
+\def\Bin{\operatorname{Bin}}
+\def\Var{\operatorname{Var}}
+\def\Geom{\operatorname{Geom}}
+\def\Pois{\operatorname{Pois}}
+\def\Exp{\operatorname{Exp}}
+\newcommand{\Ber}{\operatorname{Ber}}
+\def\Unif{\operatorname{Unif}}
+\def\No{\operatorname{N}}
+\newcommand{\E}{\mathbb E}            % blackboard E
+\def\th{\theta }            % theta shortcut
+\def\V{\operatorname{Var}}
+\def\Var{\operatorname{Var}}
+\def\Cov{\operatorname{Cov}}
+\def\Corr{\operatorname{Corr}}
+\newcommand{\epsi}{\varepsilon}            % epsilon shortcut
+
+\providecommand{\norm}[1]{\left\lVert#1\right\rVert} %norm
+\providecommand{\abs}[1]{\left \lvert#1\right \rvert} %absolute value
+
+\DeclareMathOperator{\lcm}{lcm}
+\newcommand{\ds}{\displaystyle}	% displaystyle shortcut
+
+\def\semester{2021-2022 }
+\def\course{Théorie de la mesure et intégration}
+\def\title{\MakeUppercase{Examen Final}}
+\def\name{Pierre-O. Goffard}
+%\def\name{Professor Wildman}
+
+\setlength\parindent{0pt}
+
+\cellwidth{.35in} %sets the minimum width of the blank cells to length
+\gradetablestretch{2.5}
+
+%\bracketedpoints
+%\pointsinmargin
+%\pointsinrightmargin
+
+\begin{document}
+
+
+\runningheader{\course  \vspace*{.25in}}{}{\title \vspace*{.25in}}
+%\runningheadrule
+\runningfooter{}{Page \thepage\ of \numpages}{}
+
+% \firstpageheader{Name:\enspace\hbox to 2.5in{\hrulefill}\\  \vspace*{2em} Section: (circle one) TR: 3-3:50 \textbar\, TR: 5-5:50 \textbar\,  TR: 6-6:50(Xu) \textbar\,  TR: 6-6:50 }{}{Perm \#: \enspace\hbox to 1.5in{\hrulefill}\\ \vspace*{2em} Score:\enspace\hbox to .6in{\hrulefill} $/$\numpoints}
+\extraheadheight{.25in}
+
+\hrulefill
+
+\vspace*{1em}
+
+% Heading
+{\center \textsc{\Large\title}\\
+	\vspace*{1em}
+	\course -- \semester\\
+	Pierre-O Goffard\\
+}
+\vspace*{1em}
+
+\hrulefill
+
+\vspace*{2em}
+
+\noindent {\bf\em Instructions:} On éteint et on range son téléphone.
+\begin{itemize}
+	\item La calculatrice et les appareils éléctroniques ne sont pas autorisés.
+	\item Vous devez justifier vos réponses de manière claire et concise.
+	\item Vous devez écrire de la manière la plus lisible possible. Souligner ou encadrer votre réponse finale.
+	\item \underline{Document autorisé:} Une feuille manuscrite recto-verso
+\end{itemize}
+
+\begin{center}
+	\gradetable[h]
+\end{center}
+
+\smallskip
+
+\begin{questions}
+\question Question de cours indépendantes
+\begin{parts}
+\part[2] Soient $(\Omega,\mathcal{A},\mu)$ un espace mesuré et $f:\Omega\mapsto \mathbb{R}_+$ une fonction mesurable. Soit l'application 
+$$
+\nu(A) = \int_A f\text{d}\mu,\text{ }A\in\mathcal{A},
+$$
+Montrer que $\mu(A)=0$ alors $\nu(A) = 0$, puis que $\nu$ est une mesure positive sur $(\Omega,\mathcal{A})$. 
+\begin{solution}
+Supposons que $\mu(A) = 0$, et posons 
+$$
+h = \sum_{n\in\mathbb{N}^\ast}\alpha_n\mathbb{I}_{A_n},
+$$
+avec $\alpha_n = \sup\{f(\omega)\text{ ; }\omega\in A_n \}$. On a $f\geq h$ et donc 
+$$
+\nu(A) = \int_A f\text{d}\mu = \sum\alpha_n\mu(A_n\cap A) = 0.
+$$
+On a 
+\begin{itemize}
+	\item[(i)] $\nu(\emptyset) = \int_{\emptyset}f\text{d}\mu =0$
+	\item[(ii)] Soit $(A_n)_{n\in\mathbb{N}^\ast}\in\mathcal{A}$ disjoints. On a 
+	$$
+	\nu(\bigcup_{n\in\mathbb{N}^\ast}A_n) = \int_{\bigcup_{n\in\mathbb{N}^\ast}A_n}f\text{d}\mu = \int\sum_{n\in\mathbb{N}^\ast}\mathbb{I}_{A_n}f\text{d}\mu = \sum_{n\in\mathbb{N}^\ast}\int\mathbb{I}_{A_n}f\text{d}\mu 
+	$$
+	où la dernière étape est justifiée par l'emploi du théorème de convergence monotone.
+\end{itemize}
+
+\end{solution}
+\part[2] Soit $(\Omega,\mathcal{A},\mu)$ un espace probabilisé. Montrer que
+$$
+\mathcal{F} = \{A\in\mathcal{A}\text{ ; }\mu(A)\in\{0,1\}\}
+$$ 
+est une tribu.
+\begin{solution}
+\begin{itemize}
+	\item Comme $\mu(\emptyset)= 0$ alors $\emptyset\in\mathcal{F}$.
+	\item Soit $A\in\mathcal{F}$, on a 
+	$$
+	\mu(A^c) = 1-\mu(A) = \begin{cases}0&\text{ si }\mu(A) = 1\\
+	1&\text{ si }\mu(A) = 0
+	\end{cases}
+	$$
+	Donc $A^c\in\mathcal{F}$.
+	\item Soit $(A_n)_{n\in\mathbb{N}^\ast}\in\mathcal{F}$ disjoint, alors soit
+	\begin{itemize}
+		\item $\exists n\in \in\mathbb{N}^\ast$ tel que $\mu(A_n)=1$ et 
+		$$
+		1=\mu(A_n)\leq \mu\left(\bigcup_n A_n\right)\leq \mu(\Omega) = 1
+		$$
+		puis $\mu\left(\bigcup_n A_n\right) = 1$
+		\item $\mu(A_n)=0$ pour tout $n\in\mathbb{N}^\ast$ et 
+		$$
+		\mu\left(\bigcup_{n\in\mathbb{N}^\ast} A_n\right)\leq \sum_{n\in\mathbb{N}^\ast}\mu(A_n) = 0
+		$$	
+	\end{itemize}
+\end{itemize}
+\end{solution}
+\part[1] Soit $f:\R^2\mapsto\R_+$ une application mesurable. On considère 
+$$
+I = \int_{\R^2}f(u,v)\text{d}\lambda(u,v)\text{ et }J =\int_{\R^2}f(3x,x-2y)\text{d}\lambda(x,y).
+$$ 
+Exprimer $I$ en fonction de $J$ ou inversement.
+\begin{solution}
+Application de la formule de changement de variable. On trouve que
+$$
+I = 6\cdot J
+$$
+\end{solution}
+\end{parts}
+\question On considère l'espace mesurable $(\R,\mathcal{B}(\mathbb{R}), \lambda)$, où $\lambda$ désigne la mesure de Lebesgue. Soient 
+$$
+A_n = [n-2^{n+1}, n-3^{-n-1}],\text{ }n\geq0\text{ et }A = \bigcap_{n = 0}^\infty A_n.
+$$
+\begin{parts}
+\part[2]  Montrer qu'une intersection dénombrable d'évènement de $\mathcal{B}(\R)$ appartient à $\mathcal{B}(\R)$. En déduire que $A\in\mathcal{B}(\R)$.
+\begin{solution}
+Voir le cours
+\end{solution}
+\part[1] Calculer $\lambda(A)$ 
+\begin{solution}
+$(A_n)_{n\geq0}$ est une suite croissante, on a donc $A = A_0$ puis $\lambda(A) = \lambda(A_0) =-1/3-(-2) = 5/3$
+\end{solution}
+\end{parts}
+\question Soit la fonction $t\mapsto F(t)$ définie par 
+$$
+F(t) = \int_{[0, \infty)}e^{-x^2}\cos(2tx)\text{d}\lambda(x),\text{ pour }t\in\R.
+$$
+\begin{parts}
+\part[1] Montrer que $t\mapsto F(t)$ est continue.
+\begin{solution}
+On pose 
+$$
+(x,t)\mapsto f(x,t) = e^{-x^2}\cos(2tx). 
+$$
+On note que $t\mapsto f(x,t)$ est continue pour tout $x\in [0,+\infty)$, et de plus 
+$$
+|f(x,t)|<e^{-x^2},\text{ où }x\mapsto e^{-x^2}\text{ est intégrable.} 
+$$ 
+On en déduit par théorème que $t\mapsto F(t)$ est continue
+\end{solution}
+\part[1] Montrer que $t\mapsto F(t)$ est de classe $C^1$ (dérivable et de dérivée continue).
+\begin{solution}
+On note que $t\mapsto f(x,t)$ est dérivable pour tout $x\in [0,+\infty)$, et de plus 
+$$
+|\frac{\partial}{\partial t}f(x,t)| = 2x e^{-x^2}\sin(2tx)  <2x e^{-x^2},\text{ où }x\mapsto 2x e^{-x^2}e^{-x^2}\text{ est intégrable.} 
+$$
+On en déduit par théorème que $t\mapsto F(t)$ est de classe $C^1$
+\end{solution}
+\part[2] Montrer que $t\mapsto F(t)$ vérifie
+$$
+F'(t)+2tF(t) =0.
+$$
+\begin{solution}
+D'après la question précédente, on sait que 
+$$
+F'(t) = - \int_0^\infty 2x e^{-x^2}\sin(2tx)\text{d}x.
+$$
+Via une intégration par partie, il vient 
+$$
+F'(t) =-2t F(t)
+$$
+\end{solution}
+\part[2] Donner une expression simple pour $F(t)$.\\
+\underline{Indication:}\\
+Que vaut $F(0)$? On pourra calculer 
+$$
+\int_{\R_{+}^2} e^{-(x^2+y^2)}\text{d}\lambda(x,y)
+$$
+via un changement de variable classique pour s'en sortir.
+\begin{solution}
+D'après la question précédente 
+$$
+F(t) = F(0)e^{-t^2}
+$$
+puis $F(0) = \int_0^\infty e^{-x^2}\text{d}x =\sqrt{\pi}/2 $ et donc 
+$$
+F(t) = \frac{\sqrt{\pi}}{2}e^{-t^2}.
+$$
+\end{solution}
+\end{parts}
+\question Inversion series-intégrales. Les réponses sont à justifier soigneusement en utilisant les théorèmes du cours!
+\begin{parts}
+\part[1] Montrer que pour $a,b>0$, on a 
+$$
+\int_0^{+\infty}\frac{te^{-at}}{1-e^{-bt}}\text{d}\lambda(t) = \sum_{n=0}^{+\infty}\frac{1}{(a+bn)^2}.
+$$
+\begin{solution}
+On a
+$$
+\int_0^{+\infty}\frac{te^{-at}}{1-e^{-bt}}\text{d}\lambda(t) = \int_0^{+\infty}\sum_{n=0}^{+\infty}te^{-(a+bn)t}\text{d}\lambda(t).
+$$ 
+On pose
+$$
+f_n(t) = te^{-(a+bn)t},\text{ pour }n\geq0.
+$$
+Il s'agit d'une suite de fonctions positives, on peut donc intervertir série et intégrale par convergence monotone. Les intégrales de Lebesgue et de Riemann coincident car les fonctions $t\mapsto \frac{te^{-at}}{1-e^{-bt}}$ et $t\mapsto f_n(t)$ sont intégrables. Lorsque $t\rightarrow0$, on a $1-e^{-bt}\sim bt$ et lorsque $t\rightarrow+\infty$ la fonction est équivalente à $te^{-at}$ qui est intégrable. Il vient alors après une integration par partie
+$$
+\int_0^{+\infty}te^{-(a+bn)t}\text{d}t = \frac{1}{(a+bn)^2}.
+$$
+\end{solution}
+\part[2] Montrer que 
+$$
+\int_{0}^{+\infty}\cos(\sqrt{x})e^{-x}\text{d}\lambda(x)=\sum_{n=0}^{+\infty}(-1)^n\frac{n!}{(2n)!}
+$$
+\begin{solution}
+On utilise le développement en série entière suivant 
+$$
+\cos(\sqrt{x}) = \sum_{n=0}^{+\infty}(-1)^n\frac{x^n}{(2n)!}
+$$
+pour obtenir
+$$
+\int_{0}^{+\infty}\sum_{n=0}^{+\infty}(-1)^n\frac{x^n}{(2n)!}e^{-x}\text{d}\lambda(x).
+$$
+L'interversion série intégrale est justifié soit par l'emploi du critère sur les séries de fonctions alternées ou en observant que 
+$$
+\sum_{n=0}^{+\infty}\int_{0}^{+\infty}|f_n(x)|\text{d}\lambda(x)<\infty
+$$
+via le critère de D'alembert avec $f_n(x) = (-1)^n\frac{x^n}{(2n)!}e^{-x}$. On note que $\int_{0}^{+\infty}t^ne^{-x}\text{d}x=n!$ (facile a montrer par récurrence) pour conclure. 
+\end{solution}
+\end{parts}
+\question Soit $(\Omega, \mathcal{A}, \mathbb{P})$ un espace probabilisé, et $f:\Omega\mapsto \mathbb{R}$ une application intégrable. 
+\begin{parts}
+\part[1] Montrer que 
+\begin{equation}\label{eq:Jensen}
+\left(\int_\Omega f\text{d}\mu\right)^2\leq \int_{\Omega}f^2\text{d}\mu
+\end{equation}
+\begin{solution}
+On applique l'inégalité de Jensen avec la fonction $\varphi:x\mapsto x^2$
+\end{solution}
+\part[2] Montrer que l'inégalité \eqref{eq:Jensen} est une égalité si et seulement si $f$ est une fonction constante. 
+\begin{solution}
+$\Leftarrow$ Supposons que $f=a$ $\mu-$pp, alors on a immédiatement 
+$$
+\left(\int_\Omega f\text{d}\mu\right)^2 = \int f^2\text{d}\mu =a^2
+$$ 
+$\Rightarrow$ Supposons que $\left(\int_\Omega f\text{d}\mu\right)^2 = \int f^2\text{d}\mu$
+On pose $a=\int f\text{d}\mu$ et on remarque que 
+$$
+\int(f-a)^2\text{d}\mu = \int f^2\text{d}\mu - a^2 = 0
+$$
+Comme $(f-a)^2$ est une application positive alors $(f-a)^2 = 0$ $\mu$-pp puis $f=a$ $\mu$-pp. 
+\end{solution}
+\end{parts}
+\end{questions}
+
+\newpage
+%-------------------------------TABLE-------------------------------
+\hrule
+\vspace*{.15in}
+\begin{center}
+	\large\MakeUppercase{Fonctions Trigonométriques}
+\end{center}
+\vspace*{.15in}
+\hrule
+\vspace*{.25in}
+
+
+\renewcommand\arraystretch{3.5}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Fonction & Ensemble de définition& Dérivée \\
+\hline\hline
+$\sin x$ &$\mathbb{R}$& $\cos x$ \\
+\hline
+$\cos x$ &$\mathbb{R}$& $-\sin x$ \\
+\hline
+$\tan x$ &$\bigcup_{n\in\mathbb{Z}}\left]n\pi-\pi/2, n\pi+\pi/2\right[$ & $1+\tan^2 x$ \\
+\hline
+$\arccos x$ &$[-1,1]$& $-\frac{1}{\sqrt{1-x^2}}$ \\
+\hline
+$\arcsin x$ &$[-1,1]$& $\frac{1}{\sqrt{1-x^2}}$\\
+\hline
+$\arctan x$ &$\mathbb{R}$& $\frac{1}{1+x^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}%
+\underline{Quelques identités}: Pour $a,b\in\mathbb{R}$,\\
+$$
+\cos(a+b) = \cos(a)\cos(b)-\sin(a)\sin(b)
+$$
+$$
+\sin(a+b) = \sin(a)\cos(b)+\cos(a)\sin(b)
+$$
+$$
+\cos^2(a)+\sin^2(a) = 1
+$$
+\underline{Quelques développement en série entière}: Pour tout $x\in\mathbb{R}$,\\
+$$
+\cos(x) = \sum_{n = 0}^\infty\frac{(-1)^nx^{2n}}{(2n)!},
+$$
+et pour $p\in [0,1)$
+$$
+\frac{1}{1-p}=\sum_{n=0}^\infty p^n
+$$
+
+
+
+\end{document}
+

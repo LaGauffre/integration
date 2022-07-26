@@ -1,37 +1,33 @@
-## Welcome to GitHub Pages
+## Intégration et théorie de la mesure	
 
-You can use the [editor on GitHub](https://github.com/LaGauffre/integration/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+Ce répertoire regroupe les supports de cours, planches d'exercices et annales d'examen du cours d'intégration et théorie de la mesure dispensé aux L3 Actuariat à l'Université Claude Bernard Lyon 1.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Ce cours propose une introduction à la théorie de la mesure pour le calcul des probabilités. 
 
-### Markdown
+### Support de cours
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Chapitre             | Support
+-----------------   | -------------
+Introduction | [Slides](/Note de cours/Chap0_Intro.pdf)
+Tribus, mesure et applications mesurables | [Slides](/Note de cours/Chap1_tribus_mesures_applications_mesurables.pdf)
+Intégration par rapport à une mesure, théorèmes de convergence et d'inversion | [Slides](/Note de cours/Chap2_integration.pdf)
+Intégration par rapport à une mesure image, théorème de transfert, changemlents de variables intégrale à paramètres, espace Lp | [Slides](/Note de cours/Chap3_complement_integration.pdf)
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
+### Travaux dirigées
 
-- Bulleted
-- List
+Séance             | Enoncé
+-----------------   | -------------
+1 | [TD](TD-Integration/TD1 - Rappels d'ahnalyse réel et dénombrement/TD1.pdf)
+2 | [TD](TD-Integration/TD2 - Tribus Mesures et applications mesurables/TD2.pdf)
+3 | [TD](TD-Integration/TD3 - Probabilités/TD3.pdf)
+4 | [TD](TD-Integration/TD4 -Intégration/TD4.pdf)
 
-1. Numbered
-2. List
+### Annales d'examens
 
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/LaGauffre/integration/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+Année            | Enoncé
+-----------------   | -------------
+2018-2019 | [Janvier](Annales/2018-2019/Exam_integration_L3Actu_2018-2019.pdf), [Juin](Annales/2018-2019/Rattrapage_integration_L3Actu_2018-2019.pdf)
+2019-2020 | [Janvier](Annales/2019-2020/Final/Exam_integration_Janvier_2020.pdf), [Juin](Annales/2019-2020/Rattrapage/Exam_integration_Juin_2020.pdf)
+2020-2021 | [Janvier](Annales/2020-2021/Exam_integration_Janvier_2021.pdf), [Juin](Annales/2020-2021/Exam_integration_Juin_2021.pdf)
+2021-2022 | [Janvier](Annales/2021-2022/Final/Exam_integration_Janvier_2022.pdf), [Juin](Annales/2021-2022/Rattrapage/Exam_integration_Juin_2022.pdf)
